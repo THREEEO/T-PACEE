@@ -1,0 +1,530 @@
+﻿<Window x:Class="T_PACE.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PDV - Frente de Caixa" MinHeight="600"
+        Icon="icone.ico"
+        WindowStartupLocation="CenterScreen" 
+        WindowState="Maximized"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        FocusManager.FocusedElement="{Binding ElementName=txtBusca}">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd" Background="Transparent" CornerRadius="8" Margin="0,0,0,10" SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="Bd" Property="Background" Value="#1A2A1143"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Bd" Property="Background" Value="#0D2A1143"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="8" SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="Opacity" Value="0.85"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="border" Property="Opacity" Value="0.70"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <LinearGradientBrush x:Key="GlassBorder" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FFFFFFFF" Offset="0.0"/>
+            <GradientStop Color="#66D6C4E8" Offset="0.4"/>
+            <GradientStop Color="#44D6C4E8" Offset="1.0"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="GlassPane" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#E6F8F3FC" Offset="0.0"/>
+            <GradientStop Color="#CCF8F3FC" Offset="1.0"/>
+        </LinearGradientBrush>
+    </Window.Resources>
+
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#5E3A7D" Offset="0.0"/>
+            <GradientStop Color="#2A1143" Offset="1.0"/>
+        </LinearGradientBrush>
+    </Window.Background>
+
+    <!-- MAIN GRID -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <!-- CABEÇALHO -->
+        <Border Grid.Row="0" Background="{StaticResource GlassPane}" Padding="30,0" BorderBrush="{StaticResource GlassBorder}" BorderThickness="0,0,0,2">
+            <Border.Effect>
+                <DropShadowEffect Color="#2A1143" Opacity="0.5" BlurRadius="25" ShadowDepth="4"/>
+            </Border.Effect>
+            <Grid>
+                <TextBlock Text="T-PACE  |  PDV" Foreground="#2A1143" FontSize="22" FontWeight="Black" VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Border Background="#1AA45FCE" Padding="12,6" CornerRadius="8" Margin="0,0,20,0" BorderBrush="#44A45FCE" BorderThickness="1.5">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Width="10" Height="10" Fill="#A45FCE" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Caixa Aberto" Foreground="#A45FCE" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Width="35" Height="35" CornerRadius="8" Background="#A45FCE" Margin="0,0,15,0" BorderBrush="#F8F3FC" BorderThickness="2">
+                        <TextBlock x:Name="txtIniciaisUsuario" Text="US" Foreground="#F8F3FC" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock x:Name="txtNomeUsuario" Text="Operador" Foreground="#2A1143" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <Grid Grid.Row="1" Margin="30,30,30,20">
+            <Grid.ColumnDefinitions>
+                <!-- Otimizado para telas de 1360px -->
+                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="4*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- LADO ESQUERDO: CUPOM FISCAL -->
+            <Border Grid.Column="0" Background="{StaticResource GlassPane}" Margin="0,0,25,0" Padding="30" CornerRadius="12" BorderBrush="{StaticResource GlassBorder}" BorderThickness="1.5">
+                <Border.Effect>
+                    <DropShadowEffect Color="#2A1143" Opacity="0.7" BlurRadius="40" ShadowDepth="12" Direction="270"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Saint Marie Clothing | Patuá | Saint Marie Shoes" FontSize="18" FontWeight="Black" Foreground="#5E3A7D" Margin="0,0,0,15"/>
+
+                    <Border Grid.Row="1" BorderBrush="#88FFFFFF" BorderThickness="2" CornerRadius="8" Background="#99F8F3FC" Padding="15,10">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#2A1143" Opacity="0.15" BlurRadius="10" ShadowDepth="3"/>
+                        </Border.Effect>
+                        <Grid>
+                            <TextBlock Text="Digite o código do produto..." FontSize="18" Foreground="#5E3A7D" 
+                                       IsHitTestVisible="False" VerticalAlignment="Center" Margin="15,0,0,0" FontWeight="Medium">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtBusca}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <TextBox x:Name="txtBusca" FontSize="22" Padding="15,5" Background="Transparent" BorderThickness="0" Foreground="#2A1143" VerticalContentAlignment="Center" FontWeight="Bold" TextChanged="txtBusca_TextChanged"/>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="2" Margin="5,20,5,10" Padding="10,0,10,10" BorderBrush="#66D6C4E8" BorderThickness="0,0,0,1.5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.5*"/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1.5*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="CÓDIGO" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D"/>
+                            <TextBlock Grid.Column="1" Text="DESCRIÇÃO" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D"/>
+                            <TextBlock Grid.Column="2" Text="QTD" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D" TextAlignment="Center"/>
+                            <TextBlock Grid.Column="3" Text="V.UN (R$)" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D" TextAlignment="Right"/>
+                            <TextBlock Grid.Column="4" Text="TOTAL (R$)" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D" TextAlignment="Right"/>
+                        </Grid>
+                    </Border>
+
+                    <ListBox x:Name="listaCupom" Grid.Row="3" BorderThickness="0" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Padding="10,12">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1.5*"/>
+                                            <ColumnDefinition Width="4*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1.5*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Codigo}" Foreground="#5E3A7D" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Descricao}" FontWeight="Bold" FontSize="16" Foreground="#2A1143" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Quantidade}" Foreground="#2A1143" FontSize="16" FontWeight="Black" TextAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="3" Text="{Binding PrecoUnitario, StringFormat=R$ {0:N2}}" Foreground="#5E3A7D" FontSize="16" FontWeight="Bold" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                        <TextBlock Grid.Column="4" Text="{Binding Total, StringFormat=R$ {0:N2}}" Foreground="#2A1143" FontSize="16" FontWeight="Black" TextAlignment="Right" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+
+            <!-- LADO DIREITO: RESUMO -->
+            <Border Grid.Column="1" Background="{StaticResource GlassPane}" CornerRadius="12" BorderBrush="{StaticResource GlassBorder}" BorderThickness="1.5">
+                <Border.Effect>
+                    <DropShadowEffect Color="#2A1143" Opacity="0.7" BlurRadius="40" ShadowDepth="12" Direction="270"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- CONTEÚDO SUPERIOR COM A FOTO E TEXTOS -->
+                    <Grid Grid.Row="0" Margin="15,10,15,5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- CAIXA DA FOTO AMPLIADA -->
+                        <Grid Grid.Row="0" Margin="0,0,0,8">
+                            <Rectangle Fill="#33D6C4E8" Stroke="#66D6C4E8" StrokeThickness="2" StrokeDashArray="4 4" RadiusX="8" RadiusY="8"/>
+                            <TextBlock x:Name="txtFotoPlaceholder" Text="FOTO DO PRODUTO" Foreground="#885E3A7D" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Image x:Name="imgProdutoFoto" Stretch="Uniform" Margin="0" Visibility="Collapsed" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Grid>
+
+                        <!-- TEXTOS DO ÚLTIMO PRODUTO (COMPACTOS PARA NÃO SOBREPOR) -->
+                        <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
+                            <TextBlock x:Name="txtUltimoNome" Text=" " FontSize="18" FontWeight="Black" Foreground="#2A1143" Margin="0,0,0,2" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                            <TextBlock x:Name="txtUltimoDetalhes" Text="Cód: ---  |  Qtd: --" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D" Margin="0,0,0,2"/>
+                            <TextBlock x:Name="txtUltimoPreco" Text="R$ 0,00" FontSize="26" FontWeight="Black" Foreground="#A45FCE"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- PAINEL INFERIOR DE TOTAIS -->
+                    <Border Grid.Row="1" Background="#CCF8F3FC" Padding="20,15" CornerRadius="0,0,12,12" BorderBrush="#44D6C4E8" BorderThickness="0,1.5,0,0">
+                        <StackPanel>
+                            <Grid Margin="0,0,0,8">
+                                <TextBlock Text="Subtotal da Venda" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D"/>
+                                <TextBlock x:Name="txtSubtotal" Text="R$ 0,00" FontSize="14" FontWeight="Bold" Foreground="#2A1143" HorizontalAlignment="Right"/>
+                            </Grid>
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock Text="Descontos Aplicados" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D"/>
+                                <TextBlock x:Name="txtDesconto" Text="- R$ 0,00" FontSize="14" FontWeight="Bold" Foreground="#A45FCE" HorizontalAlignment="Right"/>
+                            </Grid>
+                            <Border BorderBrush="#44D6C4E8" BorderThickness="0,1.5,0,0" Margin="0,0,0,10"/>
+                            <Grid Margin="0,0,0,15">
+                                <TextBlock Text="TOTAL" FontSize="18" FontWeight="Black" Foreground="#2A1143" VerticalAlignment="Bottom"/>
+                                <TextBlock x:Name="txtTotal" Text="R$ 0,00" FontSize="24" FontWeight="Black" Foreground="#A45FCE" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                            </Grid>
+                            <Button x:Name="btnFinalizar" Cursor="Hand" BorderThickness="0" Padding="0,12" Background="#A45FCE" Foreground="#F8F3FC">
+                                <Button.Effect>
+                                    <DropShadowEffect Color="#2A1143" Opacity="0.5" BlurRadius="15" ShadowDepth="4" Direction="270"/>
+                                </Button.Effect>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock Text="RECEBER" FontSize="18" FontWeight="Black" Margin="0,0,10,0"/>
+                                    <TextBlock Text="[ F2 ]" FontSize="15" FontWeight="Bold" VerticalAlignment="Center" Opacity="0.8"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- RODAPÉ -->
+        <Border Grid.Row="2" Background="#44F8F3FC" BorderBrush="#44D6C4E8" BorderThickness="0,1.5,0,0" Padding="10">
+            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="[ F2 ] Receber Venda" Foreground="#F8F3FC" FontSize="14" FontWeight="Bold" Margin="15,5" Cursor="Hand" MouseLeftButtonUp="Rodape_F2_Click"/>
+                <TextBlock Text="[ F3 ] Cancelar Item" Foreground="#D6C4E8" FontSize="14" FontWeight="Bold" Margin="15,5" Cursor="Hand" MouseLeftButtonUp="Rodape_F3_Click"/>
+                <TextBlock Text="[ F4 ] Buscar Produto" Foreground="#D6C4E8" FontSize="14" FontWeight="Bold" Margin="15,5" Cursor="Hand" MouseLeftButtonUp="Rodape_F4_Click"/>
+                <TextBlock Text="[ F5 ] Aplicar Desconto" Foreground="#D6C4E8" FontSize="14" FontWeight="Bold" Margin="15,5" Cursor="Hand" MouseLeftButtonUp="Rodape_F5_Click"/>
+                <TextBlock Text="[ F6 ] Trocas e Devoluções" Foreground="#D6C4E8" FontSize="14" FontWeight="Bold" Margin="15,5" Cursor="Hand" MouseLeftButtonUp="Rodape_F6_Click"/>
+                <TextBlock Text="[ F9 ] Sair do Caixa" Foreground="#D6C4E8" FontSize="14" FontWeight="Bold" Margin="15,5" Cursor="Hand" MouseLeftButtonUp="Rodape_F9_Click"/>
+            </WrapPanel>
+        </Border>
+
+        <!-- OVERLAY DE CANCELAMENTO (F3) -->
+        <Border x:Name="OverlayCancelamento" Grid.RowSpan="3" Background="#B21A0A2E" Visibility="Collapsed" Panel.ZIndex="100">
+            <Border Width="450" Height="250" Background="#F8F3FC" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
+                <Border.Effect>
+                    <DropShadowEffect Color="#2A1143" Opacity="0.8" BlurRadius="50" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="CANCELAR ITEM" Foreground="#D43D3D" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                    <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                        <TextBlock Text="Bipe ou digite o código do item a ser cancelado:" Foreground="#5E3A7D" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                        <TextBox x:Name="txtBuscaCancelamento" FontSize="24" FontWeight="Bold" Foreground="#2A1143" Padding="10,5" Background="#E6E0ED" BorderThickness="0"/>
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="2" Text="[ ESC ] Fechar" Foreground="#885E3A7D" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                </Grid>
+            </Border>
+        </Border>
+
+        <!-- OVERLAY DE BUSCA POR NOME (F4) -->
+        <Border x:Name="OverlayBusca" Grid.RowSpan="3" Background="#B21A0A2E" Visibility="Collapsed" Panel.ZIndex="100">
+            <Border Width="700" Height="480" Background="#F8F3FC" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
+                <Border.Effect>
+                    <DropShadowEffect Color="#2A1143" Opacity="0.8" BlurRadius="50" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="BUSCAR PRODUTO" Foreground="#5E3A7D" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+                    <TextBox x:Name="txtBuscaNome" Grid.Row="1" FontSize="20" FontWeight="Bold" Foreground="#2A1143" Padding="10,8" Background="#E6E0ED" BorderThickness="0" Margin="0,0,0,15" TextChanged="txtBuscaNome_TextChanged" PreviewKeyDown="txtBuscaNome_PreviewKeyDown"/>
+
+                    <!-- Lista com rolagem horizontal bloqueada -->
+                    <ListBox x:Name="listaResultadosBusca" Grid.Row="2" Background="Transparent" BorderThickness="0" 
+                             ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                             KeyDown="listaResultadosBusca_KeyDown" MouseDoubleClick="listaResultadosBusca_MouseDoubleClick">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Padding="10" BorderBrush="#225E3A7D" BorderThickness="0,0,0,1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="130"/>
+                                            <ColumnDefinition Width="140"/>
+                                        </Grid.ColumnDefinitions>
+                                        <!-- Nome do produto com retículas automáticas se for longo -->
+                                        <TextBlock Grid.Column="0" Text="{Binding nome}" FontSize="15" FontWeight="Bold" Foreground="#2A1143" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Margin="0,0,10,0"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding preco_venda, StringFormat=R$ {0:N2}}" FontSize="15" FontWeight="Black" Foreground="#A45FCE" VerticalAlignment="Center" TextAlignment="Right" Margin="0,0,15,0"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding codigo_barras}" FontSize="13" Foreground="#885E3A7D" VerticalAlignment="Center" TextAlignment="Right"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <TextBlock Grid.Row="3" Text="[ ↑↓ ] Navegar   [ ENTER ] Selecionar   [ ESC ] Fechar" Foreground="#885E3A7D" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                </Grid>
+            </Border>
+        </Border>
+
+        <!-- OVERLAY DE DESCONTO GLOBAL (F5) -->
+        <Border x:Name="OverlayDesconto" Grid.RowSpan="3" Background="#B21A0A2E" Visibility="Collapsed" Panel.ZIndex="100">
+            <Border Width="400" Height="250" Background="#F8F3FC" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
+                <Border.Effect>
+                    <DropShadowEffect Color="#2A1143" Opacity="0.8" BlurRadius="50" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="APLICAR DESCONTO" Foreground="#A45FCE" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                    <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                        <TextBlock Text="Valor (R$) ou Porcentagem (%):" Foreground="#5E3A7D" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                        <TextBox x:Name="txtValorDesconto" FontSize="28" FontWeight="Bold" Foreground="#2A1143" Padding="10,5" Background="#E6E0ED" BorderThickness="0" TextAlignment="Center" PreviewKeyDown="txtValorDesconto_PreviewKeyDown"/>
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="2" Text="[ ESC ] Cancelar   [ ENTER ] Confirmar" Foreground="#885E3A7D" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                </Grid>
+            </Border>
+        </Border>
+
+        <!-- OVERLAY DE PAGAMENTO E FINALIZAÇÃO (F2) -->
+        <Border x:Name="OverlayPagamento" Grid.RowSpan="3" Background="#B21A0A2E" Visibility="Collapsed" Panel.ZIndex="100">
+            <Border Width="450" Height="420" Background="#F8F3FC" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
+                <Border.Effect>
+                    <DropShadowEffect Color="#2A1143" Opacity="0.8" BlurRadius="50" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="FINALIZAR VENDA" Foreground="#A45FCE" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                    <!-- Total a Pagar -->
+                    <Grid Grid.Row="1" Margin="0,0,0,20">
+                        <TextBlock Text="TOTAL A PAGAR:" FontSize="18" FontWeight="Bold" Foreground="#5E3A7D" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="txtPagamentoTotal" Text="R$ 0,00" FontSize="28" FontWeight="Black" Foreground="#A45FCE" HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <!-- Método de Pagamento -->
+                    <StackPanel Grid.Row="2" Margin="0,0,0,15">
+                        <TextBlock Text="Método de Pagamento:" Foreground="#5E3A7D" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox x:Name="cmbMetodoPagamento" FontSize="18" Padding="10,5" SelectedIndex="0" Foreground="#2A1143" FontWeight="Bold">
+                            <ComboBoxItem Content="dinheiro"/>
+                            <ComboBoxItem Content="pix"/>
+                            <ComboBoxItem Content="cartão de crédito"/>
+                            <ComboBoxItem Content="cartão de débito"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- Valor Recebido (para calcular troco) -->
+                    <StackPanel Grid.Row="3" Margin="0,0,0,15">
+                        <TextBlock Text="Valor Recebido do Cliente (R$):" Foreground="#5E3A7D" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="txtValorRecebido" FontSize="28" FontWeight="Bold" Foreground="#2A1143" Padding="10,5" Background="#E6E0ED" BorderThickness="0" TextAlignment="Right" PreviewKeyDown="txtValorRecebido_PreviewKeyDown" TextChanged="txtValorRecebido_TextChanged"/>
+                    </StackPanel>
+
+                    <!-- Troco -->
+                    <Grid Grid.Row="4" VerticalAlignment="Bottom" Margin="0,0,0,20">
+                        <TextBlock Text="TROCO:" FontSize="18" FontWeight="Bold" Foreground="#D43D3D" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="txtTroco" Text="R$ 0,00" FontSize="26" FontWeight="Black" Foreground="#D43D3D" HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <TextBlock Grid.Row="5" Text="[ ↑ / ↓ ] Trocar Pagamento   [ ESC ] Voltar   [ ENTER ] Confirmar" Foreground="#885E3A7D" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+                </Grid>
+            </Border>
+        </Border>
+        <!-- OVERLAY DE FECHAMENTO DE CAIXA (F9) -->
+        <Border x:Name="OverlayFechamento" Grid.RowSpan="3" Background="#B21A0A2E" Visibility="Collapsed" Panel.ZIndex="100">
+            <Border Width="450" Height="250" Background="#F8F3FC" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
+                <Border.Effect>
+                    <DropShadowEffect Color="#2A1143" Opacity="0.8" BlurRadius="50" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="FECHAR CAIXA" Foreground="#D43D3D" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+                    <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                        <TextBlock Text="Valor Final na Gaveta (R$):" Foreground="#5E3A7D" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                        <TextBox x:Name="txtValorFechamento" FontSize="28" FontWeight="Bold" Foreground="#2A1143" Padding="10,5" Background="#E6E0ED" BorderThickness="0" TextAlignment="Center" PreviewKeyDown="txtValorFechamento_PreviewKeyDown"/>
+                    </StackPanel>
+                    <TextBlock Grid.Row="2" Text="[ ESC ] Cancelar   [ ENTER ] Confirmar Encerramento" Foreground="#885E3A7D" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                </Grid>
+            </Border>
+        </Border>
+        <!-- OVERLAY DE TROCAS E DEVOLUÇÕES (F6) -->
+        <Border x:Name="OverlayTroca" Grid.RowSpan="3" Background="#B21A0A2E" Visibility="Collapsed" Panel.ZIndex="100">
+            <Border Width="650" Height="520" Background="#F8F3FC" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
+                <Border.Effect>
+                    <DropShadowEffect Color="#2A1143" Opacity="0.8" BlurRadius="50" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="TROCAS E DEVOLUÇÕES" Foreground="#A45FCE" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                    <Grid Grid.Row="1" Margin="0,0,0,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="txtBuscaCupomTroca" Grid.Column="0" FontSize="18" FontWeight="Bold" Foreground="#2A1143" Padding="10,8" Background="#E6E0ED" BorderThickness="0" Margin="0,0,10,0" KeyDown="TxtBuscaCupomTroca_KeyDown"/>
+                        <Button x:Name="btnBuscarCupom" Grid.Column="1" Content="BUSCAR CUPOM" Background="#5E3A7D" Foreground="White" FontWeight="Bold" Padding="15,0" Click="BtnBuscarCupom_Click" Cursor="Hand">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="8"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+
+                    <!-- LISTA DE PRODUTOS DA VENDA -->
+                    <ListBox x:Name="listaItensCupom" Grid.Row="2" Background="Transparent" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,0,0,15" SelectionMode="Multiple" KeyDown="ListaItensCupom_KeyDown">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Padding="10" BorderBrush="#225E3A7D" BorderThickness="0,0,0,1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <!-- Coluna da CheckBox -->
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- CheckBox conectada nativamente com a seleção do item -->
+                                        <CheckBox Grid.Column="0" VerticalAlignment="Center" Margin="0,0,15,0" 
+                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}"
+                                                  Focusable="False">
+                                            <CheckBox.LayoutTransform>
+                                                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                            </CheckBox.LayoutTransform>
+                                        </CheckBox>
+
+                                        <TextBlock Grid.Column="1" Text="{Binding nome}" FontSize="16" FontWeight="Bold" Foreground="#2A1143" VerticalAlignment="Center"/>
+
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                            <TextBlock Text="{Binding quantidade_comprada, StringFormat={}{0} un compradas}" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                            <TextBlock Text="{Binding preco_unitario, StringFormat=R$ {0:N2}}" FontSize="16" FontWeight="Black" Foreground="#A45FCE" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
+                        <TextBlock Text="Qtd a Trocar:" VerticalAlignment="Center" FontWeight="Bold" Foreground="#5E3A7D" Margin="0,0,10,0"/>
+                        <TextBox x:Name="txtQtdTroca" Width="60" FontSize="18" FontWeight="Black" Foreground="#2A1143" Padding="5" Background="#E6E0ED" BorderThickness="0" TextAlignment="Center" Margin="0,0,20,0" Text="1" KeyDown="TxtQtdTroca_KeyDown"/>
+
+                        <TextBlock Text="Ação:" VerticalAlignment="Center" FontWeight="Bold" Foreground="#5E3A7D" Margin="0,0,10,0"/>
+                        <ComboBox x:Name="cmbTipoTroca" FontSize="16" FontWeight="Bold" Foreground="#2A1143" Padding="10,5" SelectedIndex="0" KeyDown="CmbTipoTroca_KeyDown">
+                            <ComboBoxItem Content="Troca (Gerar Desconto na Próxima)"/>
+                            <ComboBoxItem Content="Devolução (Estornar Dinheiro)"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="[ ESC ] Fechar" Foreground="#885E3A7D" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                        <Button Content="CONFIRMAR OPERAÇÃO" Background="#A45FCE" Foreground="White" FontWeight="Black" Padding="15,10" Click="BtnConfirmarTroca_Click" Cursor="Hand">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="8"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</Window>
