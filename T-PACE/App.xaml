@@ -3,6 +3,67 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:T_PACE">
     <Application.Resources>
+        <!-- Paleta de Cores (baseada no CSS) -->
+        <Color x:Key="CorPrimaria">#B85D38</Color>
+        <Color x:Key="CorPrimariaHover">#9A4B2B</Color>
+        <Color x:Key="BgFundo">#F8F5E5</Color>
+        <Color x:Key="TextoPrincipal">#3A2E25</Color>
+        <Color x:Key="TextoClaro">#786A60</Color>
+        <Color x:Key="Borda">#E8DCC8</Color>
+        <Color x:Key="Branco">#FDFCEF</Color>
+        <Color x:Key="OuroMancha">#C4A574</Color>
+        <Color x:Key="OuroClaro">#E8DCC4</Color>
+        <Color x:Key="OuroMedio">#D4BC8A</Color>
+        <Color x:Key="OuroSombra">#9A8258</Color>
+        <Color x:Key="GeloClaro">#E3F2FD</Color>
+        <Color x:Key="GeloEscuro">#BBDEFB</Color>
+        <Color x:Key="AzulFrio">#0D47A1</Color>
+        <Color x:Key="Tinta">#1E1915</Color>
+        <Color x:Key="Papel">#F4EFE6</Color>
+
+        <!-- Brushes Principais -->
+        <SolidColorBrush x:Key="PrimariaBrush" Color="{StaticResource CorPrimaria}"/>
+        <SolidColorBrush x:Key="PrimariaHoverBrush" Color="{StaticResource CorPrimariaHover}"/>
+        <SolidColorBrush x:Key="FundoBrush" Color="{StaticResource BgFundo}"/>
+        <SolidColorBrush x:Key="TextoPrincipalBrush" Color="{StaticResource TextoPrincipal}"/>
+        <SolidColorBrush x:Key="TextoClaroBrush" Color="{StaticResource TextoClaro}"/>
+        <SolidColorBrush x:Key="BordaBrush" Color="{StaticResource Borda}"/>
+        <SolidColorBrush x:Key="BrancoBrush" Color="{StaticResource Branco}"/>
+        <SolidColorBrush x:Key="OuroManchaBrush" Color="{StaticResource OuroMancha}"/>
+        <SolidColorBrush x:Key="OuroClaroBrush" Color="{StaticResource OuroClaro}"/>
+        <SolidColorBrush x:Key="OuroMedioBrush" Color="{StaticResource OuroMedio}"/>
+        <SolidColorBrush x:Key="OuroSombraBrush" Color="{StaticResource OuroSombra}"/>
+        <SolidColorBrush x:Key="TintaBrush" Color="{StaticResource Tinta}"/>
+        <SolidColorBrush x:Key="PapelBrush" Color="{StaticResource Papel}"/>
+
+        <!-- Glass Effects com nova paleta -->
+        <LinearGradientBrush x:Key="GlassBorder" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FFFFFFFF" Offset="0.0"/>
+            <GradientStop Color="#66E8DCC4" Offset="0.4"/>
+            <GradientStop Color="#44E8DCC4" Offset="1.0"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="GlassPane" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#E6FDFCEF" Offset="0.0"/>
+            <GradientStop Color="#CCFDFCEF" Offset="1.0"/>
+        </LinearGradientBrush>
+
+        <!-- Background Gradiente Principal -->
+        <LinearGradientBrush x:Key="MainBackground" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#F8F5E5" Offset="0.0"/>
+            <GradientStop Color="#F4EFE6" Offset="1.0"/>
+        </LinearGradientBrush>
+
+        <!-- Header Background -->
+        <LinearGradientBrush x:Key="HeaderBackground" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#FDFCEF" Offset="0.0"/>
+            <GradientStop Color="#F8F5E5" Offset="1.0"/>
+        </LinearGradientBrush>
+
+        <!-- Card Background -->
+        <SolidColorBrush x:Key="CardBackground" Color="#FDFCEF"/>
+
+        <!-- Estilo Global de Botão -->
         <Style TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -17,21 +78,78 @@
                             <Trigger Property="IsPressed" Value="true">
                                 <Setter TargetName="border" Property="Opacity" Value="0.70"/>
                             </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="border" Property="Opacity" Value="0.5"/>
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
 
-        <LinearGradientBrush x:Key="GlassBorder" StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#FFFFFFFF" Offset="0.0"/>
-            <GradientStop Color="#66D6C4E8" Offset="0.4"/>
-            <GradientStop Color="#44D6C4E8" Offset="1.0"/>
-        </LinearGradientBrush>
+        <!-- Estilo Botão Primário -->
+        <Style x:Key="PrimaryButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource PrimariaBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource BrancoBrush}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="15,8"/>
+        </Style>
 
-        <LinearGradientBrush x:Key="GlassPane" StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#E6F8F3FC" Offset="0.0"/>
-            <GradientStop Color="#CCF8F3FC" Offset="1.0"/>
-        </LinearGradientBrush>
+        <!-- Estilo Botão Secundário -->
+        <Style x:Key="SecondaryButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource BrancoBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextoPrincipalBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource OuroMedioBrush}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="15,8"/>
+        </Style>
+
+        <!-- Estilo Botão Perigo -->
+        <Style x:Key="DangerButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="#D43D3D"/>
+            <Setter Property="Foreground" Value="{StaticResource BrancoBrush}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="15,8"/>
+        </Style>
+
+        <!-- Estilo TextBox -->
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{StaticResource BrancoBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextoPrincipalBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BordaBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+        <!-- Estilo ListBoxItem -->
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd" Background="Transparent" CornerRadius="8" Margin="0,0,0,10" SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="Bd" Property="Background" Value="#1AC4A574"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Bd" Property="Background" Value="#0DC4A574"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Sombra Padrão -->
+        <DropShadowEffect x:Key="CardShadow" Color="{StaticResource Tinta}" Opacity="0.15" BlurRadius="30" ShadowDepth="8" Direction="270"/>
+        <DropShadowEffect x:Key="HeaderShadow" Color="{StaticResource Tinta}" Opacity="0.3" BlurRadius="20" ShadowDepth="4"/>
+        <DropShadowEffect x:Key="ButtonShadow" Color="{StaticResource CorPrimaria}" Opacity="0.3" BlurRadius="12" ShadowDepth="4" Direction="270"/>
+        <DropShadowEffect x:Key="OverlayShadow" Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
     </Application.Resources>
 </Application>

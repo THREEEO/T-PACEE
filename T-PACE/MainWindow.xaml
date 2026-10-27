@@ -9,65 +9,10 @@
         ResizeMode="NoResize"
         FocusManager.FocusedElement="{Binding ElementName=txtBusca}">
 
-    <Window.Resources>
-        <Style TargetType="{x:Type ListBoxItem}">
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                        <Border x:Name="Bd" Background="Transparent" CornerRadius="8" Margin="0,0,0,10" SnapsToDevicePixels="true">
-                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="true">
-                                <Setter TargetName="Bd" Property="Background" Value="#1A2A1143"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter TargetName="Bd" Property="Background" Value="#0D2A1143"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style TargetType="{x:Type Button}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="8" SnapsToDevicePixels="true">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter TargetName="border" Property="Opacity" Value="0.85"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter TargetName="border" Property="Opacity" Value="0.70"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <LinearGradientBrush x:Key="GlassBorder" StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#FFFFFFFF" Offset="0.0"/>
-            <GradientStop Color="#66D6C4E8" Offset="0.4"/>
-            <GradientStop Color="#44D6C4E8" Offset="1.0"/>
-        </LinearGradientBrush>
-
-        <LinearGradientBrush x:Key="GlassPane" StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#E6F8F3FC" Offset="0.0"/>
-            <GradientStop Color="#CCF8F3FC" Offset="1.0"/>
-        </LinearGradientBrush>
-    </Window.Resources>
-
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#5E3A7D" Offset="0.0"/>
-            <GradientStop Color="#2A1143" Offset="1.0"/>
+            <GradientStop Color="{StaticResource BgFundo}" Offset="0.0"/>
+            <GradientStop Color="{StaticResource Papel}" Offset="1.0"/>
         </LinearGradientBrush>
     </Window.Background>
 
@@ -80,23 +25,23 @@
         </Grid.RowDefinitions>
 
         <!-- CABEÇALHO -->
-        <Border Grid.Row="0" Background="{StaticResource GlassPane}" Padding="30,0" BorderBrush="{StaticResource GlassBorder}" BorderThickness="0,0,0,2">
+        <Border Grid.Row="0" Background="{StaticResource HeaderBackground}" Padding="30,0" BorderBrush="{StaticResource OuroClaroBrush}" BorderThickness="0,0,0,2">
             <Border.Effect>
-                <DropShadowEffect Color="#2A1143" Opacity="0.5" BlurRadius="25" ShadowDepth="4"/>
+                <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.3" BlurRadius="20" ShadowDepth="4"/>
             </Border.Effect>
             <Grid>
-                <TextBlock Text="T-PACE  |  PDV" Foreground="#2A1143" FontSize="22" FontWeight="Black" VerticalAlignment="Center"/>
+                <TextBlock Text="T-PACE  |  PDV" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="22" FontWeight="Black" VerticalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Border Background="#1AA45FCE" Padding="12,6" CornerRadius="8" Margin="0,0,20,0" BorderBrush="#44A45FCE" BorderThickness="1.5">
+                    <Border Background="#1AC4A574" Padding="12,6" CornerRadius="8" Margin="0,0,20,0" BorderBrush="#44C4A574" BorderThickness="1.5">
                         <StackPanel Orientation="Horizontal">
-                            <Ellipse Width="10" Height="10" Fill="#A45FCE" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Caixa Aberto" Foreground="#A45FCE" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <Ellipse Width="10" Height="10" Fill="{StaticResource OuroManchaBrush}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Caixa Aberto" Foreground="{StaticResource OuroManchaBrush}" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Border>
-                    <Border Width="35" Height="35" CornerRadius="8" Background="#A45FCE" Margin="0,0,15,0" BorderBrush="#F8F3FC" BorderThickness="2">
-                        <TextBlock x:Name="txtIniciaisUsuario" Text="US" Foreground="#F8F3FC" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Border Width="35" Height="35" CornerRadius="8" Background="{StaticResource OuroMedioBrush}" Margin="0,0,15,0" BorderBrush="{StaticResource BrancoBrush}" BorderThickness="2">
+                        <TextBlock x:Name="txtIniciaisUsuario" Text="US" Foreground="{StaticResource BrancoBrush}" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
-                    <TextBlock x:Name="txtNomeUsuario" Text="Operador" Foreground="#2A1143" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="txtNomeUsuario" Text="Operador" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
                 </StackPanel>
             </Grid>
         </Border>
@@ -110,9 +55,9 @@
             </Grid.ColumnDefinitions>
 
             <!-- LADO ESQUERDO: CUPOM FISCAL -->
-            <Border Grid.Column="0" Background="{StaticResource GlassPane}" Margin="0,0,25,0" Padding="30" CornerRadius="12" BorderBrush="{StaticResource GlassBorder}" BorderThickness="1.5">
+            <Border Grid.Column="0" Background="{StaticResource CardBackground}" Margin="0,0,25,0" Padding="30" CornerRadius="12" BorderBrush="{StaticResource BordaBrush}" BorderThickness="1.5">
                 <Border.Effect>
-                    <DropShadowEffect Color="#2A1143" Opacity="0.7" BlurRadius="40" ShadowDepth="12" Direction="270"/>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.15" BlurRadius="40" ShadowDepth="12" Direction="270"/>
                 </Border.Effect>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -122,14 +67,14 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Saint Marie Clothing | Patuá | Saint Marie Shoes" FontSize="18" FontWeight="Black" Foreground="#5E3A7D" Margin="0,0,0,15"/>
+                    <TextBlock Grid.Row="0" Text="Lolla Sorvetes - Carlos Barbosa" FontSize="18" FontWeight="Black" Foreground="{StaticResource TextoPrincipalBrush}" Margin="0,0,0,15"/>
 
-                    <Border Grid.Row="1" BorderBrush="#88FFFFFF" BorderThickness="2" CornerRadius="8" Background="#99F8F3FC" Padding="15,10">
+                    <Border Grid.Row="1" BorderBrush="{StaticResource OuroClaroBrush}" BorderThickness="2" CornerRadius="8" Background="#99FDFCEF" Padding="15,10">
                         <Border.Effect>
-                            <DropShadowEffect Color="#2A1143" Opacity="0.15" BlurRadius="10" ShadowDepth="3"/>
+                            <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.15" BlurRadius="10" ShadowDepth="3"/>
                         </Border.Effect>
                         <Grid>
-                            <TextBlock Text="Digite o código do produto..." FontSize="18" Foreground="#5E3A7D" 
+                            <TextBlock Text="Digite o código do produto..." FontSize="18" Foreground="{StaticResource TextoPrincipalBrush}" 
                                        IsHitTestVisible="False" VerticalAlignment="Center" Margin="15,0,0,0" FontWeight="Medium">
                                 <TextBlock.Style>
                                     <Style TargetType="{x:Type TextBlock}">
@@ -143,11 +88,11 @@
                                 </TextBlock.Style>
                             </TextBlock>
 
-                            <TextBox x:Name="txtBusca" FontSize="22" Padding="15,5" Background="Transparent" BorderThickness="0" Foreground="#2A1143" VerticalContentAlignment="Center" FontWeight="Bold" TextChanged="txtBusca_TextChanged"/>
+                            <TextBox x:Name="txtBusca" FontSize="22" Padding="15,5" Background="Transparent" BorderThickness="0" Foreground="{StaticResource TintaBrush}" VerticalContentAlignment="Center" FontWeight="Bold" TextChanged="txtBusca_TextChanged"/>
                         </Grid>
                     </Border>
 
-                    <Border Grid.Row="2" Margin="5,20,5,10" Padding="10,0,10,10" BorderBrush="#66D6C4E8" BorderThickness="0,0,0,1.5">
+                    <Border Grid.Row="2" Margin="5,20,5,10" Padding="10,0,10,10" BorderBrush="{StaticResource OuroClaroBrush}" BorderThickness="0,0,0,1.5">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1.5*"/>
@@ -156,11 +101,11 @@
                                 <ColumnDefinition Width="1.5*"/>
                                 <ColumnDefinition Width="2*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="CÓDIGO" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D"/>
-                            <TextBlock Grid.Column="1" Text="DESCRIÇÃO" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D"/>
-                            <TextBlock Grid.Column="2" Text="QTD" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D" TextAlignment="Center"/>
-                            <TextBlock Grid.Column="3" Text="V.UN (R$)" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D" TextAlignment="Right"/>
-                            <TextBlock Grid.Column="4" Text="TOTAL (R$)" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D" TextAlignment="Right"/>
+                            <TextBlock Grid.Column="0" Text="CÓDIGO" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}"/>
+                            <TextBlock Grid.Column="1" Text="DESCRIÇÃO" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}"/>
+                            <TextBlock Grid.Column="2" Text="QTD" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}" TextAlignment="Center"/>
+                            <TextBlock Grid.Column="3" Text="V.UN (R$)" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}" TextAlignment="Right"/>
+                            <TextBlock Grid.Column="4" Text="TOTAL (R$)" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}" TextAlignment="Right"/>
                         </Grid>
                     </Border>
 
@@ -176,11 +121,11 @@
                                             <ColumnDefinition Width="1.5*"/>
                                             <ColumnDefinition Width="2*"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding Codigo}" Foreground="#5E3A7D" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                                        <TextBlock Grid.Column="1" Text="{Binding Descricao}" FontWeight="Bold" FontSize="16" Foreground="#2A1143" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" VerticalAlignment="Center" Margin="0,0,15,0"/>
-                                        <TextBlock Grid.Column="2" Text="{Binding Quantidade}" Foreground="#2A1143" FontSize="16" FontWeight="Black" TextAlignment="Center" VerticalAlignment="Center"/>
-                                        <TextBlock Grid.Column="3" Text="{Binding PrecoUnitario, StringFormat=R$ {0:N2}}" Foreground="#5E3A7D" FontSize="16" FontWeight="Bold" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0"/>
-                                        <TextBlock Grid.Column="4" Text="{Binding Total, StringFormat=R$ {0:N2}}" Foreground="#2A1143" FontSize="16" FontWeight="Black" TextAlignment="Right" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="0" Text="{Binding Codigo}" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Descricao}" FontWeight="Bold" FontSize="16" Foreground="{StaticResource TintaBrush}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Quantidade}" Foreground="{StaticResource TintaBrush}" FontSize="16" FontWeight="Black" TextAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="3" Text="{Binding PrecoUnitario, StringFormat=R$ {0:N2}}" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="16" FontWeight="Bold" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                        <TextBlock Grid.Column="4" Text="{Binding Total, StringFormat=R$ {0:N2}}" Foreground="{StaticResource TintaBrush}" FontSize="16" FontWeight="Black" TextAlignment="Right" VerticalAlignment="Center"/>
                                     </Grid>
                                 </Border>
                             </DataTemplate>
@@ -190,9 +135,9 @@
             </Border>
 
             <!-- LADO DIREITO: RESUMO -->
-            <Border Grid.Column="1" Background="{StaticResource GlassPane}" CornerRadius="12" BorderBrush="{StaticResource GlassBorder}" BorderThickness="1.5">
+            <Border Grid.Column="1" Background="{StaticResource CardBackground}" CornerRadius="12" BorderBrush="{StaticResource BordaBrush}" BorderThickness="1.5">
                 <Border.Effect>
-                    <DropShadowEffect Color="#2A1143" Opacity="0.7" BlurRadius="40" ShadowDepth="12" Direction="270"/>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.15" BlurRadius="40" ShadowDepth="12" Direction="270"/>
                 </Border.Effect>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -209,38 +154,38 @@
 
                         <!-- CAIXA DA FOTO AMPLIADA -->
                         <Grid Grid.Row="0" Margin="0,0,0,8">
-                            <Rectangle Fill="#33D6C4E8" Stroke="#66D6C4E8" StrokeThickness="2" StrokeDashArray="4 4" RadiusX="8" RadiusY="8"/>
-                            <TextBlock x:Name="txtFotoPlaceholder" Text="FOTO DO PRODUTO" Foreground="#885E3A7D" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Rectangle Fill="#33E8DCC4" Stroke="{StaticResource OuroClaroBrush}" StrokeThickness="2" StrokeDashArray="4 4" RadiusX="8" RadiusY="8"/>
+                            <TextBlock x:Name="txtFotoPlaceholder" Text="FOTO DO PRODUTO" Foreground="{StaticResource TextoClaroBrush}" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <Image x:Name="imgProdutoFoto" Stretch="Uniform" Margin="0" Visibility="Collapsed" RenderOptions.BitmapScalingMode="HighQuality"/>
                         </Grid>
 
                         <!-- TEXTOS DO ÚLTIMO PRODUTO (COMPACTOS PARA NÃO SOBREPOR) -->
                         <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
-                            <TextBlock x:Name="txtUltimoNome" Text=" " FontSize="18" FontWeight="Black" Foreground="#2A1143" Margin="0,0,0,2" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
-                            <TextBlock x:Name="txtUltimoDetalhes" Text="Cód: ---  |  Qtd: --" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D" Margin="0,0,0,2"/>
-                            <TextBlock x:Name="txtUltimoPreco" Text="R$ 0,00" FontSize="26" FontWeight="Black" Foreground="#A45FCE"/>
+                            <TextBlock x:Name="txtUltimoNome" Text=" " FontSize="18" FontWeight="Black" Foreground="{StaticResource TintaBrush}" Margin="0,0,0,2" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                            <TextBlock x:Name="txtUltimoDetalhes" Text="Cód: ---  |  Qtd: --" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}" Margin="0,0,0,2"/>
+                            <TextBlock x:Name="txtUltimoPreco" Text="R$ 0,00" FontSize="26" FontWeight="Black" Foreground="{StaticResource PrimariaBrush}"/>
                         </StackPanel>
                     </Grid>
 
                     <!-- PAINEL INFERIOR DE TOTAIS -->
-                    <Border Grid.Row="1" Background="#CCF8F3FC" Padding="20,15" CornerRadius="0,0,12,12" BorderBrush="#44D6C4E8" BorderThickness="0,1.5,0,0">
+                    <Border Grid.Row="1" Background="#CCFDFCEF" Padding="20,15" CornerRadius="0,0,12,12" BorderBrush="#44E8DCC4" BorderThickness="0,1.5,0,0">
                         <StackPanel>
                             <Grid Margin="0,0,0,8">
-                                <TextBlock Text="Subtotal da Venda" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D"/>
-                                <TextBlock x:Name="txtSubtotal" Text="R$ 0,00" FontSize="14" FontWeight="Bold" Foreground="#2A1143" HorizontalAlignment="Right"/>
+                                <TextBlock Text="Subtotal da Venda" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}"/>
+                                <TextBlock x:Name="txtSubtotal" Text="R$ 0,00" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" HorizontalAlignment="Right"/>
                             </Grid>
                             <Grid Margin="0,0,0,10">
-                                <TextBlock Text="Descontos Aplicados" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D"/>
-                                <TextBlock x:Name="txtDesconto" Text="- R$ 0,00" FontSize="14" FontWeight="Bold" Foreground="#A45FCE" HorizontalAlignment="Right"/>
+                                <TextBlock Text="Descontos Aplicados" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}"/>
+                                <TextBlock x:Name="txtDesconto" Text="- R$ 0,00" FontSize="14" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" HorizontalAlignment="Right"/>
                             </Grid>
-                            <Border BorderBrush="#44D6C4E8" BorderThickness="0,1.5,0,0" Margin="0,0,0,10"/>
+                            <Border BorderBrush="#44E8DCC4" BorderThickness="0,1.5,0,0" Margin="0,0,0,10"/>
                             <Grid Margin="0,0,0,15">
-                                <TextBlock Text="TOTAL" FontSize="18" FontWeight="Black" Foreground="#2A1143" VerticalAlignment="Bottom"/>
-                                <TextBlock x:Name="txtTotal" Text="R$ 0,00" FontSize="24" FontWeight="Black" Foreground="#A45FCE" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                                <TextBlock Text="TOTAL" FontSize="18" FontWeight="Black" Foreground="{StaticResource TintaBrush}" VerticalAlignment="Bottom"/>
+                                <TextBlock x:Name="txtTotal" Text="R$ 0,00" FontSize="24" FontWeight="Black" Foreground="{StaticResource PrimariaBrush}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                             </Grid>
-                            <Button x:Name="btnFinalizar" Cursor="Hand" BorderThickness="0" Padding="0,12" Background="#A45FCE" Foreground="#F8F3FC">
+                            <Button x:Name="btnFinalizar" Cursor="Hand" BorderThickness="0" Padding="0,12" Background="{StaticResource PrimariaBrush}" Foreground="{StaticResource BrancoBrush}" Style="{StaticResource PrimaryButton}">
                                 <Button.Effect>
-                                    <DropShadowEffect Color="#2A1143" Opacity="0.5" BlurRadius="15" ShadowDepth="4" Direction="270"/>
+                                    <DropShadowEffect Color="{StaticResource CorPrimaria}" Opacity="0.3" BlurRadius="15" ShadowDepth="4" Direction="270"/>
                                 </Button.Effect>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <TextBlock Text="RECEBER" FontSize="18" FontWeight="Black" Margin="0,0,10,0"/>
@@ -254,22 +199,27 @@
         </Grid>
 
         <!-- RODAPÉ -->
-        <Border Grid.Row="2" Background="#44F8F3FC" BorderBrush="#44D6C4E8" BorderThickness="0,1.5,0,0" Padding="10">
+        <Border Grid.Row="2" Background="{StaticResource HeaderBackground}" BorderBrush="{StaticResource OuroClaroBrush}" BorderThickness="0,1.5,0,0" Padding="8,5">
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="[ F2 ] Receber Venda" Foreground="#F8F3FC" FontSize="14" FontWeight="Bold" Margin="15,5" Cursor="Hand" MouseLeftButtonUp="Rodape_F2_Click"/>
-                <TextBlock Text="[ F3 ] Cancelar Item" Foreground="#D6C4E8" FontSize="14" FontWeight="Bold" Margin="15,5" Cursor="Hand" MouseLeftButtonUp="Rodape_F3_Click"/>
-                <TextBlock Text="[ F4 ] Buscar Produto" Foreground="#D6C4E8" FontSize="14" FontWeight="Bold" Margin="15,5" Cursor="Hand" MouseLeftButtonUp="Rodape_F4_Click"/>
-                <TextBlock Text="[ F5 ] Aplicar Desconto" Foreground="#D6C4E8" FontSize="14" FontWeight="Bold" Margin="15,5" Cursor="Hand" MouseLeftButtonUp="Rodape_F5_Click"/>
-                <TextBlock Text="[ F6 ] Trocas e Devoluções" Foreground="#D6C4E8" FontSize="14" FontWeight="Bold" Margin="15,5" Cursor="Hand" MouseLeftButtonUp="Rodape_F6_Click"/>
-                <TextBlock Text="[ F9 ] Sair do Caixa" Foreground="#D6C4E8" FontSize="14" FontWeight="Bold" Margin="15,5" Cursor="Hand" MouseLeftButtonUp="Rodape_F9_Click"/>
+                <TextBlock Text="[ F1 ] Ajuda" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" FontWeight="Bold" Margin="8,2" Cursor="Hand" MouseLeftButtonUp="Rodape_F1_Click"/>
+                <TextBlock Text="[ F2 ] Pagamento" Foreground="{StaticResource PrimariaBrush}" FontSize="12" FontWeight="Bold" Margin="8,2" Cursor="Hand" MouseLeftButtonUp="Rodape_F2_Click"/>
+                <TextBlock Text="[ F3 ] Vendas Dia" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="12" FontWeight="Bold" Margin="8,2" Cursor="Hand" MouseLeftButtonUp="Rodape_F3_Click"/>
+                <TextBlock Text="[ F4 ] Item Avulso" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="12" FontWeight="Bold" Margin="8,2" Cursor="Hand" MouseLeftButtonUp="Rodape_F4_Click"/>
+                <TextBlock Text="[ F5 ] Buscar Prod." Foreground="{StaticResource TextoPrincipalBrush}" FontSize="12" FontWeight="Bold" Margin="8,2" Cursor="Hand" MouseLeftButtonUp="Rodape_F5_Click"/>
+                <TextBlock Text="[ F6 ] Baixa/Crediário" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="12" FontWeight="Bold" Margin="8,2" Cursor="Hand" MouseLeftButtonUp="Rodape_F6_Click"/>
+                <TextBlock Text="[ F7 ] Meu Caixa" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="12" FontWeight="Bold" Margin="8,2" Cursor="Hand" MouseLeftButtonUp="Rodape_F7_Click"/>
+                <TextBlock Text="[ F9 ] Minimizar" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="12" FontWeight="Bold" Margin="8,2" Cursor="Hand" MouseLeftButtonUp="Rodape_F9_Click"/>
+                <TextBlock Text="[ F10 ] Menu" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" FontWeight="Bold" Margin="8,2" Cursor="Hand" MouseLeftButtonUp="Rodape_F10_Click"/>
+                <TextBlock Text="[ F11 ] Encerrar" Foreground="#D43D3D" FontSize="12" FontWeight="Bold" Margin="8,2" Cursor="Hand" MouseLeftButtonUp="Rodape_F11_Click"/>
+                <TextBlock Text="[ F12 ] Promoção" Foreground="{StaticResource OuroManchaBrush}" FontSize="12" FontWeight="Bold" Margin="8,2" Cursor="Hand" MouseLeftButtonUp="Rodape_F12_Click"/>
             </WrapPanel>
         </Border>
 
         <!-- OVERLAY DE CANCELAMENTO (F3) -->
-        <Border x:Name="OverlayCancelamento" Grid.RowSpan="3" Background="#B21A0A2E" Visibility="Collapsed" Panel.ZIndex="100">
-            <Border Width="450" Height="250" Background="#F8F3FC" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
+        <Border x:Name="OverlayCancelamento" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100">
+            <Border Width="450" Height="250" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
                 <Border.Effect>
-                    <DropShadowEffect Color="#2A1143" Opacity="0.8" BlurRadius="50" ShadowDepth="10"/>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
                 </Border.Effect>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -281,20 +231,20 @@
                     <TextBlock Grid.Row="0" Text="CANCELAR ITEM" Foreground="#D43D3D" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
 
                     <StackPanel Grid.Row="1" VerticalAlignment="Center">
-                        <TextBlock Text="Bipe ou digite o código do item a ser cancelado:" Foreground="#5E3A7D" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                        <TextBox x:Name="txtBuscaCancelamento" FontSize="24" FontWeight="Bold" Foreground="#2A1143" Padding="10,5" Background="#E6E0ED" BorderThickness="0"/>
+                        <TextBlock Text="Bipe ou digite o código do item a ser cancelado:" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                        <TextBox x:Name="txtBuscaCancelamento" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" Padding="10,5" Background="#E6F8F5E5" BorderThickness="0"/>
                     </StackPanel>
 
-                    <TextBlock Grid.Row="2" Text="[ ESC ] Fechar" Foreground="#885E3A7D" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                    <TextBlock Grid.Row="2" Text="[ ESC ] Fechar" Foreground="{StaticResource TextoClaroBrush}" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,0"/>
                 </Grid>
             </Border>
         </Border>
 
         <!-- OVERLAY DE BUSCA POR NOME (F4) -->
-        <Border x:Name="OverlayBusca" Grid.RowSpan="3" Background="#B21A0A2E" Visibility="Collapsed" Panel.ZIndex="100">
-            <Border Width="700" Height="480" Background="#F8F3FC" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
+        <Border x:Name="OverlayBusca" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100">
+            <Border Width="700" Height="480" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
                 <Border.Effect>
-                    <DropShadowEffect Color="#2A1143" Opacity="0.8" BlurRadius="50" ShadowDepth="10"/>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
                 </Border.Effect>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -303,8 +253,8 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="BUSCAR PRODUTO" Foreground="#5E3A7D" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
-                    <TextBox x:Name="txtBuscaNome" Grid.Row="1" FontSize="20" FontWeight="Bold" Foreground="#2A1143" Padding="10,8" Background="#E6E0ED" BorderThickness="0" Margin="0,0,0,15" TextChanged="txtBuscaNome_TextChanged" PreviewKeyDown="txtBuscaNome_PreviewKeyDown"/>
+                    <TextBlock Grid.Row="0" Text="BUSCAR PRODUTO" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+                    <TextBox x:Name="txtBuscaNome" Grid.Row="1" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" Padding="10,8" Background="#E6F8F5E5" BorderThickness="0" Margin="0,0,0,15" TextChanged="txtBuscaNome_TextChanged" PreviewKeyDown="txtBuscaNome_PreviewKeyDown"/>
 
                     <!-- Lista com rolagem horizontal bloqueada -->
                     <ListBox x:Name="listaResultadosBusca" Grid.Row="2" Background="Transparent" BorderThickness="0" 
@@ -318,7 +268,7 @@
                         </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border Padding="10" BorderBrush="#225E3A7D" BorderThickness="0,0,0,1">
+                                <Border Padding="10" BorderBrush="{StaticResource OuroClaroBrush}" BorderThickness="0,0,0,1">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
@@ -326,24 +276,24 @@
                                             <ColumnDefinition Width="140"/>
                                         </Grid.ColumnDefinitions>
                                         <!-- Nome do produto com retículas automáticas se for longo -->
-                                        <TextBlock Grid.Column="0" Text="{Binding nome}" FontSize="15" FontWeight="Bold" Foreground="#2A1143" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Margin="0,0,10,0"/>
-                                        <TextBlock Grid.Column="1" Text="{Binding preco_venda, StringFormat=R$ {0:N2}}" FontSize="15" FontWeight="Black" Foreground="#A45FCE" VerticalAlignment="Center" TextAlignment="Right" Margin="0,0,15,0"/>
-                                        <TextBlock Grid.Column="2" Text="{Binding codigo_barras}" FontSize="13" Foreground="#885E3A7D" VerticalAlignment="Center" TextAlignment="Right"/>
+                                        <TextBlock Grid.Column="0" Text="{Binding nome}" FontSize="15" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Margin="0,0,10,0"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding preco_venda, StringFormat=R$ {0:N2}}" FontSize="15" FontWeight="Black" Foreground="{StaticResource PrimariaBrush}" VerticalAlignment="Center" TextAlignment="Right" Margin="0,0,15,0"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding codigo_barras}" FontSize="13" Foreground="{StaticResource TextoClaroBrush}" VerticalAlignment="Center" TextAlignment="Right"/>
                                     </Grid>
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <TextBlock Grid.Row="3" Text="[ ↑↓ ] Navegar   [ ENTER ] Selecionar   [ ESC ] Fechar" Foreground="#885E3A7D" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                    <TextBlock Grid.Row="3" Text="[ ↑↓ ] Navegar   [ ENTER ] Selecionar   [ ESC ] Fechar" Foreground="{StaticResource TextoClaroBrush}" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,0"/>
                 </Grid>
             </Border>
         </Border>
 
         <!-- OVERLAY DE DESCONTO GLOBAL (F5) -->
-        <Border x:Name="OverlayDesconto" Grid.RowSpan="3" Background="#B21A0A2E" Visibility="Collapsed" Panel.ZIndex="100">
-            <Border Width="400" Height="250" Background="#F8F3FC" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
+        <Border x:Name="OverlayDesconto" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100">
+            <Border Width="400" Height="250" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
                 <Border.Effect>
-                    <DropShadowEffect Color="#2A1143" Opacity="0.8" BlurRadius="50" ShadowDepth="10"/>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
                 </Border.Effect>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -352,23 +302,23 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="APLICAR DESCONTO" Foreground="#A45FCE" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+                    <TextBlock Grid.Row="0" Text="APLICAR DESCONTO" Foreground="{StaticResource PrimariaBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
 
                     <StackPanel Grid.Row="1" VerticalAlignment="Center">
-                        <TextBlock Text="Valor (R$) ou Porcentagem (%):" Foreground="#5E3A7D" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                        <TextBox x:Name="txtValorDesconto" FontSize="28" FontWeight="Bold" Foreground="#2A1143" Padding="10,5" Background="#E6E0ED" BorderThickness="0" TextAlignment="Center" PreviewKeyDown="txtValorDesconto_PreviewKeyDown"/>
+                        <TextBlock Text="Valor (R$) ou Porcentagem (%):" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                        <TextBox x:Name="txtValorDesconto" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" Padding="10,5" Background="#E6F8F5E5" BorderThickness="0" TextAlignment="Center" PreviewKeyDown="txtValorDesconto_PreviewKeyDown"/>
                     </StackPanel>
 
-                    <TextBlock Grid.Row="2" Text="[ ESC ] Cancelar   [ ENTER ] Confirmar" Foreground="#885E3A7D" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                    <TextBlock Grid.Row="2" Text="[ ESC ] Cancelar   [ ENTER ] Confirmar" Foreground="{StaticResource TextoClaroBrush}" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,0"/>
                 </Grid>
             </Border>
         </Border>
 
         <!-- OVERLAY DE PAGAMENTO E FINALIZAÇÃO (F2) -->
-        <Border x:Name="OverlayPagamento" Grid.RowSpan="3" Background="#B21A0A2E" Visibility="Collapsed" Panel.ZIndex="100">
-            <Border Width="450" Height="420" Background="#F8F3FC" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
+        <Border x:Name="OverlayPagamento" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100">
+            <Border Width="450" Height="420" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
                 <Border.Effect>
-                    <DropShadowEffect Color="#2A1143" Opacity="0.8" BlurRadius="50" ShadowDepth="10"/>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
                 </Border.Effect>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -380,18 +330,18 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="FINALIZAR VENDA" Foreground="#A45FCE" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+                    <TextBlock Grid.Row="0" Text="FINALIZAR VENDA" Foreground="{StaticResource PrimariaBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
 
                     <!-- Total a Pagar -->
                     <Grid Grid.Row="1" Margin="0,0,0,20">
-                        <TextBlock Text="TOTAL A PAGAR:" FontSize="18" FontWeight="Bold" Foreground="#5E3A7D" VerticalAlignment="Center"/>
-                        <TextBlock x:Name="txtPagamentoTotal" Text="R$ 0,00" FontSize="28" FontWeight="Black" Foreground="#A45FCE" HorizontalAlignment="Right"/>
+                        <TextBlock Text="TOTAL A PAGAR:" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="txtPagamentoTotal" Text="R$ 0,00" FontSize="28" FontWeight="Black" Foreground="{StaticResource PrimariaBrush}" HorizontalAlignment="Right"/>
                     </Grid>
 
                     <!-- Método de Pagamento -->
                     <StackPanel Grid.Row="2" Margin="0,0,0,15">
-                        <TextBlock Text="Método de Pagamento:" Foreground="#5E3A7D" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                        <ComboBox x:Name="cmbMetodoPagamento" FontSize="18" Padding="10,5" SelectedIndex="0" Foreground="#2A1143" FontWeight="Bold">
+                        <TextBlock Text="Método de Pagamento:" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox x:Name="cmbMetodoPagamento" FontSize="18" Padding="10,5" SelectedIndex="0" Foreground="{StaticResource TintaBrush}" FontWeight="Bold" Background="{StaticResource BrancoBrush}" BorderBrush="{StaticResource BordaBrush}">
                             <ComboBoxItem Content="dinheiro"/>
                             <ComboBoxItem Content="pix"/>
                             <ComboBoxItem Content="cartão de crédito"/>
@@ -401,8 +351,8 @@
 
                     <!-- Valor Recebido (para calcular troco) -->
                     <StackPanel Grid.Row="3" Margin="0,0,0,15">
-                        <TextBlock Text="Valor Recebido do Cliente (R$):" Foreground="#5E3A7D" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                        <TextBox x:Name="txtValorRecebido" FontSize="28" FontWeight="Bold" Foreground="#2A1143" Padding="10,5" Background="#E6E0ED" BorderThickness="0" TextAlignment="Right" PreviewKeyDown="txtValorRecebido_PreviewKeyDown" TextChanged="txtValorRecebido_TextChanged"/>
+                        <TextBlock Text="Valor Recebido do Cliente (R$):" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="txtValorRecebido" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" Padding="10,5" Background="#E6F8F5E5" BorderThickness="0" TextAlignment="Right" PreviewKeyDown="txtValorRecebido_PreviewKeyDown" TextChanged="txtValorRecebido_TextChanged"/>
                     </StackPanel>
 
                     <!-- Troco -->
@@ -411,15 +361,15 @@
                         <TextBlock x:Name="txtTroco" Text="R$ 0,00" FontSize="26" FontWeight="Black" Foreground="#D43D3D" HorizontalAlignment="Right"/>
                     </Grid>
 
-                    <TextBlock Grid.Row="5" Text="[ ↑ / ↓ ] Trocar Pagamento   [ ESC ] Voltar   [ ENTER ] Confirmar" Foreground="#885E3A7D" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="5" Text="[ ↑ / ↓ ] Trocar Pagamento   [ ESC ] Voltar   [ ENTER ] Confirmar" Foreground="{StaticResource TextoClaroBrush}" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
                 </Grid>
             </Border>
         </Border>
         <!-- OVERLAY DE FECHAMENTO DE CAIXA (F9) -->
-        <Border x:Name="OverlayFechamento" Grid.RowSpan="3" Background="#B21A0A2E" Visibility="Collapsed" Panel.ZIndex="100">
-            <Border Width="450" Height="250" Background="#F8F3FC" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
+        <Border x:Name="OverlayFechamento" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100">
+            <Border Width="450" Height="250" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
                 <Border.Effect>
-                    <DropShadowEffect Color="#2A1143" Opacity="0.8" BlurRadius="50" ShadowDepth="10"/>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
                 </Border.Effect>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -429,100 +379,992 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="FECHAR CAIXA" Foreground="#D43D3D" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
                     <StackPanel Grid.Row="1" VerticalAlignment="Center">
-                        <TextBlock Text="Valor Final na Gaveta (R$):" Foreground="#5E3A7D" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                        <TextBox x:Name="txtValorFechamento" FontSize="28" FontWeight="Bold" Foreground="#2A1143" Padding="10,5" Background="#E6E0ED" BorderThickness="0" TextAlignment="Center" PreviewKeyDown="txtValorFechamento_PreviewKeyDown"/>
+                        <TextBlock Text="Valor Final na Gaveta (R$):" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                        <TextBox x:Name="txtValorFechamento" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" Padding="10,5" Background="#E6F8F5E5" BorderThickness="0" TextAlignment="Center" PreviewKeyDown="txtValorFechamento_PreviewKeyDown"/>
                     </StackPanel>
-                    <TextBlock Grid.Row="2" Text="[ ESC ] Cancelar   [ ENTER ] Confirmar Encerramento" Foreground="#885E3A7D" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                    <TextBlock Grid.Row="2" Text="[ ESC ] Cancelar   [ ENTER ] Confirmar Encerramento" Foreground="{StaticResource TextoClaroBrush}" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,0"/>
                 </Grid>
             </Border>
         </Border>
-        <!-- OVERLAY DE TROCAS E DEVOLUÇÕES (F6) -->
-        <Border x:Name="OverlayTroca" Grid.RowSpan="3" Background="#B21A0A2E" Visibility="Collapsed" Panel.ZIndex="100">
-            <Border Width="650" Height="520" Background="#F8F3FC" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
+
+        <!-- OVERLAY AJUDA (F1) -->
+        <Border x:Name="OverlayAjuda" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100">
+            <Border Width="600" Height="500" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
                 <Border.Effect>
-                    <DropShadowEffect Color="#2A1143" Opacity="0.8" BlurRadius="50" ShadowDepth="10"/>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
                 </Border.Effect>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="AJUDA E ATALHOS" Foreground="{StaticResource PrimariaBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <TextBlock Text="TECLAS DE ATALHO GLOBAIS" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="16" Margin="0,10,0,5"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="F1" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" FontFamily="Consolas" FontSize="14"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="Ajuda (Exibe comandos e atalhos)" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="F2" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" FontFamily="Consolas" FontSize="14"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="Pagamento / Finalizar Venda" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14"/>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="F3" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" FontFamily="Consolas" FontSize="14"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="Vendas do Dia" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14"/>
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="F4" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" FontFamily="Consolas" FontSize="14"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" Text="Add Item (Item Avulso)" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14"/>
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="F5" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" FontFamily="Consolas" FontSize="14"/>
+                                <TextBlock Grid.Row="4" Grid.Column="1" Text="Produtos (Buscar produtos)" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14"/>
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="F6" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" FontFamily="Consolas" FontSize="14"/>
+                                <TextBlock Grid.Row="5" Grid.Column="1" Text="Baixa (Clientes/Crediário)" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14"/>
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="F7" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" FontFamily="Consolas" FontSize="14"/>
+                                <TextBlock Grid.Row="6" Grid.Column="1" Text="Meu Caixa (Controle de caixa)" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14"/>
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="F9" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" FontFamily="Consolas" FontSize="14"/>
+                                <TextBlock Grid.Row="7" Grid.Column="1" Text="Minimizar Sistema" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14"/>
+                                <TextBlock Grid.Row="8" Grid.Column="0" Text="F10" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" FontFamily="Consolas" FontSize="14"/>
+                                <TextBlock Grid.Row="8" Grid.Column="1" Text="Menu Multifunção" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14"/>
+                                <TextBlock Grid.Row="9" Grid.Column="0" Text="F11" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" FontFamily="Consolas" FontSize="14"/>
+                                <TextBlock Grid.Row="9" Grid.Column="1" Text="Encerrar Sistema" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14"/>
+                                <TextBlock Grid.Row="10" Grid.Column="0" Text="F12" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" FontFamily="Consolas" FontSize="14"/>
+                                <TextBlock Grid.Row="10" Grid.Column="1" Text="Promoção" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14"/>
+                                <TextBlock Grid.Row="11" Grid.Column="0" Text="ESC" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" FontFamily="Consolas" FontSize="14"/>
+                                <TextBlock Grid.Row="11" Grid.Column="1" Text="Sair / Fechar janela atual" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14"/>
+                            </Grid>
+                            <TextBlock Text="COMANDOS DE LINHA (Campo de busca)" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="16" Margin="0,20,0,5"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="[Código] + Enter" FontFamily="Consolas" FontSize="13" Foreground="{StaticResource TextoClaroBrush}"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="Adiciona produto pelo código" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="13"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="5*10 ou 5x10" FontFamily="Consolas" FontSize="13" Foreground="{StaticResource TextoClaroBrush}"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="Adiciona 5 unidades do produto 10" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="13"/>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="10 azul" FontFamily="Consolas" FontSize="13" Foreground="{StaticResource TextoClaroBrush}"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="Complementa descrição do item" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="13"/>
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Obs azul" FontFamily="Consolas" FontSize="13" Foreground="{StaticResource TextoClaroBrush}"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" Text="Complementa descrição do último item" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="13"/>
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Des2,50 ou Des10%" FontFamily="Consolas" FontSize="13" Foreground="{StaticResource TextoClaroBrush}"/>
+                                <TextBlock Grid.Row="4" Grid.Column="1" Text="Aplica desconto no total da venda" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="13"/>
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="Novo" FontFamily="Consolas" FontSize="13" Foreground="{StaticResource TextoClaroBrush}"/>
+                                <TextBlock Grid.Row="5" Grid.Column="1" Text="Inicia nova venda (limpa atual)" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="13"/>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <TextBlock Grid.Row="2" Text="[ ESC ] Fechar" Foreground="{StaticResource TextoClaroBrush}" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                </Grid>
+            </Border>
+        </Border>
+
+        <!-- OVERLAY VENDAS DO DIA (F3) -->
+        <Border x:Name="OverlayVendasDia" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100" KeyDown="OverlayVendasDia_KeyDown" Focusable="True">
+            <Border Width="1000" Height="650" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- Header -->
+                    <Border Grid.Row="0" Background="{StaticResource PrimariaBrush}" CornerRadius="12,12,0,0" Padding="25,18">
+                        <TextBlock Text="VENDAS DO DIA" Foreground="{StaticResource BrancoBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center"/>
+                    </Border>
+                    <!-- Content -->
+                    <Grid Grid.Row="1" Margin="25,20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!-- Search/Filter bar -->
+                        <Grid Grid.Row="0" Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="txtVendasDiaBusca" FontSize="16" Foreground="{StaticResource TintaBrush}" Padding="12,10" Background="#FDFCEF" BorderBrush="{StaticResource BordaBrush}" BorderThickness="1" KeyDown="txtVendasDiaBusca_KeyDown"/>
+                            <TextBlock Grid.Column="1" Text="[ F5 ] Filtrar" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                        </Grid>
+                        <!-- List -->
+                        <ListBox x:Name="listaVendasDia" Grid.Row="1" Background="Transparent" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="listaVendasDia_MouseDoubleClick" KeyDown="listaVendasDia_KeyDown">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Padding" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListBoxItem">
+                                                <Border x:Name="Bd" Background="Transparent" CornerRadius="6" Margin="0,2,0,2" SnapsToDevicePixels="true">
+                                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsSelected" Value="true">
+                                                        <Setter TargetName="Bd" Property="Background" Value="#E8F5E9"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsMouseOver" Value="true">
+                                                        <Setter TargetName="Bd" Property="Background" Value="#FFF8E1"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Padding="12,10" BorderBrush="{StaticResource OuroClaroBrush}" BorderThickness="0,0,0,1" Background="#FAFDFCEF">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="70"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="110"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding id}" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" FontSize="13" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding id_cupom}" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="13" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding data_hora, StringFormat='HH:mm:ss'}" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="3" Text="{Binding total, StringFormat='R$ {0:N2}'}" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                                            <TextBlock Grid.Column="4" Text="{Binding TotalDinheiro, StringFormat='Din: {0:N2}'}" Foreground="#2E7D32" FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                            <TextBlock Grid.Column="5" Text="{Binding TotalCredito, StringFormat='C.Créd: {0:N2}'}" Foreground="#1565C0" FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                            <TextBlock Grid.Column="6" Text="{Binding TotalDebito, StringFormat='C.Déb: {0:N2}'}" Foreground="#00695C" FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                            <TextBlock Grid.Column="7" Text="{Binding TotalPix, StringFormat='Pix: {0:N2}'}" Foreground="#6A1B9A" FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                            <TextBlock Grid.Column="8" Text="{Binding TotalCrediario, StringFormat='Cred: {0:N2}'}" Foreground="#E65100" FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                    <!-- Footer -->
+                    <Border Grid.Row="2" Background="#F5F5F5" CornerRadius="0,0,12,12" Padding="18,12">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="[ ESC ] Fechar   [ Duplo-clique/Enter ] Ver detalhes   [ F5 ] Filtrar" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Border>
+
+        <!-- OVERLAY DETALHES DA VENDA (do F3) -->
+        <Border x:Name="OverlayDetalhesVenda" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="101" KeyDown="OverlayDetalhesVenda_KeyDown" Focusable="True">
+            <Border Width="700" Height="600" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
+                    <!-- Header -->
+                    <Border Grid.Row="0" Background="{StaticResource PrimariaBrush}" CornerRadius="12,12,0,0" Padding="25,18">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="DETALHES DA VENDA" Foreground="{StaticResource BrancoBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="txtDetalheVendaCupom" Grid.Column="1" Foreground="{StaticResource OuroClaroBrush}" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                        </Grid>
+                    </Border>
+                    <!-- Content -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="25,20">
+                        <StackPanel>
+                            <!-- Info da venda -->
+                            <Border Background="#FFF8F5E5" CornerRadius="8" Padding="18" Margin="0,0,0,15" BorderBrush="{StaticResource OuroClaroBrush}" BorderThickness="1.5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                                        <TextBlock Text="DATA/HORA" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextoClaroBrush}"/>
+                                        <TextBlock x:Name="txtDetalheVendaData" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Margin="0,0,10,0">
+                                        <TextBlock Text="STATUS" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextoClaroBrush}"/>
+                                        <TextBlock x:Name="txtDetalheVendaStatus" FontSize="14" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2" Margin="0,0,10,0">
+                                        <TextBlock Text="CUPOM" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextoClaroBrush}"/>
+                                        <TextBlock x:Name="txtDetalheVendaCupomDetalhe" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <!-- Valores -->
+                            <Grid Margin="0,15,0,15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0" Background="#E8F5E9" Padding="15" CornerRadius="8" Margin="0,0,8,0">
+                                    <StackPanel>
+                                        <TextBlock Text="SUBTOTAL" FontSize="11" FontWeight="Bold" Foreground="#2E7D32" HorizontalAlignment="Center"/>
+                                        <TextBlock x:Name="txtDetalheVendaSubtotal" Text="R$ 0,00" FontSize="16" FontWeight="Black" Foreground="#2E7D32" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Column="1" Background="#FFF3E0" Padding="15" CornerRadius="8" Margin="8,0">
+                                    <StackPanel>
+                                        <TextBlock Text="DESCONTO" FontSize="11" FontWeight="Bold" Foreground="#E65100" HorizontalAlignment="Center"/>
+                                        <TextBlock x:Name="txtDetalheVendaDesconto" Text="R$ 0,00" FontSize="16" FontWeight="Black" Foreground="#E65100" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Column="2" Background="#E3F2FD" Padding="15" CornerRadius="8" Margin="8,0,0,0">
+                                    <StackPanel>
+                                        <TextBlock Text="TOTAL" FontSize="11" FontWeight="Bold" Foreground="#1565C0" HorizontalAlignment="Center"/>
+                                        <TextBlock x:Name="txtDetalheVendaTotal" Text="R$ 0,00" FontSize="20" FontWeight="Black" Foreground="#1565C0" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                            <!-- Itens -->
+                            <TextBlock Text="ITENS DA VENDA" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14" Margin="0,20,0,10"/>
+                            <ListBox x:Name="listaDetalheItens" Background="Transparent" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="200">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Padding="10" BorderBrush="{StaticResource OuroClaroBrush}" BorderThickness="0,0,0,1" Background="#FAFDFCEF">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="{Binding nome}" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" FontSize="13" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding quantidade, StringFormat='{} {0} un'}" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="13" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                                <TextBlock Grid.Column="2" Text="{Binding preco_unitario, StringFormat='R$ {0:N2}'}" Foreground="{StaticResource PrimariaBrush}" FontWeight="Bold" FontSize="13" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                                <TextBlock Grid.Column="3" Text="{Binding subtotal, StringFormat='R$ {0:N2}'}" Foreground="{StaticResource PrimariaBrush}" FontWeight="Black" FontSize="13" VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <!-- Pagamentos -->
+                            <TextBlock Text="PAGAMENTOS" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="14" Margin="0,20,0,10"/>
+                            <ListBox x:Name="listaDetalhePagamentos" Background="Transparent" BorderThickness="0">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Padding="10,8" Background="#E8F5E9" CornerRadius="6" Margin="0,0,0,5" BorderBrush="#2E7D32" BorderThickness="1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="{Binding metodo}" FontWeight="Bold" Foreground="#2E7D32" FontSize="13" VerticalAlignment="Center"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding valor, StringFormat='R$ {0:N2}'}" FontWeight="Black" Foreground="#2E7D32" FontSize="13" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <!-- Footer -->
+                    <Border Grid.Row="2" Background="#F5F5F5" CornerRadius="0,0,12,12" Padding="18,12">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="[ ESC ] Voltar" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                            <Button Content="FECHAR" Style="{StaticResource SecondaryButton}" FontSize="13" FontWeight="Bold" Padding="24,10" Click="FecharDetalhesVenda_Click" Cursor="Hand"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Border>
 
-                    <TextBlock Grid.Row="0" Text="TROCAS E DEVOLUÇÕES" Foreground="#A45FCE" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+<!-- OVERLAY ITEM AVULSO (F4) -->
+        <Border x:Name="OverlayItemAvulso" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100" KeyDown="OverlayItemAvulso_KeyDown" Focusable="True">
+            <Border Width="520" Height="580" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- Header -->
+                    <Border Grid.Row="0" Background="{StaticResource PrimariaBrush}" CornerRadius="12,12,0,0" Padding="25,18">
+                        <TextBlock Text="ITEM AVULSO" Foreground="{StaticResource BrancoBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center"/>
+                    </Border>
+                    <!-- Content -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="20,20">
+                        <StackPanel>
+                            <TextBlock Text="Descrição *" Foreground="{StaticResource TextoPrincipalBrush}" FontWeight="SemiBold" Margin="0,0,0,6" FontSize="14"/>
+                            <TextBox x:Name="txtItemAvulsoDesc" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" Padding="12,10" Background="#FDFCEF" BorderBrush="{StaticResource BordaBrush}" BorderThickness="1" PreviewKeyDown="txtItemAvulso_PreviewKeyDown"/>
+                            <TextBlock Text="Complemento" Foreground="{StaticResource TextoPrincipalBrush}" FontWeight="SemiBold" Margin="0,18,0,6" FontSize="14"/>
+                            <TextBox x:Name="txtItemAvulsoComp" FontSize="16" Foreground="{StaticResource TintaBrush}" Padding="12,10" Background="#FDFCEF" BorderBrush="{StaticResource BordaBrush}" BorderThickness="1" PreviewKeyDown="txtItemAvulso_PreviewKeyDown"/>
+                            <Grid Margin="0,18,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                                    <TextBlock Text="Quantidade" Foreground="{StaticResource TextoPrincipalBrush}" FontWeight="SemiBold" FontSize="14"/>
+                                    <TextBox x:Name="txtItemAvulsoQtd" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" Padding="12,10" Background="#FDFCEF" BorderBrush="{StaticResource BordaBrush}" BorderThickness="1" Text="1" TextAlignment="Center" TextChanged="txtItemAvulso_TextChanged" PreviewKeyDown="txtItemAvulso_PreviewKeyDown"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                                    <TextBlock Text="Preço Unitário (R$)" Foreground="{StaticResource TextoPrincipalBrush}" FontWeight="SemiBold" FontSize="14"/>
+                                    <TextBox x:Name="txtItemAvulsoPreco" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" Padding="12,10" Background="#FDFCEF" BorderBrush="{StaticResource BordaBrush}" BorderThickness="1" TextAlignment="Right" TextChanged="txtItemAvulso_TextChanged" PreviewKeyDown="txtItemAvulso_PreviewKeyDown"/>
+                                </StackPanel>
+                            </Grid>
+                            <Border Margin="0,20,0,0" Padding="18" Background="#FFF8F5E5" CornerRadius="8" BorderBrush="{StaticResource OuroClaroBrush}" BorderThickness="1.5">
+                                <Grid>
+                                    <TextBlock Text="TOTAL:" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}"/>
+                                    <TextBlock x:Name="txtItemAvulsoTotal" Text="R$ 0,00" FontSize="28" FontWeight="Black" Foreground="{StaticResource PrimariaBrush}" HorizontalAlignment="Right"/>
+                                </Grid>
+                            </Border>
+                            <TextBlock Text="Atalho: Digite 'Novo' no campo de busca para limpar a venda atual" Foreground="{StaticResource TextoClaroBrush}" FontSize="11" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <!-- Footer -->
+                    <Border Grid.Row="2" Background="#F5F5F5" CornerRadius="0,0,12,12" Padding="18,12">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="[ ESC ] Cancelar" Foreground="{StaticResource TextoClaroBrush}" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                            <Button Content="CONFIRMAR (Enter)" Style="{StaticResource PrimaryButton}" FontSize="14" FontWeight="Black" Padding="24,12" Click="ConfirmarItemAvulso_Click" Cursor="Hand"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Border>
 
-                    <Grid Grid.Row="1" Margin="0,0,0,15">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBox x:Name="txtBuscaCupomTroca" Grid.Column="0" FontSize="18" FontWeight="Bold" Foreground="#2A1143" Padding="10,8" Background="#E6E0ED" BorderThickness="0" Margin="0,0,10,0" KeyDown="TxtBuscaCupomTroca_KeyDown"/>
-                        <Button x:Name="btnBuscarCupom" Grid.Column="1" Content="BUSCAR CUPOM" Background="#5E3A7D" Foreground="White" FontWeight="Bold" Padding="15,0" Click="BtnBuscarCupom_Click" Cursor="Hand">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="8"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
+        <!-- OVERLAY BAIXA CLIENTES (F6) -->
+        <Border x:Name="OverlayBaixaClientes" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100" KeyDown="OverlayBaixaClientes_KeyDown" Focusable="True">
+            <Border Width="880" Height="650" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- Header -->
+                    <Border Grid.Row="0" Background="{StaticResource PrimariaBrush}" CornerRadius="12,12,0,0" Padding="25,18">
+                        <TextBlock Text="BAIXA DE CLIENTES / CREDIÁRIO" Foreground="{StaticResource BrancoBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center"/>
+                    </Border>
+                    <!-- Content -->
+                    <Grid Grid.Row="1" Margin="25,20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!-- Search -->
+                        <Grid Grid.Row="0" Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="txtBaixaClienteID" Grid.Column="0" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" Padding="12,10" Background="#FDFCEF" BorderBrush="{StaticResource BordaBrush}" BorderThickness="1" KeyDown="txtBaixaClienteID_KeyDown"/>
+                            <TextBlock Grid.Column="1" Text="[ F2 ] Buscar" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                        </Grid>
+                        <!-- Summary cards -->
+                        <Grid Grid.Row="1" Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Background="#FFF3E0" Padding="18" CornerRadius="8" BorderBrush="#FFB74D" BorderThickness="1" Margin="0,0,8,0">
+                                <StackPanel>
+                                    <TextBlock Text="EM ATRASO (>30 dias)" FontSize="12" FontWeight="Bold" Foreground="#E65100" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="txtBaixaAtraso" Text="R$ 0,00" FontSize="22" FontWeight="Black" Foreground="#E65100" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Column="1" Margin="8,0,0,0" Background="#E8F5E9" Padding="18" CornerRadius="8" BorderBrush="#66BB6A" BorderThickness="1">
+                                <StackPanel>
+                                    <TextBlock Text="EM ABERTO" FontSize="12" FontWeight="Bold" Foreground="#2E7D32" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="txtBaixaAberto" Text="R$ 0,00" FontSize="22" FontWeight="Black" Foreground="#2E7D32" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                        <!-- List -->
+                        <ListBox x:Name="listaBaixaClientes" Grid.Row="2" Background="Transparent" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Padding="12,10" BorderBrush="{StaticResource OuroClaroBrush}" BorderThickness="0,0,0,1">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="90"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="130"/>
+                                                <ColumnDefinition Width="110"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding Documento}" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" FontSize="13" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Data, StringFormat='dd/MM/yyyy HH:mm'}" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="13" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding Valor, StringFormat='R$ {0:N2}'}" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                            <TextBlock Grid.Column="3" Text="{Binding Situacao}" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Situacao}" Value="pendente">
+                                                                <Setter Property="Foreground" Value="#E65100"/>
+                                                                <Setter Property="FontWeight" Value="Bold"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </Grid>
+                    <!-- Footer -->
+                    <Border Grid.Row="2" Background="#F5F5F5" CornerRadius="0,0,12,12" Padding="18,12">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="[ F3 ] Efetuar Lançamento" Style="{StaticResource DangerButton}" FontSize="13" FontWeight="Bold" Padding="14,8" Click="btnEfetuarLancamento_Click" Cursor="Hand" Margin="0,0,8,0"/>
+                            <Button Content="Mostrar Todas" Style="{StaticResource SecondaryButton}" FontSize="13" FontWeight="Bold" Padding="14,8" Click="btnMostrarTodas_Click" Cursor="Hand" Margin="0,0,8,0"/>
+                            <Button Content="Exportar PDF" Style="{StaticResource PrimaryButton}" FontSize="13" FontWeight="Bold" Padding="14,8" Click="btnExportarPDFBaixa_Click" Cursor="Hand" Margin="0,0,8,0"/>
+                            <Button Content="Enviar E-mail" Style="{StaticResource PrimaryButton}" FontSize="13" FontWeight="Bold" Padding="14,8" Click="btnEnviarEmailBaixa_Click" Cursor="Hand" Margin="0,0,8,0"/>
+                            <TextBlock Text="[ ESC ] Fechar   [ F3 ] Lançar" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Border>
 
-                    <!-- LISTA DE PRODUTOS DA VENDA -->
-                    <ListBox x:Name="listaItensCupom" Grid.Row="2" Background="Transparent" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,0,0,15" SelectionMode="Multiple" KeyDown="ListaItensCupom_KeyDown">
+        <!-- OVERLAY MEU CAIXA (F7) -->
+        <Border x:Name="OverlayMeuCaixa" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100" KeyDown="OverlayMeuCaixa_KeyDown" Focusable="True">
+            <Border Width="750" Height="650" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="MEU CAIXA" Foreground="{StaticResource PrimariaBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <TextBlock Text="VENDAS DE HOJE POR TIPO" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="16" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Border Grid.Row="0" Grid.Column="0" Background="#E8F5E9" Padding="15" Margin="0,0,5,5" CornerRadius="8">
+                                    <StackPanel>
+                                        <TextBlock Text="DINHEIRO" FontSize="12" FontWeight="Bold" Foreground="#2E7D32" HorizontalAlignment="Center"/>
+                                        <TextBlock x:Name="txtCaixaDinheiro" Text="R$ 0,00" FontSize="18" FontWeight="Black" Foreground="#2E7D32" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Row="0" Grid.Column="1" Background="#E3F2FD" Padding="15" Margin="5,0,0,5" CornerRadius="8">
+                                    <StackPanel>
+                                        <TextBlock Text="CARTÃO CRÉDITO" FontSize="12" FontWeight="Bold" Foreground="#1565C0" HorizontalAlignment="Center"/>
+                                        <TextBlock x:Name="txtCaixaCredito" Text="R$ 0,00" FontSize="18" FontWeight="Black" Foreground="#1565C0" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Row="1" Grid.Column="0" Background="#E0F2F1" Padding="15" Margin="0,5,5,5" CornerRadius="8">
+                                    <StackPanel>
+                                        <TextBlock Text="CARTÃO DÉBITO" FontSize="12" FontWeight="Bold" Foreground="#00695C" HorizontalAlignment="Center"/>
+                                        <TextBlock x:Name="txtCaixaDebito" Text="R$ 0,00" FontSize="18" FontWeight="Black" Foreground="#00695C" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Row="1" Grid.Column="1" Background="#F3E5F5" Padding="15" Margin="5,5,0,5" CornerRadius="8">
+                                    <StackPanel>
+                                        <TextBlock Text="PIX" FontSize="12" FontWeight="Bold" Foreground="#6A1B9A" HorizontalAlignment="Center"/>
+                                        <TextBlock x:Name="txtCaixaPix" Text="R$ 0,00" FontSize="18" FontWeight="Black" Foreground="#6A1B9A" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Row="2" Grid.Column="0" Background="#FFF3E0" Padding="15" Margin="0,5,5,5" CornerRadius="8" Grid.ColumnSpan="2">
+                                    <StackPanel>
+                                        <TextBlock Text="CREDIÁRIO" FontSize="12" FontWeight="Bold" Foreground="#E65100" HorizontalAlignment="Center"/>
+                                        <TextBlock x:Name="txtCaixaCrediario" Text="R$ 0,00" FontSize="18" FontWeight="Black" Foreground="#E65100" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                            <Border Grid.Row="3" Grid.ColumnSpan="2" Background="#FFF8E1" Padding="15" Margin="0,15,0,5" CornerRadius="8" BorderBrush="{StaticResource OuroClaroBrush}" BorderThickness="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="TOTAL VENDAS" FontSize="12" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}" HorizontalAlignment="Center"/>
+                                        <TextBlock x:Name="txtCaixaTotal" Text="R$ 0,00" FontSize="20" FontWeight="Black" Foreground="{StaticResource PrimariaBrush}" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="SALDO ABERTURA" FontSize="12" FontWeight="Bold" Foreground="{StaticResource TextoClaroBrush}" HorizontalAlignment="Center"/>
+                                        <TextBlock x:Name="txtCaixaAbertura" Text="R$ 0,00" FontSize="16" FontWeight="Bold" Foreground="{StaticResource TextoClaroBrush}" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <Border Background="#F5F5F5" Padding="15" Margin="0,10,0,5" CornerRadius="8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="SUPRIMENTOS" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextoClaroBrush}" HorizontalAlignment="Center"/>
+                                        <TextBlock x:Name="txtCaixaSuprimentos" Text="R$ 0,00" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoClaroBrush}" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="SANGRIAS" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextoClaroBrush}" HorizontalAlignment="Center"/>
+                                        <TextBlock x:Name="txtCaixaSangrias" Text="R$ 0,00" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoClaroBrush}" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="ESPERADO NA GAVETA" FontSize="11" FontWeight="Bold" Foreground="{StaticResource PrimariaBrush}" HorizontalAlignment="Center"/>
+                                        <TextBlock x:Name="txtCaixaEsperado" Text="R$ 0,00" FontSize="16" FontWeight="Black" Foreground="{StaticResource PrimariaBrush}" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                        <Button Content="[ F3 ] Suprimento" Background="#2E7D32" Foreground="{StaticResource BrancoBrush}" FontWeight="Bold" Padding="12,8" Click="btnSuprimento_Click" Cursor="Hand" Margin="0,0,8,0" Style="{StaticResource PrimaryButton}"/>
+                        <Button Content="[ F4 ] Sangria" Background="#E65100" Foreground="{StaticResource BrancoBrush}" FontWeight="Bold" Padding="12,8" Click="btnSangria_Click" Cursor="Hand" Margin="0,0,8,0" Style="{StaticResource DangerButton}"/>
+                        <Button Content="[ F5 ] Fechar Caixa" Background="{StaticResource PrimariaBrush}" Foreground="{StaticResource BrancoBrush}" FontWeight="Bold" Padding="12,8" Click="btnFecharCaixa_Click" Cursor="Hand" Margin="0,0,8,0" Style="{StaticResource PrimaryButton}"/>
+                        <Button Content="Imprimir/PDF" Background="#1565C0" Foreground="{StaticResource BrancoBrush}" FontWeight="Bold" Padding="12,8" Click="btnImprimirCaixa_Click" Cursor="Hand" Margin="0,0,8,0" Style="{StaticResource PrimaryButton}"/>
+                        <Button Content="Enviar E-mail" Background="#2E7D32" Foreground="{StaticResource BrancoBrush}" FontWeight="Bold" Padding="12,8" Click="btnEnviarEmailCaixa_Click" Cursor="Hand" Margin="0,0,8,0" Style="{StaticResource PrimaryButton}"/>
+                        <TextBlock Text="[ ESC ] Voltar" Foreground="{StaticResource TextoClaroBrush}" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+
+        <!-- OVERLAY MENU MULTIFUNÇÃO (F10) -->
+        <Border x:Name="OverlayMenuMultifuncao" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100" KeyDown="MenuMultifuncao_KeyDown" Focusable="True">
+            <Border Width="560" Height="680" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- Header -->
+                    <Border Grid.Row="0" Background="{StaticResource PrimariaBrush}" CornerRadius="12,12,0,0" Padding="25,18">
+                        <TextBlock Text="MENU MULTIFUNÇÃO" Foreground="{StaticResource BrancoBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center"/>
+                    </Border>
+                    <!-- Content with ScrollViewer -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="20,15">
+                        <StackPanel>
+                            <Button Content="[ F2 ]  Cliente" Style="{StaticResource PrimaryButton}" FontSize="15" FontWeight="SemiBold" Padding="18,12" Margin="0,4" HorizontalAlignment="Stretch" Cursor="Hand" Click="Menu_F2_Cliente_Click"/>
+                            <Button Content="[ F3 ]  Produto" Style="{StaticResource PrimaryButton}" FontSize="15" FontWeight="SemiBold" Padding="18,12" Margin="0,4" HorizontalAlignment="Stretch" Cursor="Hand" Click="Menu_F3_Produto_Click"/>
+                            <Button Content="[ F4 ]  Gerar NFe Diversa" Style="{StaticResource SecondaryButton}" FontSize="15" FontWeight="SemiBold" Padding="18,12" Margin="0,4" HorizontalAlignment="Stretch" Cursor="Hand" Click="Menu_F4_NFe_Click"/>
+                            <Button Content="[ F5 ]  Meu Caixa" Style="{StaticResource PrimaryButton}" FontSize="15" FontWeight="SemiBold" Padding="18,12" Margin="0,4" HorizontalAlignment="Stretch" Cursor="Hand" Click="Menu_F5_Caixa_Click"/>
+                            <Button Content="[ F6 ]  Treinamento" Style="{StaticResource SecondaryButton}" FontSize="15" FontWeight="SemiBold" Padding="18,12" Margin="0,4" HorizontalAlignment="Stretch" Cursor="Hand" Click="Menu_F6_Treinamento_Click"/>
+                            <Button Content="[ F7 ]  Gráficos" Style="{StaticResource SecondaryButton}" FontSize="15" FontWeight="SemiBold" Padding="18,12" Margin="0,4" HorizontalAlignment="Stretch" Cursor="Hand" Click="Menu_F7_Graficos_Click"/>
+                            <Button Content="[ F8 ]  Troca/Devolução" Style="{StaticResource SecondaryButton}" FontSize="15" FontWeight="SemiBold" Padding="18,12" Margin="0,4" HorizontalAlignment="Stretch" Cursor="Hand" Click="Menu_F8_Troca_Click"/>
+                            <Button Content="[ F9 ]  Baixa Clientes" Style="{StaticResource PrimaryButton}" FontSize="15" FontWeight="SemiBold" Padding="18,12" Margin="0,4" HorizontalAlignment="Stretch" Cursor="Hand" Click="Menu_F9_Baixa_Click"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <!-- Footer -->
+                    <Border Grid.Row="2" Background="#F5F5F5" CornerRadius="0,0,12,12" Padding="18,12">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="[ ESC ] Voltar" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                            <Button Content="FECHAR" Style="{StaticResource SecondaryButton}" FontSize="13" FontWeight="Bold" Padding="20,8" Click="FecharMenuMultifuncao_Click" Cursor="Hand"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Border>
+
+        <!-- OVERLAY ENCERRAR (F11) -->
+        <Border x:Name="OverlayEncerrar" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100">
+            <Border Width="400" Height="250" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="ENCERRAR SISTEMA" Foreground="#D43D3D" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+                    <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                        <TextBlock Text="Tem certeza que deseja encerrar completamente o sistema?" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="16" FontWeight="SemiBold" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBlock Text="Todas as janelas serão fechadas." Foreground="{StaticResource TextoClaroBrush}" FontSize="13" TextAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                        <Button Content="CANCELAR (ESC)" Background="{StaticResource TextoClaroBrush}" Foreground="{StaticResource BrancoBrush}" FontWeight="Bold" Padding="20,10" Click="FecharTelaEncerrar_Click" Cursor="Hand" Margin="0,0,15,0" Style="{StaticResource SecondaryButton}"/>
+                        <Button x:Name="btnConfirmarEncerrar" Content="CONFIRMAR" Background="#D43D3D" Foreground="{StaticResource BrancoBrush}" FontWeight="Black" Padding="20,10" Click="btnConfirmarEncerrar_Click" Cursor="Hand" Style="{StaticResource DangerButton}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+
+        <!-- OVERLAY PROMOÇÃO (F12) -->
+        <Border x:Name="OverlayPromocao" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100">
+            <Border Width="600" Height="500" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="PROMOÇÕES ATIVAS" Foreground="{StaticResource PrimariaBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+                    <ListBox x:Name="listaPromocoes" Grid.Row="1" Background="Transparent" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border Padding="10" BorderBrush="#225E3A7D" BorderThickness="0,0,0,1">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <!-- Coluna da CheckBox -->
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <!-- CheckBox conectada nativamente com a seleção do item -->
-                                        <CheckBox Grid.Column="0" VerticalAlignment="Center" Margin="0,0,15,0" 
-                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}"
-                                                  Focusable="False">
-                                            <CheckBox.LayoutTransform>
-                                                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-                                            </CheckBox.LayoutTransform>
-                                        </CheckBox>
-
-                                        <TextBlock Grid.Column="1" Text="{Binding nome}" FontSize="16" FontWeight="Bold" Foreground="#2A1143" VerticalAlignment="Center"/>
-
-                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                            <TextBlock Text="{Binding quantidade_comprada, StringFormat={}{0} un compradas}" FontSize="14" FontWeight="Bold" Foreground="#5E3A7D" VerticalAlignment="Center" Margin="0,0,15,0"/>
-                                            <TextBlock Text="{Binding preco_unitario, StringFormat=R$ {0:N2}}" FontSize="16" FontWeight="Black" Foreground="#A45FCE" VerticalAlignment="Center"/>
+                                <Border Padding="15" Margin="0,0,0,10" Background="#FFF8F5E5" CornerRadius="8" BorderBrush="{StaticResource OuroClaroBrush}" BorderThickness="1.5">
+                                    <StackPanel>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding nome_campanha}" FontSize="18" FontWeight="Black" Foreground="{StaticResource PrimariaBrush}"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding maxima_desconto}" FontSize="16" FontWeight="Bold" Foreground="#E65100" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                        </Grid>
+                                        <TextBlock Text="{Binding descricao}" FontSize="14" Foreground="{StaticResource TextoPrincipalBrush}" Margin="0,5,0,0" TextWrapping="Wrap"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                            <TextBlock Text="Início: " FontWeight="SemiBold" Foreground="{StaticResource TextoClaroBrush}" FontSize="12"/>
+                                            <TextBlock Text="{Binding data_inicio, StringFormat='dd/MM/yyyy'}" Foreground="{StaticResource TextoClaroBrush}" FontSize="12"/>
+                                            <TextBlock Text="  |  Fim: " FontWeight="SemiBold" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="10,0,0,0"/>
+                                            <TextBlock Text="{Binding data_final, StringFormat='dd/MM/yyyy'}" Foreground="{StaticResource TextoClaroBrush}" FontSize="12"/>
+                                            <TextBlock Text="  |  Mín: " FontWeight="SemiBold" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="10,0,0,0"/>
+                                            <TextBlock Text="{Binding valor_minimo, StringFormat='R$ {0:N2}'}" Foreground="{StaticResource TextoClaroBrush}" FontSize="12"/>
+                                            <TextBlock Text="  |  Segmento: " FontWeight="SemiBold" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="10,0,0,0"/>
+                                            <TextBlock Text="{Binding segmento_produtos}" Foreground="{StaticResource TextoClaroBrush}" FontSize="12"/>
                                         </StackPanel>
-                                    </Grid>
+                                    </StackPanel>
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
+                    <TextBlock Grid.Row="2" Text="[ ESC ] Fechar" Foreground="{StaticResource TextoClaroBrush}" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                </Grid>
+</Border>
+        </Border>
 
-                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
-                        <TextBlock Text="Qtd a Trocar:" VerticalAlignment="Center" FontWeight="Bold" Foreground="#5E3A7D" Margin="0,0,10,0"/>
-                        <TextBox x:Name="txtQtdTroca" Width="60" FontSize="18" FontWeight="Black" Foreground="#2A1143" Padding="5" Background="#E6E0ED" BorderThickness="0" TextAlignment="Center" Margin="0,0,20,0" Text="1" KeyDown="TxtQtdTroca_KeyDown"/>
+        <!-- OVERLAY CLIENTE (F2 do Menu) -->
+        <Border x:Name="OverlayCliente" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100" KeyDown="OverlayCliente_KeyDown" Focusable="True">
+            <Border Width="500" Height="550" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="{StaticResource PrimariaBrush}" CornerRadius="12,12,0,0" Padding="25,18">
+                        <TextBlock Text="CLIENTES" Foreground="{StaticResource BrancoBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="20,20">
+                        <StackPanel>
+                            <TextBlock Text="Buscar Cliente" Foreground="{StaticResource TextoPrincipalBrush}" FontWeight="SemiBold" Margin="0,0,0,6" FontSize="14"/>
+                            <TextBox x:Name="txtClienteBusca" FontSize="16" Foreground="{StaticResource TintaBrush}" Padding="12,10" Background="#FDFCEF" BorderBrush="{StaticResource BordaBrush}" BorderThickness="1" KeyDown="txtClienteBusca_KeyDown"/>
+                            <TextBlock Text="Ou cadastrar novo:" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="0,18,0,6"/>
+                            <TextBox x:Name="txtClienteNovoNome" FontSize="16" Foreground="{StaticResource TintaBrush}" Padding="12,10" Background="#FDFCEF" BorderBrush="{StaticResource BordaBrush}" BorderThickness="1" KeyDown="txtClienteNovo_KeyDown"/>
+                            <TextBlock x:Name="txtClienteResultado" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="13" Margin="0,15,0,0" TextWrapping="Wrap" Visibility="Collapsed"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Border Grid.Row="2" Background="#F5F5F5" CornerRadius="0,0,12,12" Padding="18,12">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="[ ESC ] Voltar" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                            <Button Content="FECHAR" Style="{StaticResource SecondaryButton}" FontSize="13" FontWeight="Bold" Padding="20,8" Click="FecharOverlayCliente_Click" Cursor="Hand"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Border>
 
-                        <TextBlock Text="Ação:" VerticalAlignment="Center" FontWeight="Bold" Foreground="#5E3A7D" Margin="0,0,10,0"/>
-                        <ComboBox x:Name="cmbTipoTroca" FontSize="16" FontWeight="Bold" Foreground="#2A1143" Padding="10,5" SelectedIndex="0" KeyDown="CmbTipoTroca_KeyDown">
-                            <ComboBoxItem Content="Troca (Gerar Desconto na Próxima)"/>
-                            <ComboBoxItem Content="Devolução (Estornar Dinheiro)"/>
-                        </ComboBox>
-                    </StackPanel>
+        <!-- OVERLAY PRODUTO (F3 do Menu) -->
+        <Border x:Name="OverlayProduto" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100" KeyDown="OverlayProduto_KeyDown" Focusable="True">
+            <Border Width="500" Height="500" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="{StaticResource PrimariaBrush}" CornerRadius="12,12,0,0" Padding="25,18">
+                        <TextBlock Text="PRODUTOS" Foreground="{StaticResource BrancoBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="20,20">
+                        <StackPanel>
+                            <TextBlock Text="Buscar por Código de Barras ou ID" Foreground="{StaticResource TextoPrincipalBrush}" FontWeight="SemiBold" Margin="0,0,0,6" FontSize="14"/>
+                            <TextBox x:Name="txtProdutoBusca" FontSize="16" Foreground="{StaticResource TintaBrush}" Padding="12,10" Background="#FDFCEF" BorderBrush="{StaticResource BordaBrush}" BorderThickness="1" KeyDown="txtProdutoBusca_KeyDown"/>
+                            <TextBlock x:Name="txtProdutoResultado" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="13" Margin="0,15,0,0" TextWrapping="Wrap" Visibility="Collapsed"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Border Grid.Row="2" Background="#F5F5F5" CornerRadius="0,0,12,12" Padding="18,12">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="[ ESC ] Voltar" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                            <Button Content="FECHAR" Style="{StaticResource SecondaryButton}" FontSize="13" FontWeight="Bold" Padding="20,8" Click="FecharOverlayProduto_Click" Cursor="Hand"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Border>
 
-                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="[ ESC ] Fechar" Foreground="#885E3A7D" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
-                        <Button Content="CONFIRMAR OPERAÇÃO" Background="#A45FCE" Foreground="White" FontWeight="Black" Padding="15,10" Click="BtnConfirmarTroca_Click" Cursor="Hand">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="8"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
-                    </StackPanel>
+        <!-- OVERLAY NFE DIVERSA (F4 do Menu) -->
+        <Border x:Name="OverlayNFeDiversa" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100" KeyDown="OverlayNFeDiversa_KeyDown" Focusable="True">
+            <Border Width="480" Height="350" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="{StaticResource PrimariaBrush}" CornerRadius="12,12,0,0" Padding="25,18">
+                        <TextBlock Text="GERAR NFE DIVERSA" Foreground="{StaticResource BrancoBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="20,20">
+                        <StackPanel>
+                            <TextBlock Text="Funcionalidade em desenvolvimento" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,20"/>
+                            <TextBlock Text="A geração de NF-e para vendas diversas será implementada em breve." Foreground="{StaticResource TextoClaroBrush}" FontSize="13" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
+                            <Border Margin="0,25,0,0" Padding="15" Background="#FFF8F5E5" CornerRadius="8" BorderBrush="{StaticResource OuroClaroBrush}" BorderThickness="1.5">
+                                <StackPanel>
+                                    <TextBlock Text="Recursos previstos:" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="13"/>
+                                    <TextBlock Text="• Emissão de NF-e para consumidor final" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="0,5,0,0"/>
+                                    <TextBlock Text="• Emissão de NF-e para PJ (com CPF/CNPJ)" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="0,5,0,0"/>
+                                    <TextBlock Text="• Integração com SEFAZ" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="0,5,0,0"/>
+                                    <TextBlock Text="• Impressão DANFE" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Border Grid.Row="2" Background="#F5F5F5" CornerRadius="0,0,12,12" Padding="18,12">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="[ ESC ] Voltar" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                            <Button Content="FECHAR" Style="{StaticResource SecondaryButton}" FontSize="13" FontWeight="Bold" Padding="20,8" Click="FecharOverlayNFeDiversa_Click" Cursor="Hand"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Border>
+
+        <!-- OVERLAY TREINAMENTO (F6 do Menu) -->
+        <Border x:Name="OverlayTreinamento" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100" KeyDown="OverlayTreinamento_KeyDown" Focusable="True">
+            <Border Width="480" Height="350" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="{StaticResource PrimariaBrush}" CornerRadius="12,12,0,0" Padding="25,18">
+                        <TextBlock Text="TREINAMENTO" Foreground="{StaticResource BrancoBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="20,20">
+                        <StackPanel>
+                            <TextBlock Text="Manual do Usuário e Treinamento" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,20"/>
+                            <TextBlock Text="Acesse o manual completo e vídeos de treinamento:" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,20"/>
+                            <Border Padding="15" Background="#E3F2FD" CornerRadius="8" BorderBrush="#1565C0" BorderThickness="1.5">
+                                <StackPanel>
+                                    <TextBlock Text="📖 Manual PDF" FontWeight="Bold" Foreground="#1565C0" FontSize="13" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Disponível em: ajuda.tpace.com.br" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                    <TextBlock Text="🎥 Vídeos de Treinamento" FontWeight="Bold" Foreground="#1565C0" FontSize="13" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                                    <TextBlock Text="YouTube: T-PACE Oficial" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Border Grid.Row="2" Background="#F5F5F5" CornerRadius="0,0,12,12" Padding="18,12">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="[ ESC ] Voltar" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                            <Button Content="FECHAR" Style="{StaticResource SecondaryButton}" FontSize="13" FontWeight="Bold" Padding="20,8" Click="FecharOverlayTreinamento_Click" Cursor="Hand"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Border>
+
+        <!-- OVERLAY GRÁFICOS (F7 do Menu) -->
+        <Border x:Name="OverlayGraficos" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100" KeyDown="OverlayGraficos_KeyDown" Focusable="True">
+            <Border Width="480" Height="350" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="{StaticResource PrimariaBrush}" CornerRadius="12,12,0,0" Padding="25,18">
+                        <TextBlock Text="GRÁFICOS E RELATÓRIOS" Foreground="{StaticResource BrancoBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="20,20">
+                        <StackPanel>
+                            <TextBlock Text="Em desenvolvimento" Foreground="{StaticResource TextoPrincipalBrush}" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,20"/>
+                            <TextBlock Text="Esta funcionalidade permitirá visualizar:" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,15"/>
+                            <Border Padding="15" Background="#E8F5E9" CornerRadius="8" BorderBrush="#2E7D32" BorderThickness="1.5">
+                                <StackPanel>
+                                    <TextBlock Text="📊 Faturamento diário/semanal/mensal" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="0,3,0,0"/>
+                                    <TextBlock Text="💳 Vendas por forma de pagamento" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="0,3,0,0"/>
+                                    <TextBlock Text="🏆 Produtos mais vendidos" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="0,3,0,0"/>
+                                    <TextBlock Text="🏪 Desempenho por filial/caixa" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="0,3,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Border Grid.Row="2" Background="#F5F5F5" CornerRadius="0,0,12,12" Padding="18,12">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="[ ESC ] Voltar" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                            <Button Content="FECHAR" Style="{StaticResource SecondaryButton}" FontSize="13" FontWeight="Bold" Padding="20,8" Click="FecharOverlayGraficos_Click" Cursor="Hand"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Border>
+
+        <!-- OVERLAY TROCA/DEVOLUÇÃO (F8 do Menu) -->
+        <Border x:Name="OverlayTrocaDevolucao" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="100" KeyDown="OverlayTrocaDevolucao_KeyDown" Focusable="True">
+            <Border Width="480" Height="350" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="{StaticResource PrimariaBrush}" CornerRadius="12,12,0,0" Padding="25,18">
+                        <TextBlock Text="TROCA E DEVOLUÇÃO" Foreground="{StaticResource BrancoBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="20,20">
+                        <StackPanel>
+                            <TextBlock Text="Funcionalidade removida" Foreground="#E65100" FontSize="16" FontWeight="Black" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,20"/>
+                            <TextBlock Text="A funcionalidade de Troca e Devolução foi removida do sistema." Foreground="{StaticResource TextoClaroBrush}" FontSize="13" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,15"/>
+                            <Border Padding="15" Background="#FFF3E0" CornerRadius="8" BorderBrush="#FFB74D" BorderThickness="1.5">
+                                <StackPanel>
+                                    <TextBlock Text="Alternativas disponíveis:" FontWeight="Bold" Foreground="#E65100" FontSize="13"/>
+                                    <TextBlock Text="• Cancelar item na venda (F3)" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="0,5,0,0"/>
+                                    <TextBlock Text="• Baixa de clientes / Crediário (F6)" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="0,5,0,0"/>
+                                    <TextBlock Text="• Estorno manual via painel admin" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Border Grid.Row="2" Background="#F5F5F5" CornerRadius="0,0,12,12" Padding="18,12">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="[ ESC ] Voltar" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                            <Button Content="FECHAR" Style="{StaticResource SecondaryButton}" FontSize="13" FontWeight="Bold" Padding="20,8" Click="FecharOverlayTrocaDevolucao_Click" Cursor="Hand"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Border>
+
+        <!-- OVERLAY SUPRIMENTO (F3 dentro do Meu Caixa) -->
+        <Border x:Name="OverlaySuprimento" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="101" KeyDown="OverlaySuprimento_KeyDown" Focusable="True">
+            <Border Width="420" Height="320" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#2E7D32" CornerRadius="12,12,0,0" Padding="25,18">
+                        <TextBlock Text="SUPRIMENTO DE CAIXA" Foreground="{StaticResource BrancoBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="20,20">
+                        <StackPanel>
+                            <TextBlock Text="Valor do Suprimento (R$)" Foreground="{StaticResource TextoPrincipalBrush}" FontWeight="SemiBold" Margin="0,0,0,6" FontSize="14"/>
+                            <TextBox x:Name="txtSuprimentoValor" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" Padding="12,12" Background="#FDFCEF" BorderBrush="{StaticResource BordaBrush}" BorderThickness="1" TextAlignment="Center" Text="0,00" KeyDown="txtSuprimentoValor_KeyDown"/>
+                            <TextBlock Text="Entrada de dinheiro no caixa (ex: reforço de troco)" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="0,15,0,0" TextAlignment="Center" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Border Grid.Row="2" Background="#F5F5F5" CornerRadius="0,0,12,12" Padding="18,12">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="[ ESC ] Cancelar" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                            <Button Content="CONFIRMAR (Enter)" Style="{StaticResource PrimaryButton}" FontSize="13" FontWeight="Bold" Padding="24,10" Click="btnConfirmarSuprimento_Click" Cursor="Hand" Background="#2E7D32" BorderBrush="#2E7D32"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Border>
+
+        <!-- OVERLAY SANGRIA (F4 dentro do Meu Caixa) -->
+        <Border x:Name="OverlaySangria" Grid.RowSpan="3" Background="#B21E1915" Visibility="Collapsed" Panel.ZIndex="101" KeyDown="OverlaySangria_KeyDown" Focusable="True">
+            <Border Width="420" Height="320" Background="{StaticResource CardBackground}" CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource Tinta}" Opacity="0.6" BlurRadius="40" ShadowDepth="10"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#E65100" CornerRadius="12,12,0,0" Padding="25,18">
+                        <TextBlock Text="SANGRIA DE CAIXA" Foreground="{StaticResource BrancoBrush}" FontSize="22" FontWeight="Black" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="20,20">
+                        <StackPanel>
+                            <TextBlock Text="Valor da Sangria (R$)" Foreground="{StaticResource TextoPrincipalBrush}" FontWeight="SemiBold" Margin="0,0,0,6" FontSize="14"/>
+                            <TextBox x:Name="txtSangriaValor" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TintaBrush}" Padding="12,12" Background="#FDFCEF" BorderBrush="{StaticResource BordaBrush}" BorderThickness="1" TextAlignment="Center" Text="0,00" KeyDown="txtSangriaValor_KeyDown"/>
+                            <TextBlock Text="Retirada de dinheiro do caixa (ex: depósito bancário)" Foreground="{StaticResource TextoClaroBrush}" FontSize="12" Margin="0,15,0,0" TextAlignment="Center" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Border Grid.Row="2" Background="#F5F5F5" CornerRadius="0,0,12,12" Padding="18,12">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="[ ESC ] Cancelar" Foreground="{StaticResource TextoClaroBrush}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                            <Button Content="CONFIRMAR (Enter)" Style="{StaticResource DangerButton}" FontSize="13" FontWeight="Bold" Padding="24,10" Click="btnConfirmarSangria_Click" Cursor="Hand"/>
+                        </StackPanel>
+                    </Border>
                 </Grid>
             </Border>
         </Border>

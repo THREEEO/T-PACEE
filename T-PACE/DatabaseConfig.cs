@@ -87,6 +87,20 @@ namespace T_PACE
                         CREATE TABLE tb_vendas (id INTEGER PRIMARY KEY AUTOINCREMENT, id_sessao_caixa INTEGER, id_cliente INTEGER, data_hora DATETIME, subtotal DECIMAL(10,2), desconto DECIMAL(10,2), total DECIMAL(10,2), status VARCHAR(15) CHECK(status IN ('pago', 'cancelado', 'pendente')), chave_nfe VARCHAR(44), FOREIGN KEY(id_sessao_caixa) REFERENCES tb_sessao_caixa(id), FOREIGN KEY(id_cliente) REFERENCES tb_clientes(id));
                         CREATE TABLE tb_pagamentos (id INTEGER PRIMARY KEY AUTOINCREMENT, id_venda INTEGER, metodo VARCHAR(20) CHECK(metodo IN ('pix', 'dinheiro', 'cartão de crédito', 'cartão de débito')), valor DECIMAL(10,2), cod_autorizacao_tef VARCHAR(50), FOREIGN KEY(id_venda) REFERENCES tb_vendas(id));
                         CREATE TABLE tb_itens_venda (id INTEGER PRIMARY KEY AUTOINCREMENT, id_venda INTEGER, id_produto INTEGER, quantidade DECIMAL(10,3), preco_unitario DECIMAL(10,2), subtotal DECIMAL(10,2), FOREIGN KEY(id_venda) REFERENCES tb_vendas(id), FOREIGN KEY(id_produto) REFERENCES tb_produtos(id));
+
+                        CREATE TABLE tb_promocoes (
+                            id_promocao INTEGER PRIMARY KEY AUTOINCREMENT,
+                            data_inicio DATE,
+                            data_final DATE,
+                            valor_minimo DECIMAL(10,2),
+                            segmento_produtos VARCHAR(70),
+                            limites VARCHAR(100),
+                            nome_campanha VARCHAR(200),
+                            descricao TEXT,
+                            maxima_desconto VARCHAR(100),
+                            foto TEXT,
+                            produtos_selecionados TEXT
+                        );
                     ";
 
                     connection.Execute(sqlGitHub);
@@ -121,10 +135,8 @@ namespace T_PACE
                 // NOVO: Adiciona a coluna do Cupom Único na tabela de Vendas
                 try { connection.Execute("ALTER TABLE tb_vendas ADD COLUMN id_cupom VARCHAR(25);"); } catch { }
 
-                // NOVO: Cria a tabela de Trocas caso ela ainda não exista no banco local
-                try
-                { connection.Execute(@"CREATE TABLE IF NOT EXISTS tb_trocas (id_troca INTEGER PRIMARY KEY AUTOINCREMENT, tipo_troca VARCHAR(15) CHECK(tipo_troca IN ('troca', 'devolucao')), data_troca DATETIME DEFAULT CURRENT_TIMESTAMP, id_vendedor INTEGER, produto_retornado VARCHAR(20), quantidade DECIMAL(10,3) );"); } catch { }
-                try { connection.Execute("ALTER TABLE tb_trocas ADD COLUMN sincronizado BOOLEAN DEFAULT 0;"); } catch { }
+                // NOVO: Cria tabela de movimentação de caixa (suprimentos/sangrias)
+                try { connection.Execute(@"CREATE TABLE IF NOT EXISTS tb_movimentacao_caixa (id INTEGER PRIMARY KEY AUTOINCREMENT, id_sessao_caixa INTEGER, tipo VARCHAR(20), valor DECIMAL(10,2), data_hora DATETIME DEFAULT CURRENT_TIMESTAMP, descricao TEXT);"); } catch { }
             }
         }
     }

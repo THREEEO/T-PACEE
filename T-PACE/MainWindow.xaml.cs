@@ -26,7 +26,6 @@ namespace T_PACE
             {
                 await SincronizacaoService.SincronizarProdutosAsync();
                 await SincronizacaoService.SincronizarVendasPendentesAsync();
-                await SincronizacaoService.SincronizarTrocasPendentesAsync();
             });
 
             // ATUALIZANDO O PERFIL VISUAL
@@ -59,60 +58,152 @@ namespace T_PACE
         // Adicionamos a palavra 'async' aqui na assinatura do método
         private async void TxtBusca_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            // Teclas de Atalho Globais
+            if (e.Key == Key.F1)
             {
-                string entradaCompleta = txtBusca.Text.Trim();
-                if (!string.IsNullOrEmpty(entradaCompleta))
-                {
-                    BiparProduto(entradaCompleta);
-                }
-            }
-            else if (e.Key == Key.F3)
-            {
-                AbrirTelaCancelamento();
-            }
-            else if (e.Key == Key.F4)
-            {
-                AbrirTelaBusca();
-            }
-            else if (e.Key == Key.F5)
-            {
-                AbrirTelaDesconto();
-            }
-            else if (e.Key == Key.F6)
-            {
-                AbrirTelaTroca();
+                AbrirTelaAjuda();
+                e.Handled = true;
             }
             else if (e.Key == Key.F2)
             {
                 AbrirTelaPagamento();
+                e.Handled = true;
             }
-            // NOVO: Atalho F9 (Fechamento do Caixa)
+            else if (e.Key == Key.F3)
+            {
+                AbrirTelaVendasDia();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F4)
+            {
+                AbrirTelaItemAvulso();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F5)
+            {
+                AbrirTelaBusca();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F6)
+            {
+                AbrirTelaBaixaClientes();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F7)
+            {
+                AbrirTelaMeuCaixa();
+                e.Handled = true;
+            }
             else if (e.Key == Key.F9)
             {
-                AbrirTelaFechamento();
+                MinimizarSistema();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F10)
+            {
+                AbrirMenuMultifuncao();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F11)
+            {
+                await EncerrarSistema();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F12)
+            {
+                AbrirTelaPromocao();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Escape)
+            {
+                FecharOverlayAberto();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Enter)
+            {
+                string entradaCompleta = txtBusca.Text.Trim();
+                if (!string.IsNullOrEmpty(entradaCompleta))
+                {
+                    ProcessarComandoLinha(entradaCompleta);
+                }
+                e.Handled = true;
             }
         }
 
-        private void BiparProduto(string entradaCodigo)
+        private void ProcessarComandoLinha(string entrada)
         {
             try
             {
-                int quantidadeDesejada = 1;
-                string codigoFinal = entradaCodigo;
+                string entradaUpper = entrada.ToUpper().Trim();
 
-                // 1. INTELIGÊNCIA DO MULTIPLICADOR (Ex: 5x123456)
-                if (entradaCodigo.Contains("x") || entradaCodigo.Contains("X"))
+                // COMANDOS ESPECIAIS
+                if (entradaUpper == "NOVO")
                 {
-                    // Quebra a string em duas partes: o que vem antes do X e o que vem depois
-                    string[] partes = entradaCodigo.Split(new char[] { 'x', 'X' }, 2);
+                    NovaVenda();
+                    return;
+                }
 
-                    // Verifica se a primeira parte é realmente um número
-                    if (int.TryParse(partes[0].Trim(), out int qtd) && qtd > 0)
+                // DESCONTO GLOBAL: Des[Valor] ou Des[%]
+                if (entradaUpper.StartsWith("DES"))
+                {
+                    string valorDesconto = entrada.Substring(3).Trim();
+                    if (!string.IsNullOrEmpty(valorDesconto))
+                    {
+                        txtValorDesconto.Text = valorDesconto;
+                        AplicarDescontoManual();
+                    }
+                    else
+                    {
+                        AbrirTelaDesconto();
+                    }
+                    return;
+                }
+
+                // OBS: Complementa descrição do ÚLTIMO item
+                if (entradaUpper.StartsWith("OBS "))
+                {
+                    string obs = entrada.Substring(4).Trim();
+                    if (Carrinho.Count > 0 && !string.IsNullOrEmpty(obs))
+                    {
+                        var ultimoItem = Carrinho.Last();
+                        ultimoItem.Descricao += " " + obs;
+                        listaCupom.Items.Refresh();
+                    }
+                    txtBusca.Clear();
+                    return;
+                }
+
+                // PARSE: quantidade*código ou quantidade x código
+                int quantidadeDesejada = 1;
+                string codigoFinal = entrada;
+                string complementoDescricao = "";
+
+                // Suporta tanto * quanto x/X como multiplicador
+                char[] multiplicadores = { '*', 'x', 'X' };
+                int idxMult = -1;
+                foreach (char m in multiplicadores)
+                {
+                    idxMult = entrada.IndexOf(m);
+                    if (idxMult >= 0) break;
+                }
+
+                if (idxMult > 0)
+                {
+                    string parteQtd = entrada.Substring(0, idxMult).Trim();
+                    if (int.TryParse(parteQtd, out int qtd) && qtd > 0)
                     {
                         quantidadeDesejada = qtd;
-                        codigoFinal = partes[1].Trim(); // O código de barras é o que restou
+                        codigoFinal = entrada.Substring(idxMult + 1).Trim();
                     }
+                }
+
+                // Verifica se há texto após o código (complemento de descrição)
+                // Formato: código descrição (separado por espaço)
+                string[] partesCodigo = codigoFinal.Split(new char[] { ' ' }, 2);
+                if (partesCodigo.Length == 2)
+                {
+                    codigoFinal = partesCodigo[0].Trim();
+                    complementoDescricao = partesCodigo[1].Trim();
                 }
 
                 // 2. BUSCA NO BANCO
@@ -120,99 +211,21 @@ namespace T_PACE
 
                 if (produto != null)
                 {
-                    decimal precoCheio = produto.preco_venda;
-                    decimal descontoDoItem = 0m;
-
-                    if (produto.em_promocao && produto.valor_promocional.HasValue)
-                    {
-                        decimal valorPromo = Convert.ToDecimal(produto.valor_promocional.Value);
-                        if (valorPromo > 0 && valorPromo < precoCheio)
-                        {
-                            descontoDoItem = precoCheio - valorPromo;
-                        }
-                    }
-
-                    decimal precoCobrado = precoCheio - descontoDoItem;
-                    var itemExistente = Carrinho.FirstOrDefault(c => c.Codigo == produto.codigo_barras);
-
-                    if (itemExistente != null)
-                    {
-                        // Soma a quantidadeNova com a que já estava no carrinho
-                        itemExistente.Quantidade += quantidadeDesejada;
-                        itemExistente.Total = itemExistente.Quantidade * precoCobrado;
-                    }
-                    else
-                    {
-                        Carrinho.Add(new ItemCupom
-                        {
-                            IdProduto = produto.id,
-                            Codigo = produto.codigo_barras,
-                            Descricao = produto.nome,
-                            Quantidade = quantidadeDesejada,
-                            PrecoUnitario = precoCheio,
-                            DescontoUnitario = descontoDoItem,
-                            Total = quantidadeDesejada * precoCobrado
-                        });
-                    }
-
-                    txtUltimoNome.Text = produto.nome;
-                    txtUltimoDetalhes.Text = $"Cód: {produto.codigo_barras}  |  Qtd: {quantidadeDesejada} un";
-
-                    // Exibe o preço total cobrado pela quantidade inteira na tela principal
-                    txtUltimoPreco.Text = $"R$ {(quantidadeDesejada * precoCobrado):N2}";
-
-                    AtualizarTotais();
-                    txtBusca.Clear();
-                    txtBusca.Clear();
-
-                    // --- CARREGAMENTO DA FOTO DO CACHE LOCAL INSTANTÂNEO ---
-                    if (!string.IsNullOrEmpty(produto.foto))
-                    {
-                        string nomeArquivo = produto.foto.Substring(produto.foto.LastIndexOf('/') + 1);
-                        string caminhoLocal = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Imagens", nomeArquivo);
-                        if (System.IO.File.Exists(caminhoLocal))
-                        {
-                            try
-                            {
-                                var bitmap = new System.Windows.Media.Imaging.BitmapImage();
-                                bitmap.BeginInit();
-                                bitmap.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
-                                bitmap.UriSource = new Uri(caminhoLocal, UriKind.Absolute);
-                                bitmap.EndInit();
-                                bitmap.Freeze(); // Garante estabilidade na interface gráfica
-
-                                // CORREÇÃO: Aplica rotação de 90° para compensar o formato de orientação do celular
-                                var rotatedBitmap = new System.Windows.Media.Imaging.TransformedBitmap(bitmap, new System.Windows.Media.RotateTransform(90));
-                                rotatedBitmap.Freeze();
-
-                                imgProdutoFoto.Source = rotatedBitmap;
-                                imgProdutoFoto.Visibility = Visibility.Visible;
-                                txtFotoPlaceholder.Visibility = Visibility.Collapsed;
-                            }
-                            catch
-                            {
-                                imgProdutoFoto.Visibility = Visibility.Collapsed;
-                                txtFotoPlaceholder.Text = "ERRO NA FOTO";
-                                txtFotoPlaceholder.Visibility = Visibility.Visible;
-                            }
-                        }
-                        else
-                        {
-                            imgProdutoFoto.Visibility = Visibility.Collapsed;
-                            txtFotoPlaceholder.Text = "FOTO NÃO BAIXADA";
-                            txtFotoPlaceholder.Visibility = Visibility.Visible;
-                        }
-                    }
-                    else
-                    {
-                        imgProdutoFoto.Visibility = Visibility.Collapsed;
-                        txtFotoPlaceholder.Text = "SEM FOTO";
-                        txtFotoPlaceholder.Visibility = Visibility.Visible;
-                    }
+                    AdicionarProdutoAoCarrinho(produto, quantidadeDesejada, complementoDescricao);
                 }
                 else
                 {
-                    // Se não encontrou nem com nem sem multiplicador
+                    // Tenta buscar por ID numérico
+                    if (int.TryParse(codigoFinal, out int idProduto))
+                    {
+                        produto = _repositorio.BuscarPorId(idProduto);
+                        if (produto != null)
+                        {
+                            AdicionarProdutoAoCarrinho(produto, quantidadeDesejada, complementoDescricao);
+                            return;
+                        }
+                    }
+
                     MessageBox.Show("Produto não cadastrado!", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
                     txtBusca.SelectAll();
                 }
@@ -220,6 +233,116 @@ namespace T_PACE
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro na busca: {ex.Message}", "Erro Crítico", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void AdicionarProdutoAoCarrinho(Produto produto, int quantidade, string complementoDescricao)
+        {
+            decimal precoCheio = produto.preco_venda;
+            decimal descontoDoItem = 0m;
+
+            if (produto.em_promocao && produto.valor_promocional.HasValue)
+            {
+                decimal valorPromo = Convert.ToDecimal(produto.valor_promocional.Value);
+                if (valorPromo > 0 && valorPromo < precoCheio)
+                {
+                    descontoDoItem = precoCheio - valorPromo;
+                }
+            }
+
+            decimal precoCobrado = precoCheio - descontoDoItem;
+            var itemExistente = Carrinho.FirstOrDefault(c => c.Codigo == produto.codigo_barras);
+
+            if (itemExistente != null)
+            {
+                itemExistente.Quantidade += quantidade;
+                itemExistente.Total = itemExistente.Quantidade * precoCobrado;
+                if (!string.IsNullOrEmpty(complementoDescricao))
+                {
+                    itemExistente.Descricao += " " + complementoDescricao;
+                }
+            }
+            else
+            {
+                Carrinho.Add(new ItemCupom
+                {
+                    IdProduto = produto.id,
+                    Codigo = produto.codigo_barras,
+                    Descricao = produto.nome + (string.IsNullOrEmpty(complementoDescricao) ? "" : " " + complementoDescricao),
+                    Quantidade = quantidade,
+                    PrecoUnitario = precoCheio,
+                    DescontoUnitario = descontoDoItem,
+                    Total = quantidade * precoCobrado
+                });
+            }
+
+            txtUltimoNome.Text = produto.nome;
+            txtUltimoDetalhes.Text = $"Cód: {produto.codigo_barras}  |  Qtd: {quantidade} un";
+            txtUltimoPreco.Text = $"R$ {(quantidade * precoCobrado):N2}";
+
+            AtualizarTotais();
+            txtBusca.Clear();
+
+            // --- CARREGAMENTO DA FOTO DO CACHE LOCAL INSTANTÂNEO ---
+            if (!string.IsNullOrEmpty(produto.foto))
+            {
+                string nomeArquivo = produto.foto.Substring(produto.foto.LastIndexOf('/') + 1);
+                string caminhoLocal = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Imagens", nomeArquivo);
+                if (System.IO.File.Exists(caminhoLocal))
+                {
+                    try
+                    {
+                        var bitmap = new System.Windows.Media.Imaging.BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
+                        bitmap.UriSource = new Uri(caminhoLocal, UriKind.Absolute);
+                        bitmap.EndInit();
+                        bitmap.Freeze();
+
+                        var rotatedBitmap = new System.Windows.Media.Imaging.TransformedBitmap(bitmap, new System.Windows.Media.RotateTransform(90));
+                        rotatedBitmap.Freeze();
+
+                        imgProdutoFoto.Source = rotatedBitmap;
+                        imgProdutoFoto.Visibility = Visibility.Visible;
+                        txtFotoPlaceholder.Visibility = Visibility.Collapsed;
+                    }
+                    catch
+                    {
+                        imgProdutoFoto.Visibility = Visibility.Collapsed;
+                        txtFotoPlaceholder.Text = "ERRO NA FOTO";
+                        txtFotoPlaceholder.Visibility = Visibility.Visible;
+                    }
+                }
+                else
+                {
+                    imgProdutoFoto.Visibility = Visibility.Collapsed;
+                    txtFotoPlaceholder.Text = "FOTO NÃO BAIXADA";
+                    txtFotoPlaceholder.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                imgProdutoFoto.Visibility = Visibility.Collapsed;
+                txtFotoPlaceholder.Text = "SEM FOTO";
+                txtFotoPlaceholder.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void NovaVenda()
+        {
+            if (Carrinho.Count == 0) return;
+
+            var result = MessageBox.Show("Iniciar nova venda? A venda atual será perdida.", "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Carrinho.Clear();
+                _descontoManualVenda = 0m;
+                txtUltimoNome.Text = "Caixa Livre";
+                txtUltimoDetalhes.Text = " ";
+                txtUltimoPreco.Text = "R$ 0,00";
+                imgProdutoFoto.Visibility = Visibility.Collapsed;
+                txtFotoPlaceholder.Visibility = Visibility.Visible;
+                AtualizarTotais();
             }
         }
 
@@ -295,172 +418,7 @@ namespace T_PACE
             }
         }
 
-        // ==========================================
-        // LÓGICA DE TROCAS E DEVOLUÇÕES (F6)
-        // ==========================================
-        private void AbrirTelaTroca()
-        {
-            OverlayTroca.Visibility = Visibility.Visible;
-            txtBuscaCupomTroca.Clear();
-            listaItensCupom.ItemsSource = null;
-            txtQtdTroca.Text = "1";
-            cmbTipoTroca.SelectedIndex = 0;
-            txtBuscaCupomTroca.Focus();
-        }
-
-        private void FecharTelaTroca()
-        {
-            OverlayTroca.Visibility = Visibility.Collapsed;
-            txtBusca.Focus();
-        }
-
-        // CONTROLES DE TECLADO (Fluxo de navegação)
-        private void TxtBuscaCupomTroca_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter) BtnBuscarCupom_Click(null, null);
-            else if (e.Key == Key.Escape) FecharTelaTroca();
-        }
-
-        private void ListaItensCupom_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                e.Handled = true;
-                txtQtdTroca.Focus();
-                txtQtdTroca.SelectAll();
-            }
-            else if (e.Key == Key.Escape) FecharTelaTroca();
-        }
-
-        private void TxtQtdTroca_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                e.Handled = true;
-                cmbTipoTroca.Focus();
-            }
-            else if (e.Key == Key.Escape) FecharTelaTroca();
-        }
-
-        private void CmbTipoTroca_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                e.Handled = true;
-                BtnConfirmarTroca_Click(null, null);
-            }
-            else if (e.Key == Key.Escape) FecharTelaTroca();
-        }
-
-        // PROCESSAMENTO DE BANCO DE DADOS
-        private void BtnBuscarCupom_Click(object sender, RoutedEventArgs e)
-        {
-            string cupom = txtBuscaCupomTroca.Text.Trim();
-            if (string.IsNullOrEmpty(cupom)) return;
-
-            using (var conn = new Microsoft.Data.Sqlite.SqliteConnection(DatabaseConfig.ConnectionString))
-            {
-                var itens = conn.Query<ItemVendaTroca>(@"
-                    SELECT v.id as id_venda, p.id as id_produto, p.codigo_barras, p.nome, iv.quantidade as quantidade_comprada, iv.preco_unitario
-                    FROM tb_vendas v
-                    JOIN tb_itens_venda iv ON v.id = iv.id_venda
-                    JOIN tb_produtos p ON iv.id_produto = p.id
-                    WHERE v.id_cupom = @Cupom", new { Cupom = cupom }).ToList();
-
-                if (itens.Count == 0)
-                {
-                    MessageBox.Show("Cupom não encontrado ou não possui itens registrados.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    listaItensCupom.ItemsSource = null;
-                }
-                else
-                {
-                    listaItensCupom.ItemsSource = itens;
-                    // Joga o foco pra lista para o usuário selecionar com as setas e espaço
-                    listaItensCupom.Focus();
-                    listaItensCupom.SelectedIndex = 0;
-                }
-            }
-        }
-
-        private void BtnConfirmarTroca_Click(object sender, RoutedEventArgs e)
-        {
-            if (listaItensCupom.SelectedItems.Count == 0)
-            {
-                MessageBox.Show("Selecione pelo menos um produto da lista (use o mouse, ou Espaço/Setas no teclado).", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            if (!decimal.TryParse(txtQtdTroca.Text, out decimal qtdTroca) || qtdTroca <= 0)
-            {
-                MessageBox.Show("A quantidade informada é inválida.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            // 1. Validação de Segurança: Garante que o cliente não tente devolver mais do que comprou
-            foreach (ItemVendaTroca selecionado in listaItensCupom.SelectedItems)
-            {
-                if (qtdTroca > selecionado.quantidade_comprada)
-                {
-                    MessageBox.Show($"Você está tentando trocar {qtdTroca} unidades de '{selecionado.nome}', mas apenas {selecionado.quantidade_comprada} foram compradas neste cupom.\n\nReduza a quantidade informada ou troque os itens individualmente.", "Erro de Quantidade", MessageBoxButton.OK, MessageBoxImage.Error);
-                    txtQtdTroca.Focus();
-                    return;
-                }
-            }
-
-            string tipoStr = cmbTipoTroca.SelectedIndex == 0 ? "troca" : "devolucao";
-            decimal valorTotalDevolvido = 0m;
-
-            try
-            {
-                using (var conn = new Microsoft.Data.Sqlite.SqliteConnection(DatabaseConfig.ConnectionString))
-                {
-                    conn.Open();
-                    using (var tx = conn.BeginTransaction())
-                    {
-                        // 2. Loop de processamento de múltiplos itens
-                        foreach (ItemVendaTroca selecionado in listaItensCupom.SelectedItems)
-                        {
-                            decimal valorItem = qtdTroca * selecionado.preco_unitario;
-                            valorTotalDevolvido += valorItem;
-
-                            // CORREÇÃO DA HORA: Força o uso do DateTime.Now do C# em vez do UTC do SQLite
-                            conn.Execute(@"INSERT INTO tb_trocas (tipo_troca, data_troca, id_vendedor, produto_retornado, quantidade)
-                                           VALUES (@Tipo, @DataHora, @Vendedor, @Codigo, @Qtd)",
-                                         new { Tipo = tipoStr, DataHora = DateTime.Now, Vendedor = Session.CurrentUserId, Codigo = selecionado.codigo_barras, Qtd = qtdTroca }, tx);
-
-                            // CORREÇÃO DO ESTOQUE: Usa a mesma lógica avançada das Vendas (reconhece codigo_geral e múltiplos códigos)
-                            conn.Execute(@"UPDATE tb_produtos 
-                                           SET quantidade = quantidade + @Qtd 
-                                           WHERE (codigo_geral IS NOT NULL AND codigo_geral = (SELECT codigo_geral FROM tb_produtos WHERE id = @IdProduto))
-                                              OR (codigo_geral IS NULL AND id = @IdProduto)",
-                                         new { Qtd = qtdTroca, IdProduto = selecionado.id_produto }, tx);
-                        }
-
-                        tx.Commit();
-                    }
-                }
-                Task.Run(async () => await SincronizacaoService.SincronizarTrocasPendentesAsync());
-                // 3. Resultado Financeiro
-                if (tipoStr == "troca")
-                {
-                    _descontoManualVenda += valorTotalDevolvido;
-                    AtualizarTotais();
-                    MessageBox.Show($"Troca registrada com sucesso.\n\nDesconto de R$ {valorTotalDevolvido:N2} aplicado.", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show($"Devolução registrada com sucesso.\n\nValor a estornar: R$ {valorTotalDevolvido:N2}", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-
-                FecharTelaTroca();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao processar troca: {ex.Message}", "Erro Crítico", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        // ==========================================
+// ==========================================
         // LÓGICA DE BUSCA POR NOME (F4)
         // ==========================================
         private void AbrirTelaBusca()
@@ -933,7 +891,6 @@ namespace T_PACE
             // Força o envio das vendas e SESSÕES DE CAIXA pendentes
             await SincronizacaoService.SincronizarVendasPendentesAsync();
             await SincronizacaoService.SincronizarSessoesCaixaAsync();
-            await SincronizacaoService.SincronizarTrocasPendentesAsync();
 
             // Limpa a Sessão de quem estava logado
             Session.CurrentUserId = 0;
@@ -961,7 +918,1062 @@ namespace T_PACE
         }
 
         // ==========================================
-        // GERADOR E IMPRESSOR DE CUPOM TÉRMICO (NFC-e CORRIGIDO E ALINHADO)
+        // NOVAS TELAS DE ATALHO (F1, F3, F4, F6, F7, F10, F11, F12)
+        // ==========================================
+
+        private void FecharOverlayAberto()
+        {
+            if (OverlayCancelamento.Visibility == Visibility.Visible) FecharTelaCancelamento();
+            else if (OverlayBusca.Visibility == Visibility.Visible) FecharTelaBusca();
+            else if (OverlayDesconto.Visibility == Visibility.Visible) FecharTelaDesconto();
+            else if (OverlayPagamento.Visibility == Visibility.Visible) FecharTelaPagamento();
+            else if (OverlayFechamento.Visibility == Visibility.Visible) FecharTelaFechamento();
+            else if (OverlayAjuda.Visibility == Visibility.Visible) FecharTelaAjuda();
+            else if (OverlayVendasDia.Visibility == Visibility.Visible) FecharTelaVendasDia();
+            else if (OverlayItemAvulso.Visibility == Visibility.Visible) FecharTelaItemAvulso();
+            else if (OverlayBaixaClientes.Visibility == Visibility.Visible) FecharTelaBaixaClientes();
+            else if (OverlayMeuCaixa.Visibility == Visibility.Visible) FecharTelaMeuCaixa();
+            else if (OverlayMenuMultifuncao.Visibility == Visibility.Visible) FecharMenuMultifuncao();
+            else if (OverlayPromocao.Visibility == Visibility.Visible) FecharTelaPromocao();
+            else if (OverlayEncerrar.Visibility == Visibility.Visible) FecharTelaEncerrar();
+        }
+
+        private void MinimizarSistema()
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private async Task EncerrarSistema()
+        {
+            var result = MessageBox.Show("Encerrar o sistema completamente?", "Confirmar Encerramento", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
+        // F1 - AJUDA
+        private void AbrirTelaAjuda()
+        {
+            OverlayAjuda.Visibility = Visibility.Visible;
+            // Foco no botão fechar ou similar
+        }
+
+        private void FecharTelaAjuda()
+        {
+            OverlayAjuda.Visibility = Visibility.Collapsed;
+            txtBusca.Focus();
+        }
+
+        // F3 - VENDAS DO DIA
+        private void AbrirTelaVendasDia()
+        {
+            CarregarVendasDoDia();
+            OverlayVendasDia.Visibility = Visibility.Visible;
+            OverlayVendasDia.Focus();
+        }
+
+        private void FecharTelaVendasDia()
+        {
+            OverlayVendasDia.Visibility = Visibility.Collapsed;
+            txtBusca.Focus();
+        }
+
+        private void CarregarVendasDoDia()
+        {
+            using (var conn = new Microsoft.Data.Sqlite.SqliteConnection(DatabaseConfig.ConnectionString))
+            {
+                conn.Open();
+                var vendas = conn.Query<VendaResumo>(@"
+                    SELECT v.id, v.id_cupom, v.data_hora, v.subtotal, v.desconto, v.total, v.status,
+                           COALESCE(SUM(CASE WHEN p.metodo = 'dinheiro' THEN p.valor END), 0) as TotalDinheiro,
+                           COALESCE(SUM(CASE WHEN p.metodo = 'credito' OR p.metodo = 'cartão de crédito' THEN p.valor END), 0) as TotalCredito,
+                           COALESCE(SUM(CASE WHEN p.metodo = 'debito' OR p.metodo = 'cartão de débito' THEN p.valor END), 0) as TotalDebito,
+                           COALESCE(SUM(CASE WHEN p.metodo = 'pix' THEN p.valor END), 0) as TotalPix,
+                           COALESCE(SUM(CASE WHEN p.metodo = 'crediario' THEN p.valor END), 0) as TotalCrediario,
+                           COALESCE(SUM(CASE WHEN p.metodo NOT IN ('dinheiro','credito','cartão de crédito','debito','cartão de débito','pix','crediario') THEN p.valor END), 0) as TotalOutros
+                    FROM tb_vendas v
+                    LEFT JOIN tb_pagamentos p ON v.id = p.id_venda
+                    WHERE date(v.data_hora) = date('now') AND v.status = 'pago'
+                    GROUP BY v.id
+                    ORDER BY v.data_hora DESC").ToList();
+
+                listaVendasDia.ItemsSource = vendas;
+            }
+        }
+
+        private void OverlayVendasDia_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                FecharTelaVendasDia();
+                e.Handled = true;
+            }
+        }
+
+        private void listaVendasDia_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (listaVendasDia.SelectedItem is VendaResumo venda)
+            {
+                AbrirDetalhesVenda(venda);
+            }
+        }
+
+        private void listaVendasDia_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && listaVendasDia.SelectedItem is VendaResumo venda)
+            {
+                AbrirDetalhesVenda(venda);
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Escape)
+            {
+                FecharTelaVendasDia();
+                e.Handled = true;
+            }
+        }
+
+        private void txtVendasDiaBusca_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                FiltrarVendasDia(txtVendasDiaBusca.Text.Trim());
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Escape)
+            {
+                txtVendasDiaBusca.Clear();
+                FiltrarVendasDia("");
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F5)
+            {
+                FiltrarVendasDia(txtVendasDiaBusca.Text.Trim());
+                e.Handled = true;
+            }
+        }
+
+        private void FiltrarVendasDia(string termo)
+        {
+            if (string.IsNullOrWhiteSpace(termo))
+            {
+                CarregarVendasDoDia();
+                return;
+            }
+
+            using (var conn = new Microsoft.Data.Sqlite.SqliteConnection(DatabaseConfig.ConnectionString))
+            {
+                conn.Open();
+                var vendas = conn.Query<VendaResumo>(@"
+                    SELECT v.id, v.id_cupom, v.data_hora, v.subtotal, v.desconto, v.total, v.status,
+                           COALESCE(SUM(CASE WHEN p.metodo = 'dinheiro' THEN p.valor END), 0) as TotalDinheiro,
+                           COALESCE(SUM(CASE WHEN p.metodo = 'credito' OR p.metodo = 'cartão de crédito' THEN p.valor END), 0) as TotalCredito,
+                           COALESCE(SUM(CASE WHEN p.metodo = 'debito' OR p.metodo = 'cartão de débito' THEN p.valor END), 0) as TotalDebito,
+                           COALESCE(SUM(CASE WHEN p.metodo = 'pix' THEN p.valor END), 0) as TotalPix,
+                           COALESCE(SUM(CASE WHEN p.metodo = 'crediario' THEN p.valor END), 0) as TotalCrediario,
+                           COALESCE(SUM(CASE WHEN p.metodo NOT IN ('dinheiro','credito','cartão de crédito','debito','cartão de débito','pix','crediario') THEN p.valor END), 0) as TotalOutros
+                    FROM tb_vendas v
+                    LEFT JOIN tb_pagamentos p ON v.id = p.id_venda
+                    WHERE date(v.data_hora) = date('now') AND v.status = 'pago'
+                      AND (v.id_cupom LIKE @Termo OR CAST(v.id AS TEXT) LIKE @Termo)
+                    GROUP BY v.id
+                    ORDER BY v.data_hora DESC", new { Termo = $"%{termo}%" }).ToList();
+
+                listaVendasDia.ItemsSource = vendas;
+            }
+        }
+
+        private void AbrirDetalhesVenda(VendaResumo venda)
+        {
+            using (var conn = new Microsoft.Data.Sqlite.SqliteConnection(DatabaseConfig.ConnectionString))
+            {
+                conn.Open();
+                var itens = conn.Query<ItemVendaDetalhe>(@"
+                    SELECT iv.id, p.nome, iv.quantidade, iv.preco_unitario, iv.subtotal
+                    FROM tb_itens_venda iv
+                    JOIN tb_produtos p ON iv.id_produto = p.id
+                    WHERE iv.id_venda = @IdVenda", new { IdVenda = venda.id }).ToList();
+
+                var pagamentos = conn.Query<PagamentoDetalhe>(@"
+                    SELECT metodo, valor
+                    FROM tb_pagamentos
+                    WHERE id_venda = @IdVenda", new { IdVenda = venda.id }).ToList();
+
+                var detalhes = new VendaDetalheCompleto
+                {
+                    Venda = venda,
+                    Itens = itens,
+                    Pagamentos = pagamentos
+                };
+
+                // Show detail overlay
+                MostrarDetalhesVenda(detalhes);
+            }
+        }
+
+        private void MostrarDetalhesVenda(VendaDetalheCompleto detalhes)
+        {
+            // Preenche o overlay de detalhes existente
+            txtDetalheVendaCupomDetalhe.Text = detalhes.Venda.id_cupom;
+            txtDetalheVendaData.Text = detalhes.Venda.data_hora.ToString("dd/MM/yyyy HH:mm:ss");
+            txtDetalheVendaStatus.Text = detalhes.Venda.status;
+            txtDetalheVendaSubtotal.Text = $"R$ {detalhes.Venda.subtotal:N2}";
+            txtDetalheVendaDesconto.Text = $"R$ {detalhes.Venda.desconto:N2}";
+            txtDetalheVendaTotal.Text = $"R$ {detalhes.Venda.total:N2}";
+
+            listaDetalheItens.ItemsSource = detalhes.Itens;
+            listaDetalhePagamentos.ItemsSource = detalhes.Pagamentos;
+
+            OverlayDetalhesVenda.Visibility = Visibility.Visible;
+            OverlayDetalhesVenda.Focus();
+        }
+
+        private void FecharDetalhesVenda()
+        {
+            OverlayDetalhesVenda.Visibility = Visibility.Collapsed;
+            OverlayVendasDia.Focus(); // Volta foco para a lista de vendas
+        }
+
+        private void OverlayDetalhesVenda_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                FecharDetalhesVenda();
+                e.Handled = true;
+            }
+        }
+
+        private void FecharDetalhesVenda_Click(object sender, RoutedEventArgs e) => FecharDetalhesVenda();
+
+        // F4 - ITEM AVULSO
+        private void AbrirTelaItemAvulso()
+        {
+            txtItemAvulsoDesc.Clear();
+            txtItemAvulsoComp.Clear();
+            txtItemAvulsoQtd.Text = "1";
+            txtItemAvulsoPreco.Clear();
+            txtItemAvulsoTotal.Text = "R$ 0,00";
+            OverlayItemAvulso.Visibility = Visibility.Visible;
+            OverlayItemAvulso.Focus(); // Foco no overlay para KeyDown funcionar
+            txtItemAvulsoDesc.Focus();
+        }
+
+        private void FecharTelaItemAvulso()
+        {
+            OverlayItemAvulso.Visibility = Visibility.Collapsed;
+            txtBusca.Focus();
+        }
+
+        private void OverlayItemAvulso_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                FecharTelaItemAvulso();
+                e.Handled = true;
+            }
+        }
+
+        private void txtItemAvulso_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) { FecharTelaItemAvulso(); e.Handled = true; }
+            else if (e.Key == Key.Enter) { ConfirmarItemAvulso_Click(null, null); e.Handled = true; }
+            else if (e.Key == Key.Down) { MoveFocusNext(); e.Handled = true; }
+            else if (e.Key == Key.Up) { MoveFocusPrev(); e.Handled = true; }
+        }
+
+        private void txtItemAvulso_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (txtItemAvulsoQtd == null || txtItemAvulsoPreco == null || txtItemAvulsoTotal == null) return;
+
+            if (decimal.TryParse(txtItemAvulsoQtd.Text, out decimal qtd) &&
+                decimal.TryParse(txtItemAvulsoPreco.Text.Replace("R$", "").Replace(" ", "").Replace(",", "."), out decimal preco))
+            {
+                txtItemAvulsoTotal.Text = $"R$ {(qtd * preco):N2}";
+            }
+            else
+            {
+                txtItemAvulsoTotal.Text = "R$ 0,00";
+            }
+        }
+
+        private void ConfirmarItemAvulso_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtItemAvulsoDesc.Text))
+            {
+                MessageBox.Show("Informe a descrição do item.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!decimal.TryParse(txtItemAvulsoQtd.Text, out decimal qtd) || qtd <= 0)
+            {
+                MessageBox.Show("Quantidade inválida.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (!decimal.TryParse(txtItemAvulsoPreco.Text.Replace("R$", "").Replace(" ", "").Replace(",", "."), out decimal preco) || preco < 0)
+            {
+                MessageBox.Show("Preço inválido.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            Carrinho.Add(new ItemCupom
+            {
+                IdProduto = 0,
+                Codigo = "AVULSO",
+                Descricao = txtItemAvulsoDesc.Text + (string.IsNullOrWhiteSpace(txtItemAvulsoComp.Text) ? "" : " - " + txtItemAvulsoComp.Text),
+                Quantidade = (int)qtd,
+                PrecoUnitario = preco,
+                DescontoUnitario = 0,
+                Total = qtd * preco
+            });
+
+            AtualizarTotais();
+            FecharTelaItemAvulso();
+        }
+
+        // F5 - BUSCA PRODUTOS (já existe como AbrirTelaBusca/FecharTelaBusca)
+
+        // F6 - BAIXA CLIENTES
+        private void AbrirTelaBaixaClientes()
+        {
+            txtBaixaClienteID.Clear();
+            listaBaixaClientes.ItemsSource = null;
+            txtBaixaAtraso.Text = "R$ 0,00";
+            txtBaixaAberto.Text = "R$ 0,00";
+            OverlayBaixaClientes.Visibility = Visibility.Visible;
+            OverlayBaixaClientes.Focus(); // Foco no overlay para KeyDown funcionar
+            txtBaixaClienteID.Focus();
+        }
+
+        private void FecharTelaBaixaClientes()
+        {
+            OverlayBaixaClientes.Visibility = Visibility.Collapsed;
+            txtBusca.Focus();
+        }
+
+        private void btnEfetuarLancamento_Click(object sender, RoutedEventArgs e)
+        {
+            // F3 - Efetuar Lançamento (registrar pagamento de um documento)
+            if (listaBaixaClientes.SelectedItem is DocumentoBaixa doc)
+            {
+                var result = MessageBox.Show(
+                    $"Confirmar baixa do documento {doc.Documento}?\nValor: {doc.Valor:C2}",
+                    "Confirmar Lançamento",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    using (var conn = new Microsoft.Data.Sqlite.SqliteConnection(DatabaseConfig.ConnectionString))
+                    {
+                        conn.Open();
+                        conn.Execute("UPDATE tb_vendas SET status = 'pago' WHERE id = @Id", new { Id = doc.Documento });
+                    }
+                    MessageBox.Show("Lançamento efetuado com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                    CarregarBaixaCliente(txtBaixaClienteID.Text.Trim());
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione um documento na lista.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void btnMostrarTodas_Click(object sender, RoutedEventArgs e)
+        {
+            // Mostrar todos os documentos (incluindo pagos)
+            if (string.IsNullOrEmpty(txtBaixaClienteID.Text.Trim()))
+            {
+                MessageBox.Show("Informe o ID do cliente.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            using (var conn = new Microsoft.Data.Sqlite.SqliteConnection(DatabaseConfig.ConnectionString))
+            {
+                conn.Open();
+                var docs = conn.Query<DocumentoBaixa>(@"
+                    SELECT v.id as Documento, v.data_hora as Data, v.total as Valor, v.status as Situacao
+                    FROM tb_vendas v
+                    WHERE v.id_cliente = @Id
+                    ORDER BY v.data_hora DESC", new { Id = txtBaixaClienteID.Text.Trim() }).ToList();
+
+                decimal atraso = docs.Where(d => d.Situacao == "pendente" && Convert.ToDateTime(d.Data) < DateTime.Now.AddDays(-30)).Sum(d => d.Valor);
+                decimal aberto = docs.Where(d => d.Situacao == "pendente").Sum(d => d.Valor);
+
+                txtBaixaAtraso.Text = $"R$ {atraso:N2}";
+                txtBaixaAberto.Text = $"R$ {aberto:N2}";
+                listaBaixaClientes.ItemsSource = docs;
+            }
+        }
+
+        private void btnExportarPDFBaixa_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Funcionalidade de exportar PDF em desenvolvimento.\nSerá implementada com geração de relatório.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void btnEnviarEmailBaixa_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Funcionalidade de envio de e-mail em desenvolvimento.\nIntegração com SMTP necessária.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void txtBaixaClienteID_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                CarregarBaixaCliente(txtBaixaClienteID.Text.Trim());
+            }
+            else if (e.Key == Key.Escape)
+            {
+                FecharTelaBaixaClientes();
+            }
+        }
+
+        private void OverlayBaixaClientes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                FecharTelaBaixaClientes();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F3)
+            {
+                btnEfetuarLancamento_Click(null, null);
+                e.Handled = true;
+            }
+        }
+
+        private void CarregarBaixaCliente(string idCliente)
+        {
+            if (string.IsNullOrEmpty(idCliente)) return;
+
+            using (var conn = new Microsoft.Data.Sqlite.SqliteConnection(DatabaseConfig.ConnectionString))
+            {
+                conn.Open();
+                // Simula crediário - busca vendas pendentes do cliente
+                var docs = conn.Query<DocumentoBaixa>(@"
+                    SELECT v.id as Documento, v.data_hora as Data, v.total as Valor, v.status as Situacao
+                    FROM tb_vendas v
+                    WHERE v.id_cliente = @Id AND v.status IN ('pendente', 'crediario')
+                    ORDER BY v.data_hora", new { Id = idCliente }).ToList();
+
+                decimal atraso = docs.Where(d => d.Situacao == "pendente" && Convert.ToDateTime(d.Data) < DateTime.Now.AddDays(-30)).Sum(d => d.Valor);
+                decimal aberto = docs.Where(d => d.Situacao == "pendente").Sum(d => d.Valor);
+
+                txtBaixaAtraso.Text = $"R$ {atraso:N2}";
+                txtBaixaAberto.Text = $"R$ {aberto:N2}";
+                listaBaixaClientes.ItemsSource = docs;
+            }
+        }
+
+        // F7 - MEU CAIXA
+        private void AbrirTelaMeuCaixa()
+        {
+            CarregarMeuCaixa();
+            OverlayMeuCaixa.Visibility = Visibility.Visible;
+            OverlayMeuCaixa.Focus(); // Foco no overlay para KeyDown funcionar
+        }
+
+        private void FecharTelaMeuCaixa()
+        {
+            OverlayMeuCaixa.Visibility = Visibility.Collapsed;
+            txtBusca.Focus();
+        }
+
+        private void OverlayMeuCaixa_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                FecharTelaMeuCaixa();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F3)
+            {
+                btnSuprimento_Click(null, null);
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F4)
+            {
+                btnSangria_Click(null, null);
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F5)
+            {
+                btnFecharCaixa_Click(null, null);
+                e.Handled = true;
+            }
+        }
+
+        private void btnSuprimento_Click(object sender, RoutedEventArgs e)
+        {
+            // F3 - Suprimento (entrada de dinheiro no caixa)
+            OverlaySuprimento.Visibility = Visibility.Visible;
+            OverlaySuprimento.Focus();
+            txtSuprimentoValor.Text = "0,00";
+            txtSuprimentoValor.SelectAll();
+            txtSuprimentoValor.Focus();
+        }
+
+        private void btnSangria_Click(object sender, RoutedEventArgs e)
+        {
+            // F4 - Sangria (retirada de dinheiro do caixa)
+            OverlaySangria.Visibility = Visibility.Visible;
+            OverlaySangria.Focus();
+            txtSangriaValor.Text = "0,00";
+            txtSangriaValor.SelectAll();
+            txtSangriaValor.Focus();
+        }
+
+        private void btnFecharCaixa_Click(object sender, RoutedEventArgs e)
+        {
+            // F5 - Fechar Caixa (redireciona para a tela de fechamento)
+            FecharTelaMeuCaixa();
+            AbrirTelaFechamento();
+        }
+
+        private void btnImprimirCaixa_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Funcionalidade de impressão/PDF em desenvolvimento.\nGerará relatório de fechamento de caixa.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void btnEnviarEmailCaixa_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Funcionalidade de envio de e-mail em desenvolvimento.\nIntegração com SMTP necessária.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void CarregarMeuCaixa()
+        {
+            using (var conn = new Microsoft.Data.Sqlite.SqliteConnection(DatabaseConfig.ConnectionString))
+            {
+                conn.Open();
+                var hoje = DateTime.Now.Date;
+
+                var vendasHoje = conn.Query<VendaResumoCaixa>(@"
+                    SELECT p.metodo, COALESCE(SUM(p.valor), 0) as Total
+                    FROM tb_vendas v
+                    JOIN tb_pagamentos p ON v.id = p.id_venda
+                    WHERE date(v.data_hora) = @Hoje AND v.status = 'pago'
+                    GROUP BY p.metodo", new { Hoje = hoje }).ToList();
+
+                decimal totalDinheiro = vendasHoje.Where(v => v.Metodo == "dinheiro").Sum(v => v.Total);
+                decimal totalCredito = vendasHoje.Where(v => v.Metodo.Contains("credito") || v.Metodo.Contains("crédito")).Sum(v => v.Total);
+                decimal totalDebito = vendasHoje.Where(v => v.Metodo.Contains("debito") || v.Metodo.Contains("débito")).Sum(v => v.Total);
+                decimal totalPix = vendasHoje.Where(v => v.Metodo == "pix").Sum(v => v.Total);
+                decimal totalCrediario = vendasHoje.Where(v => v.Metodo == "crediario").Sum(v => v.Total);
+
+                txtCaixaDinheiro.Text = $"R$ {totalDinheiro:N2}";
+                txtCaixaCredito.Text = $"R$ {totalCredito:N2}";
+                txtCaixaDebito.Text = $"R$ {totalDebito:N2}";
+                txtCaixaPix.Text = $"R$ {totalPix:N2}";
+                txtCaixaCrediario.Text = $"R$ {totalCrediario:N2}";
+                txtCaixaTotal.Text = $"R$ {totalDinheiro + totalCredito + totalDebito + totalPix + totalCrediario:N2}";
+
+                // Saldo abertura
+                var sessao = conn.QueryFirstOrDefault<dynamic>("SELECT valor_fundo_troco FROM tb_sessao_caixa WHERE id = @Id", new { Id = Session.CurrentSessaoCaixaId });
+                decimal abertura = sessao?.valor_fundo_troco ?? 0;
+                txtCaixaAbertura.Text = $"R$ {abertura:N2}";
+
+                // Suprimentos/Sangrias (simulado)
+                txtCaixaSuprimentos.Text = "R$ 0,00";
+                txtCaixaSangrias.Text = "R$ 0,00";
+                txtCaixaEsperado.Text = $"R$ {abertura + totalDinheiro + totalCredito + totalDebito + totalPix + totalCrediario:N2}";
+            }
+        }
+
+        // F10 - MENU MULTIFUNÇÃO
+        private void AbrirMenuMultifuncao()
+        {
+            OverlayMenuMultifuncao.Visibility = Visibility.Visible;
+            OverlayMenuMultifuncao.Focus(); // Foco no overlay para KeyDown funcionar
+        }
+
+        private void FecharMenuMultifuncao()
+        {
+            OverlayMenuMultifuncao.Visibility = Visibility.Collapsed;
+            txtBusca.Focus();
+        }
+
+        private void FecharMenuMultifuncao_Click(object sender, RoutedEventArgs e)
+        {
+            FecharMenuMultifuncao();
+        }
+
+        private void Menu_F2_Cliente_Click(object sender, RoutedEventArgs e)
+        {
+            FecharMenuMultifuncao();
+            AbrirTelaCliente();
+        }
+
+        private void Menu_F3_Produto_Click(object sender, RoutedEventArgs e)
+        {
+            FecharMenuMultifuncao();
+            AbrirTelaProduto();
+        }
+
+        private void Menu_F4_NFe_Click(object sender, RoutedEventArgs e)
+        {
+            FecharMenuMultifuncao();
+            AbrirOverlayNFeDiversa();
+        }
+
+        private void Menu_F5_Caixa_Click(object sender, RoutedEventArgs e)
+        {
+            FecharMenuMultifuncao();
+            AbrirTelaMeuCaixa();
+        }
+
+        private void Menu_F6_Treinamento_Click(object sender, RoutedEventArgs e)
+        {
+            FecharMenuMultifuncao();
+            MessageBox.Show("Treinamento - Acesse o manual do usuário", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void Menu_F7_Graficos_Click(object sender, RoutedEventArgs e)
+        {
+            FecharMenuMultifuncao();
+            MessageBox.Show("Gráficos - Em desenvolvimento", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void Menu_F8_Troca_Click(object sender, RoutedEventArgs e)
+        {
+            FecharMenuMultifuncao();
+            MessageBox.Show("Troca/Devolução - Funcionalidade removida", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void Menu_F9_Baixa_Click(object sender, RoutedEventArgs e)
+        {
+            FecharMenuMultifuncao();
+            AbrirTelaBaixaClientes();
+        }
+
+        private void MenuMultifuncao_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) { FecharMenuMultifuncao(); e.Handled = true; }
+            else if (e.Key == Key.F2) { FecharMenuMultifuncao(); AbrirTelaCliente(); e.Handled = true; }
+            else if (e.Key == Key.F3) { FecharMenuMultifuncao(); AbrirTelaProduto(); e.Handled = true; }
+            else if (e.Key == Key.F4) { FecharMenuMultifuncao(); AbrirOverlayNFeDiversa(); e.Handled = true; }
+            else if (e.Key == Key.F5) { FecharMenuMultifuncao(); AbrirTelaMeuCaixa(); e.Handled = true; }
+            else if (e.Key == Key.F6) { FecharMenuMultifuncao(); AbrirOverlayTreinamento(); e.Handled = true; }
+            else if (e.Key == Key.F7) { FecharMenuMultifuncao(); AbrirOverlayGraficos(); e.Handled = true; }
+            else if (e.Key == Key.F8) { FecharMenuMultifuncao(); AbrirOverlayTrocaDevolucao(); e.Handled = true; }
+            else if (e.Key == Key.F9) { FecharMenuMultifuncao(); AbrirTelaBaixaClientes(); e.Handled = true; }
+        }
+
+        private void AbrirTelaCliente()
+        {
+            OverlayCliente.Visibility = Visibility.Visible;
+            OverlayCliente.Focus();
+            txtClienteBusca.Clear();
+            txtClienteNovoNome.Clear();
+            txtClienteResultado.Visibility = Visibility.Collapsed;
+            txtClienteBusca.Focus();
+        }
+
+        private void FecharOverlayCliente()
+        {
+            OverlayCliente.Visibility = Visibility.Collapsed;
+            txtBusca.Focus();
+        }
+
+        private void FecharOverlayCliente_Click(object sender, RoutedEventArgs e) => FecharOverlayCliente();
+
+        private void OverlayCliente_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) { FecharOverlayCliente(); e.Handled = true; }
+        }
+
+        private void txtClienteBusca_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                BuscarClienteOverlay(txtClienteBusca.Text.Trim());
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Escape) { FecharOverlayCliente(); e.Handled = true; }
+        }
+
+        private void txtClienteNovo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                CadastrarClienteOverlay(txtClienteNovoNome.Text.Trim());
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Escape) { FecharOverlayCliente(); e.Handled = true; }
+        }
+
+        private void BuscarClienteOverlay(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input)) return;
+            using (var conn = new Microsoft.Data.Sqlite.SqliteConnection(DatabaseConfig.ConnectionString))
+            {
+                conn.Open();
+                var cliente = conn.QueryFirstOrDefault<dynamic>(@"
+                    SELECT id, nome, cpf_cnpj, telefone, email 
+                    FROM tb_clientes 
+                    WHERE id = @Id OR nome LIKE @Nome OR cpf_cnpj = @Cpf",
+                    new { Id = input, Nome = $"%{input}%", Cpf = input });
+                if (cliente != null)
+                {
+                    txtClienteResultado.Text = $"Cliente: {cliente.nome}\nCPF/CNPJ: {cliente.cpf_cnpj}\nTel: {cliente.telefone}\nEmail: {cliente.email}";
+                    txtClienteResultado.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    txtClienteResultado.Text = "Cliente não encontrado.";
+                    txtClienteResultado.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        private void CadastrarClienteOverlay(string nome)
+        {
+            if (string.IsNullOrWhiteSpace(nome)) return;
+            using (var conn = new Microsoft.Data.Sqlite.SqliteConnection(DatabaseConfig.ConnectionString))
+            {
+                conn.Open();
+                conn.Execute("INSERT INTO tb_clientes (nome) VALUES (@Nome)", new { Nome = nome });
+                txtClienteResultado.Text = "Cliente cadastrado com sucesso!";
+                txtClienteResultado.Visibility = Visibility.Visible;
+                txtClienteNovoNome.Clear();
+            }
+        }
+
+        private void AbrirTelaProduto()
+        {
+            OverlayProduto.Visibility = Visibility.Visible;
+            OverlayProduto.Focus();
+            txtProdutoBusca.Clear();
+            txtProdutoResultado.Visibility = Visibility.Collapsed;
+            txtProdutoBusca.Focus();
+        }
+
+        private void FecharOverlayProduto()
+        {
+            OverlayProduto.Visibility = Visibility.Collapsed;
+            txtBusca.Focus();
+        }
+
+        private void FecharOverlayProduto_Click(object sender, RoutedEventArgs e) => FecharOverlayProduto();
+
+        private void OverlayProduto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) { FecharOverlayProduto(); e.Handled = true; }
+        }
+
+        private void txtProdutoBusca_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                BuscarProdutoOverlay(txtProdutoBusca.Text.Trim());
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Escape) { FecharOverlayProduto(); e.Handled = true; }
+        }
+
+        private void BuscarProdutoOverlay(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input)) return;
+            var produto = _repositorio.BuscarPorCodigoDeBarras(input);
+            if (produto == null && int.TryParse(input, out int id))
+            {
+                produto = _repositorio.BuscarPorId(id);
+            }
+            if (produto != null)
+            {
+                var msg = $"Produto: {produto.nome}\nCódigo: {produto.codigo_barras}\nPreço: R$ {produto.preco_venda:N2}\nEstoque: {produto.quantidade}";
+                if (produto.em_promocao && produto.valor_promocional.HasValue)
+                {
+                    msg += $"\nPROMOÇÃO: R$ {produto.valor_promocional.Value:N2}";
+                }
+                txtProdutoResultado.Text = msg;
+                txtProdutoResultado.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                txtProdutoResultado.Text = "Produto não encontrado.";
+                txtProdutoResultado.Visibility = Visibility.Visible;
+            }
+        }
+
+        // F11 - ENCERRAR
+        private void AbrirTelaEncerrar()
+        {
+            OverlayEncerrar.Visibility = Visibility.Visible;
+            OverlayEncerrar.Focus();
+        }
+
+        private void FecharTelaEncerrar()
+        {
+            OverlayEncerrar.Visibility = Visibility.Collapsed;
+            txtBusca.Focus();
+        }
+
+        private void FecharTelaEncerrar_Click(object sender, RoutedEventArgs e)
+        {
+            FecharTelaEncerrar();
+        }
+
+        private async void btnConfirmarEncerrar_Click(object sender, RoutedEventArgs e)
+        {
+            await EncerrarSistema();
+        }
+
+        // F12 - PROMOÇÃO
+        private void AbrirTelaPromocao()
+        {
+            CarregarPromocoes();
+            OverlayPromocao.Visibility = Visibility.Visible;
+            OverlayPromocao.Focus();
+        }
+
+        private void FecharTelaPromocao()
+        {
+            OverlayPromocao.Visibility = Visibility.Collapsed;
+            txtBusca.Focus();
+        }
+
+        private void CarregarPromocoes()
+        {
+            using (var conn = new Microsoft.Data.Sqlite.SqliteConnection(DatabaseConfig.ConnectionString))
+            {
+                conn.Open();
+                var promos = conn.Query<PromocaoInfo>(@"
+                    SELECT * FROM tb_promocoes 
+                    WHERE (data_final IS NULL OR date(data_final) >= date('now'))
+                    ORDER BY data_inicio DESC").ToList();
+                listaPromocoes.ItemsSource = promos;
+            }
+        }
+
+        // ==========================================
+        // OVERLAYS DOS SUBMENUS DO MENU MULTIFUNÇÃO (F10)
+        // ==========================================
+
+        private void AbrirOverlayNFeDiversa()
+        {
+            OverlayNFeDiversa.Visibility = Visibility.Visible;
+            OverlayNFeDiversa.Focus();
+        }
+
+        private void FecharOverlayNFeDiversa()
+        {
+            OverlayNFeDiversa.Visibility = Visibility.Collapsed;
+            txtBusca.Focus();
+        }
+
+        private void FecharOverlayNFeDiversa_Click(object sender, RoutedEventArgs e) => FecharOverlayNFeDiversa();
+
+        private void OverlayNFeDiversa_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) { FecharOverlayNFeDiversa(); e.Handled = true; }
+        }
+
+        private void AbrirOverlayTreinamento()
+        {
+            OverlayTreinamento.Visibility = Visibility.Visible;
+            OverlayTreinamento.Focus();
+        }
+
+        private void FecharOverlayTreinamento()
+        {
+            OverlayTreinamento.Visibility = Visibility.Collapsed;
+            txtBusca.Focus();
+        }
+
+        private void FecharOverlayTreinamento_Click(object sender, RoutedEventArgs e) => FecharOverlayTreinamento();
+
+        private void OverlayTreinamento_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) { FecharOverlayTreinamento(); e.Handled = true; }
+        }
+
+        private void AbrirOverlayGraficos()
+        {
+            OverlayGraficos.Visibility = Visibility.Visible;
+            OverlayGraficos.Focus();
+        }
+
+        private void FecharOverlayGraficos()
+        {
+            OverlayGraficos.Visibility = Visibility.Collapsed;
+            txtBusca.Focus();
+        }
+
+        private void FecharOverlayGraficos_Click(object sender, RoutedEventArgs e) => FecharOverlayGraficos();
+
+        private void OverlayGraficos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) { FecharOverlayGraficos(); e.Handled = true; }
+        }
+
+        private void AbrirOverlayTrocaDevolucao()
+        {
+            OverlayTrocaDevolucao.Visibility = Visibility.Visible;
+            OverlayTrocaDevolucao.Focus();
+        }
+
+        private void FecharOverlayTrocaDevolucao()
+        {
+            OverlayTrocaDevolucao.Visibility = Visibility.Collapsed;
+            txtBusca.Focus();
+        }
+
+        private void FecharOverlayTrocaDevolucao_Click(object sender, RoutedEventArgs e) => FecharOverlayTrocaDevolucao();
+
+        private void OverlayTrocaDevolucao_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) { FecharOverlayTrocaDevolucao(); e.Handled = true; }
+        }
+
+        // ==========================================
+        // OVERLAYS SUPRIMENTO/SANGRIA (F3/F4 dentro do Meu Caixa)
+        // ==========================================
+
+        private void FecharOverlaySuprimento()
+        {
+            OverlaySuprimento.Visibility = Visibility.Collapsed;
+            OverlayMeuCaixa.Focus(); // Volta foco pro Meu Caixa
+        }
+
+        private void OverlaySuprimento_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) { FecharOverlaySuprimento(); e.Handled = true; }
+            else if (e.Key == Key.Enter) { btnConfirmarSuprimento_Click(null, null); e.Handled = true; }
+        }
+
+        private void txtSuprimentoValor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) { btnConfirmarSuprimento_Click(null, null); e.Handled = true; }
+            else if (e.Key == Key.Escape) { FecharOverlaySuprimento(); e.Handled = true; }
+        }
+
+        private void btnConfirmarSuprimento_Click(object sender, RoutedEventArgs e)
+        {
+            if (decimal.TryParse(txtSuprimentoValor.Text.Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal valor) && valor > 0)
+            {
+                using (var conn = new Microsoft.Data.Sqlite.SqliteConnection(DatabaseConfig.ConnectionString))
+                {
+                    conn.Open();
+                    conn.Execute("INSERT INTO tb_movimentacao_caixa (id_sessao_caixa, tipo, valor, data_hora, descricao) VALUES (@Sessao, 'suprimento', @Valor, @Data, 'Suprimento manual')",
+                        new { Sessao = Session.CurrentSessaoCaixaId, Valor = valor, Data = DateTime.Now });
+                }
+                FecharOverlaySuprimento();
+                CarregarMeuCaixa();
+            }
+        }
+
+        private void FecharOverlaySangria()
+        {
+            OverlaySangria.Visibility = Visibility.Collapsed;
+            OverlayMeuCaixa.Focus(); // Volta foco pro Meu Caixa
+        }
+
+        private void OverlaySangria_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) { FecharOverlaySangria(); e.Handled = true; }
+            else if (e.Key == Key.Enter) { btnConfirmarSangria_Click(null, null); e.Handled = true; }
+        }
+
+        private void txtSangriaValor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) { btnConfirmarSangria_Click(null, null); e.Handled = true; }
+            else if (e.Key == Key.Escape) { FecharOverlaySangria(); e.Handled = true; }
+        }
+
+        private void btnConfirmarSangria_Click(object sender, RoutedEventArgs e)
+        {
+            if (decimal.TryParse(txtSangriaValor.Text.Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal valor) && valor > 0)
+            {
+                using (var conn = new Microsoft.Data.Sqlite.SqliteConnection(DatabaseConfig.ConnectionString))
+                {
+                    conn.Open();
+                    conn.Execute("INSERT INTO tb_movimentacao_caixa (id_sessao_caixa, tipo, valor, data_hora, descricao) VALUES (@Sessao, 'sangria', @Valor, @Data, 'Sangria manual')",
+                        new { Sessao = Session.CurrentSessaoCaixaId, Valor = valor, Data = DateTime.Now });
+                }
+                FecharOverlaySangria();
+                CarregarMeuCaixa();
+            }
+        }
+
+        // Classes auxiliares para as novas telas
+        public class VendaResumo
+        {
+            public long id { get; set; }
+            public string id_cupom { get; set; }
+            public DateTime data_hora { get; set; }
+            public decimal subtotal { get; set; }
+            public decimal desconto { get; set; }
+            public decimal total { get; set; }
+            public string status { get; set; }
+            public decimal TotalDinheiro { get; set; }
+            public decimal TotalCredito { get; set; }
+            public decimal TotalDebito { get; set; }
+            public decimal TotalPix { get; set; }
+            public decimal TotalCrediario { get; set; }
+            public decimal TotalOutros { get; set; }
+        }
+
+        public class ItemVendaDetalhe
+        {
+            public long id { get; set; }
+            public string nome { get; set; }
+            public decimal quantidade { get; set; }
+            public decimal preco_unitario { get; set; }
+            public decimal subtotal { get; set; }
+        }
+
+        public class PagamentoDetalhe
+        {
+            public string metodo { get; set; }
+            public decimal valor { get; set; }
+        }
+
+        public class VendaDetalheCompleto
+        {
+            public VendaResumo Venda { get; set; }
+            public List<ItemVendaDetalhe> Itens { get; set; }
+            public List<PagamentoDetalhe> Pagamentos { get; set; }
+        }
+
+        public class DocumentoBaixa
+        {
+            public long Documento { get; set; }
+            public DateTime Data { get; set; }
+            public decimal Valor { get; set; }
+            public string Situacao { get; set; }
+        }
+
+        public class VendaResumoCaixa
+        {
+            public string Metodo { get; set; }
+            public decimal Total { get; set; }
+        }
+
+        public class PromocaoInfo
+        {
+            public int id_promocao { get; set; }
+            public string nome_campanha { get; set; }
+            public string descricao { get; set; }
+            public DateTime? data_inicio { get; set; }
+            public DateTime? data_final { get; set; }
+            public decimal? valor_minimo { get; set; }
+            public string segmento_produtos { get; set; }
+            public string maxima_desconto { get; set; }
+        }
+
+        // Helper para mover foco
+        private void MoveFocusNext()
+        {
+            var request = new TraversalRequest(FocusNavigationDirection.Next);
+            (Keyboard.FocusedElement as UIElement)?.MoveFocus(request);
+        }
+
+        private void MoveFocusPrev()
+        {
+            var request = new TraversalRequest(FocusNavigationDirection.Previous);
+            (Keyboard.FocusedElement as UIElement)?.MoveFocus(request);
+        }
+
+        // ==========================================
+        // GERADOR E IMPRESSOR DE CUPOM TÉRMICO
         // ==========================================
         private void ImprimirRecibo(long idVenda, string codigoUnicoCupom, System.Collections.Generic.List<ItemCupom> itens, decimal subtotal, decimal desconto, decimal total, string metodoPagamento, decimal valorRecebido, decimal troco)
         {
@@ -1171,25 +2183,21 @@ namespace T_PACE
             System.Windows.Media.RenderOptions.SetBitmapScalingMode(img, System.Windows.Media.BitmapScalingMode.NearestNeighbor);
             return img;
         }
-        public class ItemVendaTroca
-        {
-            public long id_venda { get; set; }
-            public int id_produto { get; set; } // <--- ADICIONE ESTA LINHA AQUI
-            public string codigo_barras { get; set; }
-            public string nome { get; set; }
-            public decimal quantidade_comprada { get; set; }
-            public decimal preco_unitario { get; set; }
-        }
 
         // ==========================================
         // EVENTOS DE CLIQUE DO RODAPÉ
         // ==========================================
+        private void Rodape_F1_Click(object sender, MouseButtonEventArgs e) => AbrirTelaAjuda();
         private void Rodape_F2_Click(object sender, MouseButtonEventArgs e) => AbrirTelaPagamento();
-        private void Rodape_F3_Click(object sender, MouseButtonEventArgs e) => AbrirTelaCancelamento();
-        private void Rodape_F4_Click(object sender, MouseButtonEventArgs e) => AbrirTelaBusca();
-        private void Rodape_F5_Click(object sender, MouseButtonEventArgs e) => AbrirTelaDesconto();
-        private void Rodape_F6_Click(object sender, MouseButtonEventArgs e) => AbrirTelaTroca();
-        private void Rodape_F9_Click(object sender, MouseButtonEventArgs e) => AbrirTelaFechamento();
+        private void Rodape_F3_Click(object sender, MouseButtonEventArgs e) => AbrirTelaVendasDia();
+        private void Rodape_F4_Click(object sender, MouseButtonEventArgs e) => AbrirTelaItemAvulso();
+        private void Rodape_F5_Click(object sender, MouseButtonEventArgs e) => AbrirTelaBusca();
+        private void Rodape_F6_Click(object sender, MouseButtonEventArgs e) => AbrirTelaBaixaClientes();
+        private void Rodape_F7_Click(object sender, MouseButtonEventArgs e) => AbrirTelaMeuCaixa();
+        private void Rodape_F9_Click(object sender, MouseButtonEventArgs e) => MinimizarSistema();
+        private void Rodape_F10_Click(object sender, MouseButtonEventArgs e) => AbrirMenuMultifuncao();
+        private void Rodape_F11_Click(object sender, MouseButtonEventArgs e) => _ = EncerrarSistema();
+        private void Rodape_F12_Click(object sender, MouseButtonEventArgs e) => AbrirTelaPromocao();
 
         public class ItemCupom : INotifyPropertyChanged
         {

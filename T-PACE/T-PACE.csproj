@@ -9,6 +9,9 @@
 		<!-- DECLARA O ÍCONE DO APLICATIVO AQUI -->
 		<ApplicationIcon>icone.ico</ApplicationIcon>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="logo.png" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Dapper" Version="2.1.79" />

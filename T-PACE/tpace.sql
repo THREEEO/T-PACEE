@@ -1,4 +1,139 @@
 PRAGMA defer_foreign_keys=TRUE;
+CREATE TABLE tb_cardapio (
+    id_cardapio INTEGER PRIMARY KEY AUTOINCREMENT, 
+    nome_produto VARCHAR(70), 
+    sabor VARCHAR(30), 
+    preco DECIMAL(2,2), 
+    peso_liquido VARCHAR(6), 
+    ingredientes TEXT
+    
+, imagem text, frezzer int, tipo varchar (30), observacoes text, alergias varchar (30), pode_conter varchar (30), tamanho varchar (20), validade DATE, lote VARCHAR(50), em_promocao BOOLEAN DEFAULT 0, valor_promocional DECIMAL(10,2), aliquotas_imposto DECIMAL(10,2), ncm VARCHAR(20), cest VARCHAR(20), custo DECIMAL(10,2), unidade_venda VARCHAR(10), codigo_geral VARCHAR(100), codigo_barras VARCHAR(100), quantidade_minima DECIMAL(10,3) DEFAULT 0, quantidade DECIMAL(10,3) DEFAULT 0, linha text, categoria text, caseiro boolean);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(1,'vksjvb','dfgbd',4,'123','1rthrnsxygnbsrgtjnsrtj',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(2,'vksjvb','dfgbd','17,00','123','1rthrnsxygnbsrgtjnsrtj',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(3,'vksjvb','dfgbd','17,00','123','1rthrnsxygnbsrgtjnsrtj',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(4,'vksjvb','dfgbd','17,00','123','1rthrnsxygnbsrgtjnsrtj',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(5,'vksjvb','morango','','123','1rthrnsxygnbsrgtjnsrtj','https://res.cloudinary.com/zcmbg7pc/image/upload/v1785867463/yv2z6zwqmtcobxdzpmef.jpg',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(6,'Bananão','Banana',12,'123','1rthrnsxygnbsrgtjnsrtj',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'Un',NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(7,'Sorvete do Bob Esponja','Banana',8.99,'150','leite condensado, creme de leite e leite integral, combinados com achocolatado ou frutas','https://res.cloudinary.com/zcmbg7pc/image/upload/v1785871173/lzmh3n8jcrcrg8kyoine.jpg',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(8,'Sorvete artístico','Uva',15,'123','leite condensado, creme de leite e leite integral, combinados com achocolatado ou frutas','https://res.cloudinary.com/zcmbg7pc/image/upload/v1785933992/wihx80nbwpsoyp680sg0.ico',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,4,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(9,'Sorvete ','Chocomenta',30,'123','leite condensado, creme de leite e leite integral, combinados com achocolatado ou frutas','https://res.cloudinary.com/zcmbg7pc/image/upload/v1785946568/aiviih8qpcfyg6cithnm.ico',1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(10,'Morango galego','morango e chocolate branco',15,'123','leite condensado, creme de leite e leite integral, combinados com achocolatado ou frutas',NULL,4,'crepe',NULL,NULL,NULL,NULL,NULL,NULL,1,13,NULL,NULL,NULL,NULL,'Un',NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(11,'Picolé de nata','Nata',5,'123','leite condensado, creme de leite e leite integral, combinados com achocolatado ou frutas','https://res.cloudinary.com/zcmbg7pc/image/upload/v1786120947/tv4z6e4ez8pq4ufwsf1s.jpg',6,'picolé','Zero açúcar','leite','Nenhum',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(12,'Picolé de flocos','creme com flocos de chocolate',4.5,'123','leite condensado, creme de leite e leite integral, combinados com achocolatado ou frutas','https://res.cloudinary.com/zcmbg7pc/image/upload/v1786121177/j6bn54gslfwiodkilfvv.jpg',7,'picole','Contém lactose','leite','Nenhum',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(13,'Picolé de flocos','creme com flocos de chocolate',4.5,'123','leite condensado, creme de leite e leite integral, combinados com achocolatado ou frutas','https://res.cloudinary.com/zcmbg7pc/image/upload/v1786121229/icacxkmhmphekd4rm6fi.jpg',7,'picole','Contém lactose','leite','Nenhum',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(14,'Expresso','café',20,'123','água quente, pó de café',NULL,NULL,'cafe','Zero açúcar','leite','Nenhum',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'Un',NULL,NULL,0,0,'Cafezito','Aquecer',NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(15,'Latte','Leite achocolatado',17,'350','água quente, pó de café','https://res.cloudinary.com/zcmbg7pc/image/upload/v1786129712/bczntuxs9h8dngeapdoo.jpg',8,'cafe','Alto em açúcar adicionado','nenhum','Nenhum','',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(16,'Casquinha simples','Creme',5,'200','leite condensado, creme de leite e leite integral, combinados com achocolatado ou frutas','https://res.cloudinary.com/zcmbg7pc/image/upload/v1786563746/grcrto5oz3e5gdzohnmm.jpg','','casquinha','','leite','leite','P',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(17,'Casquinha simples','Creme',5,'200','leite condensado, creme de leite e leite integral, combinados com achocolatado ou frutas','https://res.cloudinary.com/zcmbg7pc/image/upload/v1786563747/xaindf4hbqmyl9myqxcp.jpg','','casquinha','','leite','leite','P',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(18,'Casquinha simples','Creme',5,'200','leite condensado, creme de leite e leite integral, combinados com achocolatado ou frutas','https://res.cloudinary.com/zcmbg7pc/image/upload/v1786563747/f4314d69yhufwivkks0r.jpg','','casquinha','','leite','leite','P',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(19,'Casquinha simples','Creme',5,'200','leite condensado, creme de leite e leite integral, combinados com achocolatado ou frutas','https://res.cloudinary.com/zcmbg7pc/image/upload/v1786563748/hr1qo8rd2vbtn37mpvkb.jpg','','casquinha','','leite','leite','P',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(20,'Casquinha de morango','morango',9,'123','leite condensado, creme de leite e leite integral, combinados com achocolatado ou frutas','https://res.cloudinary.com/zcmbg7pc/image/upload/v1786638746/uhv3nregcje0yqnonnhf.jpg',8,'casquinha','','leite','leite','Cascão',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(21,'crepe de morango galego',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,1);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(22,'Sorvete Choco Menta','Choco Menta',15,NULL,NULL,NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,12,NULL,NULL,NULL,NULL,'Un',NULL,'1234567890',2,6,NULL,NULL,NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(23,'boo','chocolate',68,'500ml',NULL,NULL,7,'sorvete',NULL,NULL,NULL,'Pote 500ml','2026-09-26',NULL,0,45,NULL,NULL,NULL,67,'Un',NULL,'85144',67,69,'Marrom bombom','Refrescar',NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(24,'Tadabaly',NULL,0.43,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'Un',NULL,'70795',56,67,'Morena tropicana','Aquecer',NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(25,'Blue ice',NULL,1.8,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'Un',NULL,'68719',1,1,'Azulzinho','Energizar',NULL);
+INSERT INTO "tb_cardapio" ("id_cardapio","nome_produto","sabor","preco","peso_liquido","ingredientes","imagem","frezzer","tipo","observacoes","alergias","pode_conter","tamanho","validade","lote","em_promocao","valor_promocional","aliquotas_imposto","ncm","cest","custo","unidade_venda","codigo_geral","codigo_barras","quantidade_minima","quantidade","linha","categoria","caseiro") VALUES(26,'preto de couro pelica soft preto',NULL,67,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'Un',NULL,'69942',1,1,'Gula','Saciar',NULL);
+CREATE TABLE tb_buffet (
+    id_buffet INTEGER PRIMARY KEY AUTOINCREMENT,
+    categoria VARCHAR(20),
+    sabor VARCHAR(50),
+    tamanho VARCHAR(30)
+);
+INSERT INTO "tb_buffet" ("id_buffet","categoria","sabor","tamanho") VALUES(2,'sorvete','morango','');
+INSERT INTO "tb_buffet" ("id_buffet","categoria","sabor","tamanho") VALUES(3,'sorvete','Uva','');
+INSERT INTO "tb_buffet" ("id_buffet","categoria","sabor","tamanho") VALUES(4,'calda','morango','');
+INSERT INTO "tb_buffet" ("id_buffet","categoria","sabor","tamanho") VALUES(5,'sorvete','Banana','');
+INSERT INTO "tb_buffet" ("id_buffet","categoria","sabor","tamanho") VALUES(6,'tamanho','','Pote 300ml');
+INSERT INTO "tb_buffet" ("id_buffet","categoria","sabor","tamanho") VALUES(7,'Doce','Chocolate Belga','Grande');
+INSERT INTO "tb_buffet" ("id_buffet","categoria","sabor","tamanho") VALUES(8,'Salgado','Queijo','Medio');
+CREATE TABLE tb_promocoes (id_promocao integer  primary key AUTOINCREMENT not null, 
+data_inicio date, data_final date, valor_minimo decimal (3,2), segmento_produtos varchar (70),
+limites varchar (100), nome_campanha varchar (200), descricao text, maxima_desconto
+varchar (100), foto text, produtos_selecionados text);
+INSERT INTO "tb_promocoes" ("id_promocao","data_inicio","data_final","valor_minimo","segmento_produtos","limites","nome_campanha","descricao","maxima_desconto","foto","produtos_selecionados") VALUES(1,'2026-08-01','2026-08-13',NULL,NULL,NULL,'Vera verão',NULL,NULL,NULL,NULL);
+INSERT INTO "tb_promocoes" ("id_promocao","data_inicio","data_final","valor_minimo","segmento_produtos","limites","nome_campanha","descricao","maxima_desconto","foto","produtos_selecionados") VALUES(2,'2026-08-15','2026-08-28',NULL,'crepe',NULL,'Vera verão',NULL,NULL,NULL,NULL);
+INSERT INTO "tb_promocoes" ("id_promocao","data_inicio","data_final","valor_minimo","segmento_produtos","limites","nome_campanha","descricao","maxima_desconto","foto","produtos_selecionados") VALUES(3,'2026-08-01','2026-08-10',NULL,'crepe',NULL,'Vera verão',NULL,'15%',NULL,NULL);
+INSERT INTO "tb_promocoes" ("id_promocao","data_inicio","data_final","valor_minimo","segmento_produtos","limites","nome_campanha","descricao","maxima_desconto","foto","produtos_selecionados") VALUES(6,'2026-08-01','2026-08-12',NULL,'cafe',NULL,'Esfriou o clima, derreteu o preço!',NULL,'50',NULL,'Expresso, Latte');
+INSERT INTO "tb_promocoes" ("id_promocao","data_inicio","data_final","valor_minimo","segmento_produtos","limites","nome_campanha","descricao","maxima_desconto","foto","produtos_selecionados") VALUES(8,NULL,'2026-10-31T14:12',NULL,'Energizar',NULL,'Arriba!','Na compra de duas paletas mexicanas garanta 50% de desconto na terceira',NULL,NULL,'Picolé de flocos,Picolé de flocos,Expresso');
+INSERT INTO "tb_promocoes" ("id_promocao","data_inicio","data_final","valor_minimo","segmento_produtos","limites","nome_campanha","descricao","maxima_desconto","foto","produtos_selecionados") VALUES(9,NULL,'2026-10-29T14:36',NULL,'sorvete',NULL,'cjshdvcsdv','bsdgbsfgbngf','50%',NULL,'Sorvete do Bob Esponja,Sorvete artístico,Morango galego,Picolé de nata,preto de couro pelica soft preto');
+CREATE TABLE tb_sessao_caixa (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_caixa INTEGER,
+    id_usuario INTEGER,
+    data_abertura DATETIME,
+    valor_fundo_troco DECIMAL(10,2),
+    data_fechamento DATETIME,
+    status BOOLEAN,
+    valor_fechamento DECIMAL(10,2),
+    sincronizado BOOLEAN DEFAULT 0,
+    FOREIGN KEY(id_caixa) REFERENCES tb_caixa(id),
+    FOREIGN KEY(id_usuario) REFERENCES tb_usuarios(id)
+);
+INSERT INTO "tb_sessao_caixa" ("id","id_caixa","id_usuario","data_abertura","valor_fundo_troco","data_fechamento","status","valor_fechamento") VALUES(1,1,NULL,'2026-08-24 10:00:00',NULL,NULL,1,NULL);
+INSERT INTO "tb_sessao_caixa" ("id","id_caixa","id_usuario","data_abertura","valor_fundo_troco","data_fechamento","status","valor_fechamento") VALUES(2,1,5,'2026-09-30 15:53:03',0,'2026-09-30 15:53:55',0,0);
+INSERT INTO "tb_sessao_caixa" ("id","id_caixa","id_usuario","data_abertura","valor_fundo_troco","data_fechamento","status","valor_fechamento") VALUES(3,1,5,'2026-09-30 16:18:12',0,'2026-09-30 16:20:09',0,0);
+INSERT INTO "tb_sessao_caixa" ("id","id_caixa","id_usuario","data_abertura","valor_fundo_troco","data_fechamento","status","valor_fechamento") VALUES(4,1,5,'2026-10-14 14:17:27',0,NULL,1,NULL);
+INSERT INTO "tb_sessao_caixa" ("id","id_caixa","id_usuario","data_abertura","valor_fundo_troco","data_fechamento","status","valor_fechamento") VALUES(5,1,5,'2026-10-14 14:19:01',0,NULL,1,NULL);
+INSERT INTO "tb_sessao_caixa" ("id","id_caixa","id_usuario","data_abertura","valor_fundo_troco","data_fechamento","status","valor_fechamento") VALUES(6,1,5,'2026-10-14 14:22:00',0,NULL,1,NULL);
+INSERT INTO "tb_sessao_caixa" ("id","id_caixa","id_usuario","data_abertura","valor_fundo_troco","data_fechamento","status","valor_fechamento") VALUES(7,1,5,'2026-10-14 14:25:34',0,NULL,1,NULL);
+CREATE TABLE tb_caixa (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_filial INTEGER,
+    nome VARCHAR(30),
+    status BOOLEAN,
+    FOREIGN KEY(id_filial) REFERENCES tb_filiais(id)
+);
+INSERT INTO "tb_caixa" ("id","id_filial","nome","status") VALUES(1,1,'Caixa Principal',1);
+CREATE TABLE tb_fornecedores (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    cnpj VARCHAR(14) UNIQUE,
+    nome_juridico VARCHAR(150),
+    nome_fantasia VARCHAR(150),
+    inscricao_estadual VARCHAR(20),
+    cep VARCHAR(8),
+    logradouro VARCHAR(100),
+    numero VARCHAR(10),
+    complemento VARCHAR(60),
+    bairro VARCHAR(60),
+    cidade VARCHAR(100),
+    cod_mun_ibge INTEGER,
+    uf CHAR(2),
+    telefone VARCHAR(15),
+    email VARCHAR(100),
+    status BOOLEAN
+);
+INSERT INTO "tb_fornecedores" ("id","cnpj","nome_juridico","nome_fantasia","inscricao_estadual","cep","logradouro","numero","complemento","bairro","cidade","cod_mun_ibge","uf","telefone","email","status") VALUES(1,'12345678000199','Fornecedor Alimentos LTDA','Alimentos SA','123456789','01310100','Av Paulista','1000','Sala 1','Bela Vista','São Paulo',3550308,'SP','11999990001','contato@alimentossa.com',1);
+INSERT INTO "tb_fornecedores" ("id","cnpj","nome_juridico","nome_fantasia","inscricao_estadual","cep","logradouro","numero","complemento","bairro","cidade","cod_mun_ibge","uf","telefone","email","status") VALUES(2,'98765432000111','Embalagens Brasil LTDA','EmbalagensBR','987654321','20040020','Rua do Comercio','500','Galpao 3','Centro','Rio de Janeiro',3304557,'RJ','21988880002','vendas@embalagensbr.com',1);
+CREATE TABLE tb_clientes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome VARCHAR(100),
+    cpf_cnpj VARCHAR(14) UNIQUE,
+    email VARCHAR(100),
+    telefone VARCHAR(15),
+    cep VARCHAR(8),
+    logradouro VARCHAR(100),
+    numero VARCHAR(10),
+    bairro VARCHAR(60),
+    cidade VARCHAR(100),
+    complemento VARCHAR(60),
+    cod_mun_ibge INTEGER,
+    uf CHAR(2)
+);
+INSERT INTO "tb_clientes" ("id","nome","cpf_cnpj","email","telefone","cep","logradouro","numero","bairro","cidade","complemento","cod_mun_ibge","uf") VALUES(1,'CLIENTE CONSUMIDOR DE TESTE','12345678909',NULL,NULL,NULL,'Avenida do Cliente','200','Centro','Carlos Barbosa',NULL,4304802,'RS');
+CREATE TABLE tb_usuarios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    senha VARCHAR(255),
+    pin VARCHAR(255),
+    nivel_acesso INTEGER
+, id_filial INTEGER REFERENCES tb_filiais(id), id_google TEXT);
+INSERT INTO "tb_usuarios" ("id","nome","email","senha","pin","nivel_acesso","id_filial","id_google") VALUES(1,'Charlene Borges','charleneb073@gmail.com',NULL,NULL,NULL,NULL,'109348291348718546451');
+INSERT INTO "tb_usuarios" ("id","nome","email","senha","pin","nivel_acesso","id_filial","id_google") VALUES(2,'Larissa Gazoli','larissagazoli45@gmail.com',NULL,NULL,NULL,NULL,'116805590147496041396');
+INSERT INTO "tb_usuarios" ("id","nome","email","senha","pin","nivel_acesso","id_filial","id_google") VALUES(3,'Larissa Gazoli','larissagazoli17@gmail.com',NULL,NULL,NULL,NULL,'108582861289817993456');
+INSERT INTO "tb_usuarios" ("id","nome","email","senha","pin","nivel_acesso","id_filial","id_google") VALUES(4,'Guilherme','whyguiih@gmail.com','56',NULL,NULL,NULL,'111962262531433348177');
+INSERT INTO "tb_usuarios" ("id","nome","email","senha","pin","nivel_acesso","id_filial","id_google") VALUES(5,'lari','lari@mail.co','12345','12345',1,1,NULL);
 CREATE TABLE tb_filiais (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     cnpj VARCHAR(14) UNIQUE,
@@ -22,166 +157,15 @@ CREATE TABLE tb_filiais (
     telefone VARCHAR(15),
     email VARCHAR(100)
 );
-INSERT INTO "tb_filiais" ("id","cnpj","nome_juridico","nome_fantasia","status","inscricao_estadual","inscricao_municipal","crt","caminho_certificado","senha_certificado","ambiente_nfe","cep","logradouro","numero","complemento","bairro","cidade","cod_mun_ibge","uf","telefone","email") VALUES(1,'68.712.675/000105','Saint Marie Shoes','Saint Marie Shoes',1,NULL,NULL,NULL,NULL,NULL,NULL,'95720000','R. Buarque de Macedo','3158','','Centro','Garibaldi',NULL,'RS',NULL,NULL);
-CREATE TABLE tb_usuarios (
+INSERT INTO "tb_filiais" ("id","cnpj","nome_juridico","nome_fantasia","status","inscricao_estadual","inscricao_municipal","crt","caminho_certificado","senha_certificado","ambiente_nfe","cep","logradouro","numero","complemento","bairro","cidade","cod_mun_ibge","uf","telefone","email") VALUES(1,'12345678000123','MINHA EMPRESA DE TESTE LTDA','EMPRESA TESTE',NULL,'123456789',NULL,1,NULL,NULL,2,NULL,'Rua da Empresa','100',NULL,'Centro','Carlos Barbosa',4304802,'RS',NULL,NULL);
+CREATE TABLE tb_versao (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome VARCHAR(100),
-    email VARCHAR(100) UNIQUE,
-    senha VARCHAR(255),
-    pin VARCHAR(255),
-    nivel_acesso INTEGER
-, id_filial INTEGER REFERENCES tb_filiais(id));
-INSERT INTO "tb_usuarios" ("id","nome","email","senha","pin","nivel_acesso","id_filial") VALUES(1,'Threeeo','contato@threeeo.com.br','tpace','333',1,1);
-INSERT INTO "tb_usuarios" ("id","nome","email","senha","pin","nivel_acesso","id_filial") VALUES(2,'Mano','manoelaagostini@hotmail.com','125879','125879',1,1);
-INSERT INTO "tb_usuarios" ("id","nome","email","senha","pin","nivel_acesso","id_filial") VALUES(3,'Mari','marieligodziesnki@gmail.com','249581','249581',1,1);
-CREATE TABLE tb_clientes (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome VARCHAR(100),
-    cpf_cnpj VARCHAR(14) UNIQUE,
-    email VARCHAR(100),
-    telefone VARCHAR(15),
-    cep VARCHAR(8),
-    logradouro VARCHAR(100),
-    numero VARCHAR(10),
-    bairro VARCHAR(60),
-    cidade VARCHAR(100),
-    complemento VARCHAR(60),
-    cod_mun_ibge INTEGER,
-    uf CHAR(2)
+    versao VARCHAR(20),
+    link_download VARCHAR(255),
+    data_lancamento DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-CREATE TABLE tb_fornecedores (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    cnpj VARCHAR(14) UNIQUE,
-    nome_juridico VARCHAR(150),
-    nome_fantasia VARCHAR(150),
-    inscricao_estadual VARCHAR(20),
-    cep VARCHAR(8),
-    logradouro VARCHAR(100),
-    numero VARCHAR(10),
-    complemento VARCHAR(60),
-    bairro VARCHAR(60),
-    cidade VARCHAR(100),
-    cod_mun_ibge INTEGER,
-    uf CHAR(2),
-    telefone VARCHAR(15),
-    email VARCHAR(100),
-    status BOOLEAN
-);
-CREATE TABLE tb_caixa (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    id_filial INTEGER,
-    nome VARCHAR(30),
-    status BOOLEAN,
-    FOREIGN KEY(id_filial) REFERENCES tb_filiais(id)
-);
-CREATE TABLE tb_produtos (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    codigo_barras VARCHAR(20) UNIQUE,
-    nome VARCHAR(150),
-    custo DECIMAL(10,2),
-    preco_venda DECIMAL(10,2),
-    ncm VARCHAR(8),
-    cest VARCHAR(7),
-    aliquotas_imposto DECIMAL(5,2),
-    quantidade DECIMAL(10,3),
-    valor_promocional DECIMAL(10,2),
-    unidade_venda VARCHAR(2) CHECK(unidade_venda IN ('Kg', 'Un', 'L', 'G', 'Mt', 'Cx')),
-    em_promocao BOOLEAN,
-    lote VARCHAR(50),
-    validade DATE,
-    id_filial INTEGER, quantidade_minima DECIMAL(10,3) DEFAULT 10, foto text, codigo_geral int(13),
-    FOREIGN KEY(id_filial) REFERENCES tb_filiais(id)
-);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(1,'7901152539499','Anabela SL',239.95,479.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788634472520_image.jpg',9714585994510);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(2,'7901152524785','Tênis SL caramelo',149.95,299.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788634518739_image.jpg',837645773403);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(3,'7901152527090','Tênis SL nude tela',149.95,299.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788634610933_image.jpg',2426435883209);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(4,'38102','Vanetto Viscoitto/Tresse Tan',169,429.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788642178382_image.jpg',114751348752);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(5,'30330','Sandália Pelo Bamby/Palm Venetto Tan/Salto pelo bamby/tal foco pu pinhao/sola caramelo 5189',165,419.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788642218696_image.jpg',1420438136818);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(6,'7901152509089','Sandália marrom fivela',99.95,199.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788634805816_image.jpg',7866867505688);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(7,'86179','Rasteira Cristal café/palm cristal café/palm cristal café/sola café',219,559.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788642278236_image.jpg',2502506000874);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(8,'30870','Couro Slim Fly Mogno',139.9,349.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788634877292_17886347445095930836955882905501.jpg',8608354246350);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(9,'7900084576398','Tênis RB branco e azul',173.9,399.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788634878028_image.jpg',7956180730291);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(10,'55986','Rasteira bico folha Venetto Bege',149,399.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788642315781_image.jpg',5299002058851);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(11,'7908977350506','Sandália doce de leite SL',174.95,349.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788634945467_image.jpg',8566775168939);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(12,'04211','Sapato Veneto Amendoa/Enf Ouro',149,399.9,NULL,NULL,NULL,8,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641285715_image.jpg',906999789239);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(13,'00229','Sandália Flor Cristal café/cristal café/palm cristal café/salto cristal café/tal foco pu café/sola café com sostura bege',175,439.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788642360135_image.jpg',6638024792685);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(14,'7901152525270','Tênis nude SL',184.95,369.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788635026728_image.jpg',5764005851773);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(15,'27771','Sandália Venetto Amendoa/Palm',199,579.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641329134_image.jpg',2679466839521);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(16,'12886','Sandália pedra Caprino cinamon/palm caprino cinamon/salto caprino cinamon/tal pu coconut/enf ouro resina coconut/sola caramelo 5189',169,429.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788642408868_image.jpg',8941219180732);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(17,'55292','Sandália tiras laços metalic bala ouro light/palm metalic bala ouro light/salto metalic bala ouro light/tal transfer ouro light/sola pele-bege',155,389,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788642468004_image.jpg',7977951991535);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(18,'72647','Sandalia Cam Pig Sky/Palm',229,579.9,NULL,NULL,NULL,7,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641397982_image.jpg',5016954375396);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(20,'7901152530434','Sapatilha white croco SL',99.95,199.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788635300247_image.jpg',4130665940083);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(21,'7900084570952','Tênis RB call Rafaela Boss branco e dourado',166.9,399.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788635319398_image.jpg',2085082720824);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(22,'67363','Rasteira Venetto Biscoito',179,459.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641426837_image.jpg',8130185557167);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(23,'7908806872698','Mule Linho SL',74.95,199.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788635386761_image.jpg',6691295659764);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(24,'71633','Rasteira - Tramado biscoito/venetto biscoito/enf holiday/sola camelo/palm pinhao',165,419.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788642522061_image.jpg',4071400132910);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(25,'20754','Sandália Caprino Preto/Palm',179,459.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641466658_image.jpg',3265907550255);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(26,'7900084571942','Tênis RB',166.9,399.9,NULL,NULL,NULL,3,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788635463207_image.jpg',1421953982315);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(27,'7901152538942','Sandália trama ondas dark cocoa',144.95,289.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788638557545_17886385400097269277266529352366.jpg',224975707347);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(28,'6904083568898','Sapatilha tela nude RB',111.9,279.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788635643570_image.jpg',966392221845);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(29,'69314','Papete Cristal Bronze/Palm',259.9,559.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641520622_image.jpg',2731293563500);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(30,'7900084571072','Tênis nude RB',157.9,379.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788635653267_image.jpg',1524436385034);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(31,'7901152539277','Mule couro nobre soft terracota',134.9,269.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641042392_17886410272794399030341331158174.jpg',7058822222353);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(33,'7900084612416','Tamanco dourado tiras RB',117.9,329.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788635733467_image.jpg',3721071450082);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(34,'70646','Mocassim couro preimum terracota',99.95,199.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641110476_17886411012157439010958456711512.jpg',1957892635525);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(35,'7908954129651','Tênis SL branco',124.95,249.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788635781508_image.jpg',8514277140979);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(36,'77115','Rasteira Arizona Caramelo',199,499.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641565710_image.jpg',5399185895658);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(37,'7901152544325','Espadilhe couro metalic balla ouro cla',149.95,299.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,NULL,7292738151693);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(38,'36865','Rasteira Cristal Bronze/Palm',179,459.9,NULL,NULL,NULL,8,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641613175_image.jpg',7923491440626);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(39,'7901152514106','Tênis SL branco e prata',124.95,249.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788635880682_image.jpg',3990292395324);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(40,'7901152543908','Sandalia couro nobre soft new marfim 2',144.95,289.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641150530_17886411373265279201435208290601.jpg',8769311226076);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(41,'7901152509195','Rasteira dourada SL',74.95,149.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788635927767_image.jpg',9100879796219);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(42,'45347','Rasteira Pelo Zebra/Palm Venetto Sky/Palm',185,469.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641687967_image.jpg',8702063372666);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(43,'7900084580432','Mule RB',95.9,229.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788636023720_image.jpg',9747609252751);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(44,'92865','Rasteira Caprino Avio/Palm',229,579.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641752947_image.jpg',5078169681394);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(45,'7901123811395','bolsa floater preto SL',199.95,379.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,0,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788640078104_image.jpg',5743217483820);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(46,'98981','Slingpack Caprino Preto/Palm',169,429.9,NULL,NULL,NULL,8,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641779783_image.jpg',7105858987171);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(47,'7901099418499','Sapatilha SL rede',124.95,249.9,NULL,NULL,NULL,8,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788636242940_image.jpg',6486765325105);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(48,'7901152531158','Sapatilha doce de leite SL',99.95,199.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788636255391_image.jpg',8173554486429);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(49,'59828','Sapatilha Venetto Tan',195,489.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641844921_image.jpg',9368353155888);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(50,'37401','Slingpack Venetto Capuccino/Palm',199,499.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641950520_image.jpg',6730281301793);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(51,'7901152508518','Sandália caramelo SL',99.95,189.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788636474817_image.jpg',9092059310277);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(52,'42661','Sapatilha Tresse Mc 3784 Whiky 5856 Bt/Venetto Tan/Palm Napa Soft',158,399.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641916828_image.jpg',7015108722089);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(53,'7908896253216','Tênis Palha dourado SL',109.95,219.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788636490260_image.jpg',9621035035596);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(54,'91523','Sandália Metalic Bala Café/Palm',169,429.9,NULL,NULL,NULL,8,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788642019636_image.jpg',3111591573754);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(55,'68305','Rasteira Caprino Cinamo/Enf Ouro Velho/Sola Camelo/Palm Pinhao',189,479.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,NULL,9113936297097);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(56,'7900084560823','Ana bela caramelo RB',124.9,299.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788636627387_image.jpg',8087128494431);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(57,'7901152515370','Tênis camurça nude e branco SL',124.95,249.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788636646311_image.jpg',2887470859760);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(58,'7901123809828','carteira soft black SL',84.95,159.9,NULL,NULL,NULL,2,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788640021673_image.jpg',5617629143474);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(60,'7900084567341','Ana bela branca RB',124.9,299.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788637008618_image.jpg',6258544504958);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(61,'7901123811692','Bolsa Rústico Safari SL',114.95,219.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788637036900_image.jpg',2073908710658);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(63,'7901123811951','Carteira soft preta SL',49.95,199.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788637150238_image.jpg',8980034705453);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(64,'7901123809750','Carteira terracota SL',79.95,199.95,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788637496481_image.jpg',912414619170);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(65,'7901152551576','Anabela folha marrom SL',174.95,349.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788637785428_image.jpg',9929380938638);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(66,'7901152536610','Sandália off SL',84.95,169.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788637910501_image.jpg',7027267130201);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(67,'7901152548712','Anabela nude SL SCARPIN',184.95,369.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788638124534_image.jpg',8279366355140);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(68,'7901152553617','Sandália preto de couro SL',174.95,349.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788640135551_image.jpg',1706967256937);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(69,'7901123810602','Bolsa mini preta SL',134.95,219.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788638343154_image.jpg',8096959416834);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(70,'7901152552016','Scarpin Nude SL',149.95,299.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788638371961_17886382545065640311710074186928.jpg',6391116552971);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(71,'7901152570874','Scarpin SL preto',149.95,299.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788638373697_image.jpg',1385809745351);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(72,'7908937762820','Scarpin verniz show dark cocoa',149.95,329.9,NULL,NULL,NULL,9,NULL,'Un',0,NULL,NULL,1,2,NULL,6889537272237);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(73,'7901123810459','Bolsa tramado ouro SL',64.95,139.9,NULL,NULL,NULL,2,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788638493047_image.jpg',2039694870688);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(74,'7900084568669','Couro torino cognac',99.9,229.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,0,NULL,6109701338291);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(75,'7901123810008','Bolsa P Safari SL',114.95,289.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788638596944_image.jpg',6617183721549);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(76,'7900084561554','Rasteira flor RB',103.9,249.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788638597275_image.jpg',1455549794103);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(77,'7901123809958','Carteira marfim SL',79.95,199.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788638684036_image.jpg',7393896767876);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(78,'7908806818993','Sapatilha preta corrente SL',99.95,199.9,NULL,NULL,NULL,6,NULL,'Un',0,NULL,NULL,1,2,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788638763160_image.jpg',4363283038228);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(79,'79276','Clutch SAFARI SL',74.95,129.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788638882764_image.jpg',9938980566688);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(81,'7901123811197','Bolsa máxi SL',199.95,389.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,0,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788639256282_image.jpg',1066518047246);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(82,'7901123811968','Bolsa P preta SL',114.95,289.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788639279735_image.jpg',3705952374869);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(83,'7901123811081','Bolsa maxi preta SL',199.95,389.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,0,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788639320132_image.jpg',3778693994876);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(84,'7901047939144','Bolsa Tramado Areia SL',64.95,139.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788639403739_17886393854536666477378534432598.jpg',407820496518);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(85,'7901123809811','Carteira Terracota SL',84.95,159.99,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788639532448_image.jpg',713750262771);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(86,'97339','Bolsa palha SL',74.95,179.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,0,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788639573516_image.jpg',7171565832476);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(87,'7901123809934','Carteira Material Lizard Ouro Claro',79.95,199.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788639615281_17886395508732278697327543291271.jpg',8338388212033);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(88,'76802','Carteira fina e longa SL',74.95,129.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,0,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788639773257_image.jpg',1891117576916);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(89,'7908968070246','Carteira caramelo SL',59.95,199.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,0,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788639890130_image.jpg',9720496592079);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(90,'7901123810442','Bolsinha SL OFF',64.95,139.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,0,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788640049824_image.jpg',7372357321633);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(91,'7901123811630','Bolsa Terracota SL',114.95,219.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788640194845_17886401104366060072500652092022.jpg',5961746354792);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(92,'7901123809729','Carteira preta soft SL',79.95,199.9,NULL,NULL,NULL,2,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788640396063_image.jpg',6670309516402);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(93,'7901123812040','Carteira Preta SL',79.95,199.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788640509484_image.jpg',2925284183589);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(94,'7901123811678','Bolsa Preta SL',114.95,219.9,NULL,NULL,NULL,1,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788640536187_17886404350031545753831241411596.jpg',6297354146083);
-INSERT INTO "tb_produtos" ("id","codigo_barras","nome","custo","preco_venda","ncm","cest","aliquotas_imposto","quantidade","valor_promocional","unidade_venda","em_promocao","lote","validade","id_filial","quantidade_minima","foto","codigo_geral") VALUES(95,'7901123810497','Bolsa P Soft',64.95,139.9,NULL,NULL,NULL,2,NULL,'Un',0,NULL,NULL,1,1,'https://pub-3c9f79138dbf4db3a3162daf6775e244.r2.dev/1788641067841_17886410557263652818743006922041.jpg',9154801444801);
+INSERT INTO "tb_versao" ("id","versao","link_download","data_lancamento") VALUES(1,'1.0.0','https://exemplo.com/download/v1.0.0','2026-01-15 10:00:00');
+INSERT INTO "tb_versao" ("id","versao","link_download","data_lancamento") VALUES(2,'1.1.0','https://exemplo.com/download/v1.1.0','2026-03-20 14:30:00');
 CREATE TABLE tb_entradas_xml (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     chave_nfe VARCHAR(44) UNIQUE,
@@ -191,49 +175,6 @@ CREATE TABLE tb_entradas_xml (
     id_filial INTEGER,
     FOREIGN KEY(id_fornecedor) REFERENCES tb_fornecedores(id),
     FOREIGN KEY(id_filial) REFERENCES tb_filiais(id)
-);
-CREATE TABLE tb_sessao_caixa (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    id_caixa INTEGER,
-    id_usuario INTEGER,
-    data_abertura DATETIME,
-    valor_fundo_troco DECIMAL(10,2),
-    data_fechamento DATETIME,
-    status BOOLEAN,
-    valor_fechamento DECIMAL(10,2),
-    FOREIGN KEY(id_caixa) REFERENCES tb_caixa(id),
-    FOREIGN KEY(id_usuario) REFERENCES tb_usuarios(id)
-);
-CREATE TABLE tb_vendas (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    id_sessao_caixa INTEGER,
-    id_cliente INTEGER,
-    data_hora DATETIME,
-    subtotal DECIMAL(10,2),
-    desconto DECIMAL(10,2),
-    total DECIMAL(10,2),
-    status VARCHAR(15) CHECK(status IN ('pago', 'cancelado', 'pendente')),
-    chave_nfe VARCHAR(44), id_cupom varchar (25),
-    FOREIGN KEY(id_sessao_caixa) REFERENCES tb_sessao_caixa(id),
-    FOREIGN KEY(id_cliente) REFERENCES tb_clientes(id)
-);
-CREATE TABLE tb_pagamentos (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    id_venda INTEGER,
-    metodo VARCHAR(20) CHECK(metodo IN ('pix', 'dinheiro', 'cartão de crédito', 'cartão de débito')),
-    valor DECIMAL(10,2),
-    cod_autorizacao_tef VARCHAR(50),
-    FOREIGN KEY(id_venda) REFERENCES tb_vendas(id)
-);
-CREATE TABLE tb_itens_venda (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    id_venda INTEGER,
-    id_produto INTEGER,
-    quantidade DECIMAL(10,3),
-    preco_unitario DECIMAL(10,2),
-    subtotal DECIMAL(10,2),
-    FOREIGN KEY(id_venda) REFERENCES tb_vendas(id),
-    FOREIGN KEY(id_produto) REFERENCES tb_produtos(id)
 );
 CREATE TABLE tb_funcionarios (
   id int,
@@ -288,25 +229,6 @@ CREATE TABLE tb_funcionarios_complemento (
   foreign key (id_funcionario) references tb_funcionarios (id),
   foreign key (gestor) references tb_funcionarios (id)
 );
-CREATE TABLE tb_versao (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    versao VARCHAR(20),
-    link_download VARCHAR(255),
-    data_lancamento DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-INSERT INTO "tb_versao" ("id","versao","link_download","data_lancamento") VALUES(1,'0.8.0','https://drive.google.com/uc?export=download&id=1uGEIReJgsNaODo7F7xOS0cM-XN05WAam','2026-08-28 02:23:48');
-INSERT INTO "tb_versao" ("id","versao","link_download","data_lancamento") VALUES(2,'0.9.0','https://drive.google.com/uc?export=download&id=1CKrjpB4Gzr-cr6lmphm8ZDPUhpkVZQao','2026-08-28 02:36:58');
-INSERT INTO "tb_versao" ("id","versao","link_download","data_lancamento") VALUES(3,'0.9.1','https://drive.google.com/uc?export=download&id=1cU8vmyiUPfjRGjVi2tCC4LfietLU5Nsc','2026-08-28 03:04:19');
-INSERT INTO "tb_versao" ("id","versao","link_download","data_lancamento") VALUES(4,'0.9.5','https://drive.google.com/uc?export=download&id=12LEtArBu15sU1vwkjgQthuNn4ixZoLQ_','2026-08-28 03:29:01');
-INSERT INTO "tb_versao" ("id","versao","link_download","data_lancamento") VALUES(5,'0.9.7','https://drive.google.com/uc?export=download&id=1TiWs6Z_AcjFlv4vCZnIL2HYE3gxXGOWV','2026-08-30 03:21:49');
-INSERT INTO "tb_versao" ("id","versao","link_download","data_lancamento") VALUES(6,'0.9.8','https://drive.google.com/uc?export=download&id=1nhynF-KjpIjTmOJUaPAJCScRYD2GTTFS','2026-08-30 04:19:40');
-INSERT INTO "tb_versao" ("id","versao","link_download","data_lancamento") VALUES(7,'1.0.0','https://drive.google.com/uc?export=download&id=1bpPdsXQfH9jRYdQ5gCDy_zmAMvxOP28c','2026-08-31 13:46:41');
-INSERT INTO "tb_versao" ("id","versao","link_download","data_lancamento") VALUES(8,'1.0.1','https://drive.google.com/uc?export=download&id=1F9fZ1WfMOMdLU3sTYI4CiLjkK7vQy726','2026-08-31 21:13:34');
-INSERT INTO "tb_versao" ("id","versao","link_download","data_lancamento") VALUES(9,'1.0.3','https://drive.google.com/uc?export=download&id=1x-Lt1EJInjnOQHUoERqpqvQsYHSzDyuf','2026-09-02 20:10:46');
-INSERT INTO "tb_versao" ("id","versao","link_download","data_lancamento") VALUES(10,'1.1','https://drive.google.com/uc?export=download&id=1JwXnziDAdDnMd1y7KuCBsOA6nAowmZ23','2026-09-03 00:31:07');
-INSERT INTO "tb_versao" ("id","versao","link_download","data_lancamento") VALUES(11,'1.2','https://drive.google.com/uc?export=download&id=1AIeRumD4NNf6MmV-FJTPW4JN8iqKHhU8','2026-09-04 18:24:35');
-INSERT INTO "tb_versao" ("id","versao","link_download","data_lancamento") VALUES(12,'1.2.1','https://drive.google.com/uc?export=download&id=13FKGjLHhJuTDUjTvJ70a_4d_ppatisPn','2026-09-04 18:30:17');
-INSERT INTO "tb_versao" ("id","versao","link_download","data_lancamento") VALUES(13,'1.2.2','https://drive.google.com/uc?export=download&id=1R9c91NHpanFCHVPy5jL0kO16pF_FsGLt','2026-09-04 19:57:56');
 CREATE TABLE tb_trocas (
     id_troca INTEGER PRIMARY KEY AUTOINCREMENT,
     tipo_troca VARCHAR(15) CHECK(tipo_troca IN ('troca', 'devolucao')),
@@ -317,24 +239,104 @@ CREATE TABLE tb_trocas (
     FOREIGN KEY(produto_retornado) REFERENCES tb_produtos(codigo_barras) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY(id_vendedor) REFERENCES tb_usuarios(id)
 );
+CREATE TABLE tb_destinatario ( id_destinatario INTEGER PRIMARY KEY AUTOINCREMENT, id_emitindo TEXT NOT NULL, razao_social TEXT NOT NULL, rua TEXT NOT NULL, numero TEXT NOT NULL, cidade TEXT NOT NULL, estado TEXT, codigo_ibge TEXT NOT NULL, cep TEXT, bairro TEXT, complemento TEXT, observaco TEXT,incricao_estadual TEXT);
+INSERT INTO "tb_destinatario" ("id_destinatario","id_emitindo","razao_social","rua","numero","cidade","estado","codigo_ibge","cep","bairro","complemento","observaco","incricao_estadual") VALUES(1,'116805590147496041396','Larissa Gazoli','R. Dr. Carlos barbosa, 570','570','Carlos Barbosa','','000000','95185-000','Centro','56','eu concordo','pessoa jurídica isenta');
+INSERT INTO "tb_destinatario" ("id_destinatario","id_emitindo","razao_social","rua","numero","cidade","estado","codigo_ibge","cep","bairro","complemento","observaco","incricao_estadual") VALUES(2,'116805590147496041396','Larissa Gazoli','R. Dr. Carlos barbosa, 570','570','Carlos Barbosa','','000000','95185-000','Centro','56','eu concordo','pessoa jurídica isenta');
+INSERT INTO "tb_destinatario" ("id_destinatario","id_emitindo","razao_social","rua","numero","cidade","estado","codigo_ibge","cep","bairro","complemento","observaco","incricao_estadual") VALUES(3,'116805590147496041396','Larissa Gazoli','R. Dr. Carlos barbosa, 570','570','Carlos Barbosa','','000000','95185-000','Centro','56','eu concordo','pessoa jurídica isenta');
+INSERT INTO "tb_destinatario" ("id_destinatario","id_emitindo","razao_social","rua","numero","cidade","estado","codigo_ibge","cep","bairro","complemento","observaco","incricao_estadual") VALUES(4,'116805590147496041396','Larissa Gazoli','R. Dr. Carlos barbosa, 570','570','Carlos Barbosa','','000000','95185-000','Centro','56','eu concordo','pessoa física');
+INSERT INTO "tb_destinatario" ("id_destinatario","id_emitindo","razao_social","rua","numero","cidade","estado","codigo_ibge","cep","bairro","complemento","observaco","incricao_estadual") VALUES(5,'108582861289817993456','','Avn. Independência','409','Garibaldi','','000000','95720-000','Centro','','','pessoa física');
+CREATE TABLE tb_emitente ( id_emitente INTEGER PRIMARY KEY AUTOINCREMENT, IE TEXT  default '800/6412551', razao_social TEXT  default 'Michele Dalsochio Dipp', regime_tributario TEXT  DEFAULT 'Mei' CHECK(regime_tributario IN ('Mei','Simples Nacional','Lucro Presumido','presumido','outro')), outro TEXT, logradouro TEXT default ' Rua La Plata' , numero TEXT  default '638', bairro TEXT 'Jardim Botânico', cep TEXT default '90670-040', codigo_municipio TEXT NOT NULL DEFAULT '4314902 ', CNAE TEXT DEFAULT '32.99-0-06 Fabricação de velas, inclusive decorativas' , cnpj TEXT);
+INSERT INTO "tb_emitente" ("id_emitente","IE","razao_social","regime_tributario","outro","logradouro","numero","bairro","cep","codigo_municipio","CNAE","cnpj") VALUES(1,'800/6412551','Michele Dalsochio Dipp','Mei',NULL,'Rua La Plata','638','Jardim Botânico','90670-040','4314902','32.99-0-06 Fabricação de velas, inclusive decorativas','12345678000190');
+INSERT INTO "tb_emitente" ("id_emitente","IE","razao_social","regime_tributario","outro","logradouro","numero","bairro","cep","codigo_municipio","CNAE","cnpj") VALUES(2,'123456789','Empresa Teste LTDA','Simples Nacional',NULL,'Av Teste','100','Centro','90000-000','4314902','10.00-0-00 Teste','98765432000199');
+CREATE TABLE tb_lucros (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    valor_arrecadado DECIMAL(10,2),
+    valor_despesas DECIMAL(10,2),
+    valor_lucro DECIMAL(10,2),
+    data_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+INSERT INTO "tb_lucros" ("id","valor_arrecadado","valor_despesas","valor_lucro","data_registro") VALUES(1,34,0,34,'2026-09-11 12:21:47');
+INSERT INTO "tb_lucros" ("id","valor_arrecadado","valor_despesas","valor_lucro","data_registro") VALUES(2,17,0,NULL,'2026-09-14 18:53:32');
+INSERT INTO "tb_lucros" ("id","valor_arrecadado","valor_despesas","valor_lucro","data_registro") VALUES(3,5000,3000,2000,'2026-09-01 09:00:00');
+INSERT INTO "tb_lucros" ("id","valor_arrecadado","valor_despesas","valor_lucro","data_registro") VALUES(4,7500,4200,3300,'2026-09-15 12:00:00');
+CREATE TABLE tb_vendas (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_sessao_caixa INTEGER,
+    id_cliente VARCHAR(255),
+    data_hora DATETIME,
+    subtotal DECIMAL(10,2),
+    desconto DECIMAL(10,2),
+    total DECIMAL(10,2),
+    status VARCHAR(15) CHECK(status IN ('pago', 'cancelado', 'pendente')),
+    chave_nfe VARCHAR(44), 
+    meio_de_compra boolean,
+    id_cupom VARCHAR(25),
+    sincronizado BOOLEAN DEFAULT 0,
+    FOREIGN KEY(id_sessao_caixa) REFERENCES tb_sessao_caixa(id)
+);
+INSERT INTO "tb_vendas" ("id","id_sessao_caixa","id_cliente","data_hora","subtotal","desconto","total","status","chave_nfe","meio_de_compra") VALUES(1,NULL,'116805590147496041396','2026-09-11 12:20:07',34,0,34,'pendente',NULL,NULL);
+INSERT INTO "tb_vendas" ("id","id_sessao_caixa","id_cliente","data_hora","subtotal","desconto","total","status","chave_nfe","meio_de_compra") VALUES(2,NULL,'116805590147496041396','2026-09-11 12:21:28',34,0,34,'pendente',NULL,NULL);
+INSERT INTO "tb_vendas" ("id","id_sessao_caixa","id_cliente","data_hora","subtotal","desconto","total","status","chave_nfe","meio_de_compra") VALUES(3,NULL,'116805590147496041396','2026-09-11 12:21:47',34,0,34,'pendente',NULL,NULL);
+INSERT INTO "tb_vendas" ("id","id_sessao_caixa","id_cliente","data_hora","subtotal","desconto","total","status","chave_nfe","meio_de_compra") VALUES(4,NULL,'108582861289817993456','2026-09-14 18:53:32',17,5,22,'pendente',NULL,NULL);
+INSERT INTO "tb_vendas" ("id","id_sessao_caixa","id_cliente","data_hora","subtotal","desconto","total","status","chave_nfe","meio_de_compra") VALUES(5,1,NULL,'2026-09-21 12:20:07',85,NULL,8528520,'pago',NULL,NULL);
+CREATE TABLE tb_itens_venda (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_venda INTEGER,
+    id_produto INTEGER,
+    quantidade DECIMAL(10,3),
+    preco_unitario DECIMAL(10,2),
+    subtotal DECIMAL(10,2),
+    FOREIGN KEY(id_venda) REFERENCES tb_vendas(id),
+    FOREIGN KEY(id_produto) REFERENCES tb_cardapio(id_cardapio)
+);
+INSERT INTO "tb_itens_venda" ("id","id_venda","id_produto","quantidade","preco_unitario","subtotal") VALUES(1,3,15,2,17,34);
+INSERT INTO "tb_itens_venda" ("id","id_venda","id_produto","quantidade","preco_unitario","subtotal") VALUES(2,4,1,1,'17,00',NULL);
+CREATE TABLE tb_pagamentos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_venda INTEGER,
+    metodo VARCHAR(20) CHECK(metodo IN ('pix', 'dinheiro', 'cartão de crédito', 'cartão de débito')),
+    valor DECIMAL(10,2),
+    cod_autorizacao_tef VARCHAR(50),
+    FOREIGN KEY(id_venda) REFERENCES tb_vendas(id)
+);
+CREATE TABLE tb_carrinho (
+    id_carrinho INTEGER PRIMARY KEY AUTOINCREMENT, 
+    produto VARCHAR(250) NOT NULL, 
+    quant INTEGER, 
+    usuario_id VARCHAR(255), /* Alterado para VARCHAR para caber o ID do Google */
+    carrinho INTEGER DEFAULT 0,
+  id_produto INTEGER, 
+  foreign key(id_produto) references tb_cardapio(id_cardapio) on update cascade on delete cascade
+);
+INSERT INTO "tb_carrinho" ("id_carrinho","produto","quant","usuario_id","carrinho","id_produto") VALUES(1789384967992,'via_id',1,'116805590147496041396',1,2);
+INSERT INTO "tb_carrinho" ("id_carrinho","produto","quant","usuario_id","carrinho","id_produto") VALUES(1789497561565,'via_id',2,'111962262531433348177',1,4);
+INSERT INTO "tb_carrinho" ("id_carrinho","produto","quant","usuario_id","carrinho","id_produto") VALUES(1789557457946,'via_id',1,'109348291348718546451',1,2);
+CREATE TABLE tb_feedback ( 
+    id_feedback INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+  	avaliacao text, 
+  nota decimal (1,1)
+, id_produto INTEGER);
+INSERT INTO "tb_feedback" ("id_feedback","nome","criado_em","avaliacao","nota","id_produto") VALUES(1,'vksjvb','2026-09-14 16:59:58','snsfgnfgn',5,NULL);
+INSERT INTO "tb_feedback" ("id_feedback","nome","criado_em","avaliacao","nota","id_produto") VALUES(2,'vksjvb','2026-09-14 17:09:41','Eu achei ótimo.',4,NULL);
+INSERT INTO "tb_feedback" ("id_feedback","nome","criado_em","avaliacao","nota","id_produto") VALUES(3,'Cliente Teste 1','2026-09-10 15:00:00','Excelente produto, muito saboroso!',4.5,1);
+INSERT INTO "tb_feedback" ("id_feedback","nome","criado_em","avaliacao","nota","id_produto") VALUES(4,'Cliente Teste 2','2026-09-12 18:30:00','Qualidade boa, entrega rápida.',4,2);
 DELETE FROM sqlite_sequence;
-INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_versao','13');
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_cardapio',26);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_buffet',8);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_promocoes',9);
 INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_filiais',1);
-INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_usuarios',3);
-INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_produtos',95);
-INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_trocas',1);
-CREATE INDEX idx_usuarios_nivel_acesso ON tb_usuarios(nivel_acesso);
-CREATE INDEX idx_fornecedores_nome_fantasia ON tb_fornecedores(nome_fantasia);
-CREATE INDEX idx_caixa_id_filial ON tb_caixa(id_filial);
-CREATE INDEX idx_produtos_id_filial ON tb_produtos(id_filial);
-CREATE INDEX idx_entradas_xml_id_filial ON tb_entradas_xml(id_filial);
-CREATE INDEX idx_sessao_caixa_id_caixa ON tb_sessao_caixa(id_caixa);
-CREATE INDEX idx_sessao_caixa_id_usuario ON tb_sessao_caixa(id_usuario);
-CREATE INDEX idx_sessao_caixa_data_abertura ON tb_sessao_caixa(data_abertura);
-CREATE INDEX idx_sessao_caixa_data_fechamento ON tb_sessao_caixa(data_fechamento);
-CREATE INDEX idx_vendas_id_sessao_caixa ON tb_vendas(id_sessao_caixa);
-CREATE INDEX idx_vendas_id_cliente ON tb_vendas(id_cliente);
-CREATE INDEX idx_vendas_data_hora ON tb_vendas(data_hora);
-CREATE INDEX idx_pagamentos_id_venda ON tb_pagamentos(id_venda);
-CREATE INDEX idx_itens_venda_id_venda ON tb_itens_venda(id_venda);
-CREATE INDEX idx_itens_venda_id_produto ON tb_itens_venda(id_produto);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_caixa',1);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_sessao_caixa',7);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_clientes',1);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_destinatario',5);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_vendas',5);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_itens_venda',2);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_lucros',4);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_usuarios',5);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_carrinho',1789557457946);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_feedback',4);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_fornecedores',2);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_versao',2);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('tb_emitente',2);

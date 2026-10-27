@@ -68,40 +68,50 @@ namespace T_PACE
 
                         if (resultado != null && resultado.sucesso)
                         {
-                            using (var conn = new SqliteConnection(DatabaseConfig.ConnectionString))
+                            try
                             {
-                                conn.Open();
+                                using (var conn = new SqliteConnection(DatabaseConfig.ConnectionString))
+                                {
+                                    conn.Open();
 
-                                // 1. NOVO: Sincroniza o usuário que veio da nuvem com o banco local
-                                // Assim o banco local sempre reconhece o ID do usuário (evita erro de Foreign Key)
-                                conn.Execute(@"
-                                    INSERT INTO tb_usuarios (id, nome, nivel_acesso) 
-                                    VALUES (@Id, @Nome, @NivelAcesso)
-                                    ON CONFLICT(id) DO UPDATE SET 
-                                        nome = excluded.nome,
-                                        nivel_acesso = excluded.nivel_acesso;",
-                                    new
-                                    {
-                                        Id = resultado.usuario.id,
-                                        Nome = resultado.usuario.nome,
-                                        NivelAcesso = resultado.usuario.nivel_acesso
-                                    });
+                                    // 1. Sincroniza o usuário que veio da nuvem com o banco local (INCLUI SENHA)
+                                    conn.Execute(@"
+                                        INSERT INTO tb_usuarios (id, nome, senha, nivel_acesso) 
+                                        VALUES (@Id, @Nome, @Senha, @NivelAcesso)
+                                        ON CONFLICT(id) DO UPDATE SET 
+                                            nome = excluded.nome,
+                                            senha = excluded.senha,
+                                            nivel_acesso = excluded.nivel_acesso;",
+                                        new
+                                        {
+                                            Id = resultado.usuario.id,
+                                            Nome = resultado.usuario.nome,
+                                            Senha = senha, // Salva a senha digitada para login offline futuro
+                                            NivelAcesso = resultado.usuario.nivel_acesso
+                                        });
 
-                                // 2. Registra os dados da sessão
-                                Session.CurrentUserId = resultado.usuario.id;
-                                Session.CurrentUserName = resultado.usuario.nome;
+                                    // 2. Registra os dados da sessão
+                                    Session.CurrentUserId = resultado.usuario.id;
+                                    Session.CurrentUserName = resultado.usuario.nome;
 
-                                var now = DateTime.Now;
-                                long sessaoId = conn.ExecuteScalar<long>(
-                                    @"INSERT INTO tb_sessao_caixa (id_caixa, id_usuario, data_abertura, valor_fundo_troco, status)
-                                       VALUES (@IdCaixa, @IdUsuario, @DataAbertura, @ValorFundoTroco, @Status);
-                                       SELECT last_insert_rowid();",
-                                    new { IdCaixa = 1, IdUsuario = Session.CurrentUserId, DataAbertura = now, ValorFundoTroco = fundoTroco, Status = 1 });
+                                    var now = DateTime.Now;
+                                    long sessaoId = conn.ExecuteScalar<long>(
+                                        @"INSERT INTO tb_sessao_caixa (id_caixa, id_usuario, data_abertura, valor_fundo_troco, status)
+                                           VALUES (@IdCaixa, @IdUsuario, @DataAbertura, @ValorFundoTroco, @Status);
+                                           SELECT last_insert_rowid();",
+                                        new { IdCaixa = 1, IdUsuario = Session.CurrentUserId, DataAbertura = now, ValorFundoTroco = fundoTroco, Status = 1 });
 
-                                Session.CurrentSessaoCaixaId = Convert.ToInt32(sessaoId);
+                                    Session.CurrentSessaoCaixaId = Convert.ToInt32(sessaoId);
+                                }
+
+                                DialogResult = true;
                             }
-
-                            DialogResult = true;
+                            catch (Exception exLocal)
+                            {
+                                // Erro no banco local - mostra o erro real
+                                txtMensagem.Text = $"Erro local: {exLocal.Message}";
+                                btnOk.IsEnabled = true;
+                            }
                         }
                         else
                         {
@@ -116,16 +126,16 @@ namespace T_PACE
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // NOVO: Se a internet cair, tenta autenticar com os dados gravados no banco local
+                // Se a internet cair ou erro de rede, tenta autenticar com os dados gravados no banco local
                 if (FazerLoginLocal(usuario, senha))
                 {
                     DialogResult = true;
                 }
                 else
                 {
-                    txtMensagem.Text = "Sem internet.";
+                    txtMensagem.Text = $"Erro: {ex.Message}";
                     btnOk.IsEnabled = true;
                 }
             }

@@ -27,5 +27,14 @@ namespace T_PACE
                 return connection.Query<Produto>(sql, new { Nome = $"%{parteNome}%" }).ToList();
             }
         }
+
+        public Produto BuscarPorId(int id)
+        {
+            using (var connection = new SqliteConnection(DatabaseConfig.ConnectionString))
+            {
+                string sql = "SELECT * FROM tb_produtos WHERE id = @Id";
+                return connection.QueryFirstOrDefault<Produto>(sql, new { Id = id });
+            }
+        }
     }
 }
